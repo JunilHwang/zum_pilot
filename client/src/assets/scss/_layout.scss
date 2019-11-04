@@ -20,7 +20,7 @@
     li{float:left;margin:5px;}
     a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
       span{position:relative;z-index:10}
-      &::before{content:"";display:block;height:7px;left:50%;right:50%;bottom:5px;position:absolute;background:#c0ffff;transition:0.3s;}
+      &::before{content:"";display:block;height:7px;left:50%;right:50%;bottom:3px;position:absolute;background:#c0ffff;transition:0.3s;}
       &.active::before{left:0;right:0;}
     }
   }
