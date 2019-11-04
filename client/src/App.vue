@@ -2,15 +2,18 @@
   <div id="app">
     <SiteHeader />
     <router-view />
+    <SiteFooter />
   </div>
 </template>
 
 <script>
 import SiteHeader from '@/components/templates/SiteHeader.vue';
+import SiteFooter from '@/components/templates/SiteFooter.vue';
 
 export default {
   components: {
     SiteHeader,
+    SiteFooter,
   },
 };
 

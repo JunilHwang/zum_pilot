@@ -1,5 +1,5 @@
-span.middle{display:inline-block;vertical-align:middle;
-  +*{display:inline-block;vertical-align:middle;width:0;height:100%;}
+span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
+  +*{display:inline-block;vertical-align:middle;}
 }
 *.btn{display:inline-block;vertical-align:middle;padding:3px 7px;
   &.small{font-size:13px;}

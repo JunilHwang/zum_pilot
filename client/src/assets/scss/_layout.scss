@@ -1,7 +1,15 @@
-@import './lib';
-.site-header{height:50px;border-bottom:1px solid $color-main;display:flex;justify-content:center;align-items:center;
-  &.__logo{
-    h3{line-height:1;}
+@import 'lib';
+
+/* site header */
+.site-header{height:50px;border-bottom:1px solid $color-main;text-align:center;
+  &__logo{line-height:1;
     a{display:block;}
   }
 }
+
+/* site footer */
+.site-footer{background:#212141;color:#fff;padding:20px 0;font-size:13px;text-align:center;}
+
+/* content */
+.content-wrap{padding:10px;background:#f0f0f0;}
+.main-content{background:#fff;border-radius:3px;}
