@@ -8,8 +8,6 @@ import modules from './modules';
 
 Vue.use(Vuex);
 
-console.log(state);
-
 export default new Vuex.Store({
   state,
   mutations,

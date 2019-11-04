@@ -1,0 +1,7 @@
+@import './lib';
+.site-header{height:50px;border-bottom:1px solid $color-main;display:flex;justify-content:center;align-items:center;
+  &.__logo{
+    h3{line-height:1;}
+    a{display:block;}
+  }
+}
