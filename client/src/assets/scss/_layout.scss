@@ -1,15 +1,30 @@
 @import 'lib';
 
-/* site header */
-.site-header{height:50px;border-bottom:1px solid $color-main;text-align:center;
+/* 사이트 상단 */
+.site-header{height:50px;border-bottom:2px solid $color-main;text-align:center;
   &__logo{line-height:1;
     a{display:block;}
   }
 }
 
-/* site footer */
+/* 사이트 하단 */
 .site-footer{background:#212141;color:#fff;padding:20px 0;font-size:13px;text-align:center;}
 
-/* content */
-.content-wrap{padding:10px;background:#f0f0f0;}
-.main-content{background:#fff;border-radius:3px;}
+/* 사이트 컨텐츠 */
+.content{
+  &-wrap{padding:10px;background:#f0f0f0;
+    >section{background:#fff;border-radius:3px;padding:10px;}
+  }
+  &-header{margin:-10px;
+    ul{@include clear-fix();padding:0 10px;}
+    li{float:left;margin:5px;}
+    a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
+      span{position:relative;z-index:10}
+      &::before{content:"";display:block;height:7px;left:50%;right:50%;bottom:5px;position:absolute;background:#c0ffff;transition:0.3s;}
+      &.active::before{left:0;right:0;}
+    }
+  }
+}
+.main-content{background:#fff;border-radius:3px;
+  &__title{}
+}

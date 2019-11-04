@@ -1,6 +1,11 @@
+@import 'lib';
+
+/* 세로 가운데 정렬 트릭 */
 span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
   +*{display:inline-block;vertical-align:middle;}
 }
+
+/* 버튼 모음 */
 *.btn{display:inline-block;vertical-align:middle;padding:3px 7px;
   &.small{font-size:13px;}
   &.big{font-size:17px;}

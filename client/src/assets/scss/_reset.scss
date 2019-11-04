@@ -1,6 +1,6 @@
+@import 'lib';
 body,html,div,p,ul,ol,li,h1,h2,h3,h4,h5,h6,section,article{margin:0;padding:0;}
-body,html{font-family:inherit;}
-body{font-size:15px;}
+body{font-size:15px;font-family:$font;}
 a{text-decoration:none;color:inherit;}
 input,select,textarea,button{font-family:inherit;font-size:15px;}
 input,select,textarea,button,img{vertical-align:middle;}
