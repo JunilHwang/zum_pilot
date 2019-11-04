@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+// mixin
+@mixin cycle ($size, $bg:#fff, $color:#fff, $border:none) {
+	width:$size;
+	height:$size;
+	border-radius:$size;
+	background:$bg;
+	color:$color;
+	border:$border;
+	display:inline-block;
+	line-height:$size;
+	text-align:center;
+}
+@mixin pc {
+	@media (min-width:1200px) {
+		@content;
+	}
+}
+@mixin tablet {
+	@media (max-width:1199px) {
+		@content;
+	}
+}
+@mixin only-tablet {
+	@media (min-width:768px) and (max-width:1199px) {
+		@content;
+	}
+}
+@mixin mobile {
+	@media (max-width:767px) {
+		@content;
+	}
+}
+
+// color
+$color-blue1:#09F;
+$color-blue2:#3b5999;
+$color-red:#cc3731;
+$color-green:#1dc800;
+$color-yellow:#ffeb00;
+$color-grey:#f6f8fa;
+
+// font
+$font:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif,Arial,Verdana;

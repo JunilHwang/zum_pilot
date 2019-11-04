@@ -1,0 +1,13 @@
+span.middle{display:inline-block;vertical-align:middle;
+  +*{display:inline-block;vertical-align:middle;width:0;height:100%;}
+}
+*.btn{display:inline-block;vertical-align:middle;padding:3px 7px;
+  &.small{font-size:13px;}
+  &.big{font-size:17px;}
+  &.blue1{background:$color-blue1;}
+  &.blue2{background:$color-blue2;}
+  &.red{background:$color-red;}
+  &.yellow{background:$color-yellow;}
+  &.green{background:$color-green;}
+  &.full{width:100%;display:block;padding:10px 0;font-size:19px;}
+}
