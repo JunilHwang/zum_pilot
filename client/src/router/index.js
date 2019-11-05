@@ -5,8 +5,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Main',
     component: () => import('../views/Main.vue'),
+  },
+  {
+    path: '/news/:id',
+    component: () => import('../views/news/View.vue'),
   },
 ];
 const router = new VueRouter({

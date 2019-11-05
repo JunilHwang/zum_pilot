@@ -16,3 +16,11 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
   &.green{background:$color-green;}
   &.full{width:100%;display:block;padding:10px 0;font-size:19px;}
 }
+
+/* vue transition */
+.component-fade{
+  &-enter-active,
+  &-leave-active{transition: opacity .3s ease;}
+  &-enter,
+  &-leave-to{opacity: 0;}
+}

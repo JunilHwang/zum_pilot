@@ -11,9 +11,9 @@
 .site-footer{background:#212141;color:#fff;padding:20px 0;font-size:13px;text-align:center;}
 
 /* 사이트 컨텐츠 */
-.content{
-  &-wrap{padding:10px;background:#ecf5f5;}
-  &-header{background:#fff;border-radius:3px;margin-bottom:10px;
+.content-wrap{padding:10px;background:#ecf5f5;}
+.main-content{
+  &__header{background:#fff;border-radius:3px;margin-bottom:10px;
     ul{@include clear-fix();padding:0 10px;}
     li{float:left;margin:5px;}
     a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
@@ -25,7 +25,8 @@
 }
 .news{
   &-main{position:relative;border-radius:3px;overflow:hidden;
-    &::before{content:"";display:block;position:absolute;left:0;right:0;bottom:0;height:60%;background-image:linear-gradient(to bottom, transparent, fade-out(#000, 0.5));z-index:10;}
+    a{display:block;}
+    a::before{content:"";display:block;position:absolute;left:0;right:0;bottom:0;height:60%;background-image:linear-gradient(to bottom, transparent, fade-out(#000, 0.5));z-index:10;}
     &__img{@include img-wrap($abs:true);padding-top:45%;}
     &__title{position:absolute;left:0;right:0;bottom:0;color:#fff;padding:20px 0;text-align:center;z-index:20;}
   }
