@@ -18,10 +18,18 @@
           <h3 class="news-main__title">아이유 광주 콘서트, 관객 퇴장 조치 논란…무슨 일?</h3>
         </a>
       </article>
+      <ul class="news-thumbs">
+        <li v-for="k in 4" :key="k">
+          <a href="#">
+            <img :src="'https://source.unsplash.com/random/300x'+(300+Math.random()*10)" :alt="titles[k]">
+            <h3 class="news-thumbs__title" v-html="helper.previewTitle(titles[k - 1], 30)" />
+          </a>
+        </li>
+      </ul>
       <article class="news-article" v-for="k in 5" :key="k">
         <figure class="news-article__img">
           <a href="#">
-            <img src="https://img.sbs.co.kr/newsnet/etv/upload/2019/10/25/30000636581_16v9.jpg" alt="아이즈원, 신곡에 엠씨몽 작곡 참여…'불똥' 튈라 팬들은 '우려'">
+            <img :src="'https://source.unsplash.com/random/200x'+(200+Math.random()*10)" alt="아이즈원, 신곡에 엠씨몽 작곡 참여…'불똥' 튈라 팬들은 '우려'">
           </a>
         </figure>
         <div class="news-article__content">
@@ -36,7 +44,6 @@
     </section>
   </main>
 </template>
-
 <script>
 export default {
   data() {
@@ -47,6 +54,12 @@ export default {
         { title: '인기영상' },
       ],
       menuActive: 0,
+      titles: [
+        'Lorem ipsum dolor sit amet',
+        'consectetur adipisicing elit',
+        'Aliquam deleniti dignissimos ducimus',
+        'laudantium maiores officia porro qui',
+      ],
     };
   },
   methods: {

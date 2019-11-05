@@ -29,6 +29,16 @@
     &__img{@include img-wrap($abs:true);padding-top:45%;}
     &__title{position:absolute;left:0;right:0;bottom:0;color:#fff;padding:20px 0;text-align:center;z-index:20;}
   }
+  &-thumbs{margin-top:10px;
+    @include clear-fix();
+    li{@include img-wrap($abs:true);border-radius:3px;width:calc(50% - 5px);padding-top:calc(30% - 5px);float:left;
+      &:nth-child(2n-1){margin-right:10px;}
+      &:nth-child(3),
+      &:nth-child(4){margin-top:10px;}
+    }
+    img{border-radius:3px;}
+    &__title{position:absolute;bottom:0;left:0;right:0;font-size:13px;color:#fff;background:fade-out(#000, 0.3);padding:10px;}
+  }
   &-article{border-radius:3px;background:#fff;margin-top:10px;padding:10px;
     @include clear-fix();
     &__img{@include img-wrap($abs:true);width:30%;padding-top:20%;float:left;
