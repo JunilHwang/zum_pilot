@@ -2,42 +2,64 @@
 
 /* 원형 요소 만들기*/
 @mixin cycle ($size, $bg:#fff, $color:#fff, $border:none) {
-	width:$size;
-	height:$size;
-	border-radius:$size;
-	background:$bg;
-	color:$color;
-	border:$border;
-	display:inline-block;
-	line-height:$size;
-	text-align:center;
+  width:$size;
+  height:$size;
+  border-radius:$size;
+  background:$bg;
+  color:$color;
+  border:$border;
+  display:inline-block;
+  line-height:$size;
+  text-align:center;
 }
 
 /* clear-fix */
 @mixin clear-fix () {
-	&::after{content:"";display:block;clear:both;}
+  &::after{content:"";display:block;clear:both;}
+}
+
+/* img-wrap */
+@mixin img-wrap ($abs:false) {
+  @if $abs == true {
+    position:relative;
+  }
+  img{
+    object-fit:cover;
+    width:100%;
+    height:100%;
+    @if $abs == true {
+      position:absolute;
+      left:0;
+      top:0;
+    }
+  }
 }
 
 /* 반응형 웹 손쉽게 구성하기 */
 @mixin pc {
-	@media (min-width:1200px) {
-		@content;
-	}
+  @media (min-width:1200px) {
+    @content;
+  }
 }
 @mixin tablet {
-	@media (max-width:1199px) {
-		@content;
-	}
+  @media (max-width:1199px) {
+    @content;
+  }
 }
 @mixin only-tablet {
-	@media (min-width:768px) and (max-width:1199px) {
-		@content;
-	}
+  @media (min-width:768px) and (max-width:1199px) {
+    @content;
+  }
 }
 @mixin mobile {
-	@media (max-width:767px) {
-		@content;
-	}
+  @media (max-width:767px) {
+    @content;
+  }
+}
+
+/* px ==> view width 단위 변환 */
+@function vw($size, $ratio:480px) {
+  @return ($size / $ratio) * 100vw;
 }
 
 /* 자주 사용하는 색상 모음 */
@@ -50,4 +72,4 @@ $color-yellow:#ffeb00;
 $color-grey:#f6f8fa;
 
 /* 기본 폰트 */
-$font:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif,Arial,Verdana;
+$font:-apple-system,Malgun Gothic,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif,Arial,Verdana;

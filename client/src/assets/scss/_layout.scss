@@ -12,10 +12,8 @@
 
 /* 사이트 컨텐츠 */
 .content{
-  &-wrap{padding:10px;background:#f0f0f0;
-    >section{background:#fff;border-radius:3px;padding:10px;}
-  }
-  &-header{margin:-10px;
+  &-wrap{padding:10px;background:#ecf5f5;}
+  &-header{background:#fff;border-radius:3px;margin-bottom:10px;
     ul{@include clear-fix();padding:0 10px;}
     li{float:left;margin:5px;}
     a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
@@ -25,6 +23,21 @@
     }
   }
 }
-.main-content{background:#fff;border-radius:3px;
-  &__title{}
+.news{
+  &-main{position:relative;border-radius:3px;overflow:hidden;
+    &::before{content:"";display:block;position:absolute;left:0;right:0;bottom:0;height:60%;background-image:linear-gradient(to bottom, transparent, fade-out(#000, 0.5));z-index:10;}
+    &__img{@include img-wrap($abs:true);padding-top:45%;}
+    &__title{position:absolute;left:0;right:0;bottom:0;color:#fff;padding:20px 0;text-align:center;z-index:20;}
+  }
+  &-article{border-radius:3px;background:#fff;margin-top:10px;padding:10px;
+    @include clear-fix();
+    &__img{@include img-wrap($abs:true);width:30%;padding-top:20%;float:left;
+      img{border-radius:3px;}
+    }
+    &__content{float:left;width:calc(70% - 10px);margin-left:10px;font-size:13px;line-height:1;padding:5px 0;}
+    &__title{font-size:15px;font-weight:normal;letter-spacing:-0.5px;line-height:1.2;}
+    &__regdate{font-size:13px;color:#aaa;margin-top:5px;
+      svg{margin-right:5px;}
+    }
+  }
 }
