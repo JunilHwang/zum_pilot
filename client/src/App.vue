@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <SiteHeader />
-    <transition name="component-fade" mode="out-in">
+    <transition :name="$store.state.routerTransition" mode="in-out">
       <router-view />
     </transition>
     <SiteFooter />

@@ -18,9 +18,15 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
 }
 
 /* vue transition */
-.component-fade{
+.slide-left{
   &-enter-active,
-  &-leave-active{transition: opacity .3s ease;}
+  &-leave-active{transition:0.3s;}
   &-enter,
-  &-leave-to{opacity: 0;}
+  &-leave-to{transform:translateX(-100vw);opacity:0;}
+}
+.slide-right{
+  &-enter-active,
+  &-leave-active{transition:0.3s;}
+  &-enter,
+  &-leave-to{transform:translateX(100vw);opacity:0;}
 }

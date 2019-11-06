@@ -64,6 +64,10 @@ export default {
       menuActive: 0,
     };
   },
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit('changeRouterTransition', 'slide-right');
+    next();
+  },
   methods: {
     activeMenu(menuIndex) {
       this.menuActive = menuIndex;
