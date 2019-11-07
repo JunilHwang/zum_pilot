@@ -8,6 +8,10 @@
 }
 
 /* 사이트 하단 */
+@keyframes fade {
+  from {opacity:0;} to {opacity:1;}
+}
+.go-top{position:fixed;right:10px;bottom:20px;@include circle(40px, #666, #fff);z-index:100;animation:fade 0.3s;}
 .site-footer{background:#212141;color:#fff;padding:20px 0;font-size:13px;text-align:center;}
 
 /* 사이트 컨텐츠 */
@@ -24,7 +28,9 @@
     .sticky &{position:fixed;left:5px;right:5px;margin-left:-5px;margin-right:-5px;top:0;z-index:100;border-radius:0;border-bottom:2px solid $color-main;
       +*{margin-top:47px;}
       li{margin:5px 10px;}
-      a{padding:10px 0;}
+      a{padding:10px 0;
+        &::before{bottom:7px;}
+      }
     }
   }
 }

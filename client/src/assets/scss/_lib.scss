@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 원형 요소 만들기*/
-@mixin cycle ($size, $bg:#fff, $color:#fff, $border:none) {
+@mixin circle ($size, $bg:#fff, $color:#fff, $border:none) {
   width:$size;
   height:$size;
   border-radius:$size;

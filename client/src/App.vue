@@ -15,6 +15,9 @@
         <router-view />
       </transition>
     </div>
+    <a href="#" class="go-top" v-show="isSticky">
+      <FAI icon="chevron-up" />
+    </a>
     <SiteFooter />
   </div>
 </template>
@@ -40,17 +43,20 @@ export default {
     };
   },
   mounted() {
-    window.removeEventListener('scroll', this.sticky);
-    window.addEventListener('scroll', this.sticky);
     this.menuOffestTop = this.$refs.nav.offsetTop;
+    window.removeEventListener('scroll', this.scrollEvents);
+    window.addEventListener('scroll', this.scrollEvents);
   },
   methods: {
-    sticky() {
-      const { scrollY: y } = window;
+    scrollEvents() {
+      const { scrollY } = window;
       const ot = this.menuOffestTop;
-      if (y > ot && !this.isSticky) {
+      this.sticky(scrollY, ot);
+    },
+    sticky(scrollY, ot) {
+      if (scrollY > ot && !this.isSticky) {
         this.isSticky = true;
-      } else if (y <= ot && this.isSticky) {
+      } else if (scrollY <= ot && this.isSticky) {
         this.isSticky = false;
       }
     },
