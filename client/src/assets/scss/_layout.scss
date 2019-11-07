@@ -13,13 +13,18 @@
 /* 사이트 컨텐츠 */
 .content-wrap{padding:10px;background:#ecf5f5;}
 .main-content{
-  &__header{background:#fff;border-radius:3px;margin-bottom:10px;
+  &__header{background:#fff;border-radius:3px;margin-bottom:10px;transition-property:margin-left, margin-right, height;transition-duration:0.3s;
     ul{@include clear-fix();padding:0 10px;}
     li{float:left;margin:5px;}
     a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
       span{position:relative;z-index:10}
       &::before{content:"";display:block;height:7px;left:50%;right:50%;bottom:3px;position:absolute;background:#c0ffff;transition:0.3s;}
       &.router-link-exact-active::before{left:0;right:0;}
+    }
+    .sticky &{position:fixed;left:5px;right:5px;margin-left:-5px;margin-right:-5px;top:0;z-index:100;border-radius:0;border-bottom:2px solid $color-main;
+      +*{margin-top:47px;}
+      li{margin:5px 10px;}
+      a{padding:10px 0;}
     }
   }
 }

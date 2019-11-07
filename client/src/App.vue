@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ sticky: isSticky }">
     <SiteHeader />
     <div class="content-wrap">
-      <nav class="main-content__header">
+      <nav class="main-content__header" ref="nav">
         <ul>
           <li v-for="(v, k) in menu" :key="k">
             <router-link :to="v.url">
@@ -35,7 +35,25 @@ export default {
         { title: '음원차트', url: '/chart' },
         { title: '인기영상', url: '/popular' },
       ],
+      isSticky: false,
+      menuOffestTop: 0,
     };
+  },
+  mounted() {
+    window.removeEventListener('scroll', this.sticky);
+    window.addEventListener('scroll', this.sticky);
+    this.menuOffestTop = this.$refs.nav.offsetTop;
+  },
+  methods: {
+    sticky() {
+      const { scrollY: y } = window;
+      const ot = this.menuOffestTop;
+      if (y > ot && !this.isSticky) {
+        this.isSticky = true;
+      } else if (y <= ot && this.isSticky) {
+        this.isSticky = false;
+      }
+    },
   },
 };
 
