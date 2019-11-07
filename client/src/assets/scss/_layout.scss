@@ -83,9 +83,9 @@
     &:nth-child(1) .chart__rank{color:$color-main;}
     &:nth-child(2) .chart__rank{color:$color-blue1;}
     &:nth-child(3) .chart__rank{color:$color-blue2;}
-    &:nth-child(1) .chart__rank,
-    &:nth-child(2) .chart__rank,
-    &:nth-child(3) .chart__rank{font-weight:bold;}
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) .chart__rank{font-weight:bold;}
+    }
   }
   &__rank{width:100px;font-family:Poppins, Verdana, sans-serif;font-size:27px;text-align:center;padding-top:25px;font-weight:100;}
   &__info{padding-top:25px;width:calc(100% - 220px);
