@@ -51,10 +51,5 @@ export default {
     this.$store.commit('changeRouterTransition', 'slide-left');
     next();
   },
-  methods: {
-    activeMenu(menuIndex) {
-      this.menuActive = menuIndex;
-    },
-  },
 };
 </script>

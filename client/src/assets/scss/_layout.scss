@@ -51,5 +51,14 @@
       svg{margin-right:5px;}
     }
   }
-  &-detail{position:relative;z-index:20;background:#fff;}
+  &-detail{position:relative;z-index:20;background:#fff;border-radius:3px;padding:20px;letter-spacing:-0.5px;
+    &__title{font-size:19px;font-weight:normal;padding-bottom:10px;}
+    &__info{line-height:1;color:#666;font-size:13px;margin-bottom:20px;@include clear-fix();}
+    &__publisher,
+    &__regdate{float:left;}
+    &__publisher::after{content:"";display:inline-block;vertical-align:middle;width:1px;height:10px;margin:-3px 5px 0;background:#bebebe;}
+    &__thumbnail{margin-bottom:20px;}
+    &__content{font-size:15px;line-height:160%;}
+    &__content p{padding:10px 0;}
+  }
 }

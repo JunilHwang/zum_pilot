@@ -38,6 +38,11 @@ export default {
       menuActive: 0,
     };
   },
+  methods: {
+    activeMenu(menuIndex) {
+      this.menuActive = menuIndex;
+    },
+  },
 };
 
 </script>
