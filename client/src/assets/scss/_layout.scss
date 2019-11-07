@@ -62,3 +62,26 @@
     &__content p{padding:10px 0;}
   }
 }
+
+/* 실시간 음원차트 */
+.chart{
+  &__video{border-radius:3px;background:url(https://source.unsplash.com/random/500x200) no-repeat center / cover;
+    >strong{display:block;text-align:center;line-height:200px;background:fade-out(#000, 0.5);color:#fff;border-radius:3px;}
+  }
+  &__article{background:#fff;border-radius:3px;margin-top:5px;display:flex;height:100px;position:relative;line-height:1;
+    &:nth-child(1) .chart__rank{color:$color-main;}
+    &:nth-child(2) .chart__rank{color:$color-blue1;}
+    &:nth-child(3) .chart__rank{color:$color-blue2;}
+    &:nth-child(1) .chart__rank,
+    &:nth-child(2) .chart__rank,
+    &:nth-child(3) .chart__rank{font-weight:bold;}
+  }
+  &__rank{width:100px;font-family:Poppins, Verdana, sans-serif;font-size:27px;text-align:center;padding-top:25px;font-weight:100;}
+  &__info{padding-top:25px;width:calc(100% - 220px);
+    dt{font-size:19px;font-weight:bold;letter-spacing:-0.5px;}
+    dd{margin-top:10px;color:#888;}
+  }
+  &__thumbnail{@include img-wrap($abs:true);position:absolute;right:0;top:0;bottom:0;width:100px;
+    img{border-radius:3px;}
+  }
+}
