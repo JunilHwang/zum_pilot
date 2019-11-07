@@ -11,6 +11,10 @@ const routes = [
     path: '/news/:id',
     component: () => import('../views/news/View.vue'),
   },
+  {
+    path: '/chart',
+    component: () => import('../views/Chart.vue'),
+  },
 ];
 const router = new VueRouter({
   mode: 'history',

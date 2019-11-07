@@ -5,9 +5,9 @@
       <nav class="main-content__header">
         <ul>
           <li v-for="(v, k) in menu" :key="k">
-            <a href="#" :class="{active: k === menuActive}" @click.prevent="activeMenu(k)">
+            <router-link :to="v.url">
               <span v-html="v.title" />
-            </a>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -31,17 +31,11 @@ export default {
   data() {
     return {
       menu: [
-        { title: '뉴스' },
-        { title: '음원차트' },
-        { title: '인기영상' },
+        { title: '뉴스', url: '/' },
+        { title: '음원차트', url: '/chart' },
+        { title: '인기영상', url: '/popular' },
       ],
-      menuActive: 0,
     };
-  },
-  methods: {
-    activeMenu(menuIndex) {
-      this.menuActive = menuIndex;
-    },
   },
 };
 

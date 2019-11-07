@@ -91,9 +91,7 @@
 <script>
 export default {
   beforeRouteLeave(to, from, next) {
-    if (to.path === '/') {
-      this.$store.commit('changeRouterTransition', '');
-    }
+    this.$store.commit('changeRouterTransition', '');
     next();
   },
 };

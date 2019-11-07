@@ -48,7 +48,9 @@ export default {
     };
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit('changeRouterTransition', 'slide-left');
+    if (to.path.indexOf('/news') !== -1) {
+      this.$store.commit('changeRouterTransition', 'slide-left');
+    }
     next();
   },
 };
