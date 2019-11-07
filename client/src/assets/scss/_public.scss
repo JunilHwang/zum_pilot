@@ -21,20 +21,20 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
 .slide-right{
   &-enter{transform:translateX(-100vw);
     &-active{transition:transform 0.5s;}
-    &-to{transform:translateX(0);position:relative;z-index:10;}
+    &-to{transform:translateX(0);position:relative;z-index:20;}
   }
   &-leave{
-    &-active{transition:transform 1s;position:absolute;z-index:-1;}
+    &-active{transition:transform 0.5s;position:absolute;z-index:10;}
     &-to{transform:translateX(50vw);}
   }
 }
 .slide-left{
   &-enter{transform:translateX(100vw);
     &-active{transition:transform 0.5s;}
-    &-to{transform:translateX(0)}
+    &-to{transform:translateX(0);position:relative;z-index:20}
   }
   &-leave{
-    &-active{transition:transform 1s;}
-    &-to{transform:translateX(-50vw);position:absolute;z-index:-1;}
+    &-active{transition:transform 0.5s;}
+    &-to{transform:translateX(-50vw);position:absolute;z-index:10;}
   }
 }

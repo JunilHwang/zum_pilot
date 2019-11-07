@@ -5,6 +5,10 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+router.afterEach((to, from) => {
+  store.commit('changeRouterTransition', '');
+});
+
 new Vue({
   router,
   store,
