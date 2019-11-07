@@ -8,7 +8,7 @@
 export default {
   beforeRouteLeave(to, from, next) {
     if (to.path === '/') {
-      this.$store.commit('changeRouterTransition', 'slide-left');
+      this.$store.commit('changeRouterTransition', 'slide-right');
     }
     next();
   },

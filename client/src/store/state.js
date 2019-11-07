@@ -1,5 +1,5 @@
 const state = {
-  routerTransition: 'slide-left',
+  routerTransition: '',
 };
 
 export default state;

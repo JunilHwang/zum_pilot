@@ -18,15 +18,23 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
 }
 
 /* vue transition */
-.slide-left{
-  &-enter-active,
-  &-leave-active{transition:0.3s;}
-  &-enter,
-  &-leave-to{transform:translateX(-100vw);opacity:0;}
-}
 .slide-right{
-  &-enter-active,
-  &-leave-active{transition:0.3s;}
-  &-enter,
-  &-leave-to{transform:translateX(100vw);opacity:0;}
+  &-enter{transform:translateX(-100vw);
+    &-active{transition:transform 0.5s;}
+    &-to{transform:translateX(0);position:relative;z-index:10;}
+  }
+  &-leave{
+    &-active{transition:transform 1s;position:absolute;z-index:-1;}
+    &-to{transform:translateX(50vw);}
+  }
+}
+.slide-left{
+  &-enter{transform:translateX(100vw);
+    &-active{transition:transform 0.5s;}
+    &-to{transform:translateX(0)}
+  }
+  &-leave{
+    &-active{transition:transform 1s;}
+    &-to{transform:translateX(-50vw);position:absolute;z-index:-1;}
+  }
 }

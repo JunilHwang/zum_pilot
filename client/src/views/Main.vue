@@ -65,7 +65,7 @@ export default {
     };
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit('changeRouterTransition', 'slide-right');
+    this.$store.commit('changeRouterTransition', 'slide-left');
     next();
   },
   methods: {
