@@ -1,5 +1,7 @@
+import { CHANGE_TRANSITION } from './const';
+
 const mutations = {
-  changeRouterTransition(state, payload) {
+  [CHANGE_TRANSITION]: (state, payload) => {
     state.routerTransition = payload;
   },
 };
