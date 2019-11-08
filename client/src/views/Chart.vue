@@ -38,18 +38,18 @@ export default {
   },
   created() {
     this.list.push(...this.initList);
+    window.removeEventListener('scroll', this.listLoading);
     window.addEventListener('scroll', this.listLoading);
   },
   methods: {
     listLoading() {
-      const { innerHeight, scrollY } = window;
-      const { scrollHeight } = document.body;
-      if (scrollHeight - innerHeight - scrollY === 0) {
-        this.list.push(...this.initList);
-        if (this.list.length >= 100) {
+      const { list, initList } = this;
+      this.helper.windowBottomSensor(() => {
+        list.push(...initList);
+        if (list.length >= 100) {
           window.removeEventListener('scroll', this.listLoading);
         }
-      }
+      });
     },
   },
 };

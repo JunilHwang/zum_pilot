@@ -1,57 +1,71 @@
 <template>
   <main class="main-content">
     <section class="main-content__section news">
-      <article class="news-main">
-        <router-link to="/news/1">
-          <figure class="news-main__img">
-            <img src="https://img.sbs.co.kr/newsnet/etv/upload/2019/10/29/30000636820.jpg" alt="아이유 광주 콘서트, 관객 퇴장 조치 논란…무슨 일?">
-          </figure>
-          <h3 class="news-main__title">아이유 광주 콘서트, 관객 퇴장 조치 논란…무슨 일?</h3>
-        </router-link>
-      </article>
+      <NewsWrapper
+        v-if="newsHeadline !== null"
+        type="Headline"
+        :properties="newsHeadline"
+      />
       <ul class="news-thumbs">
-        <li v-for="k in 4" :key="k">
-          <a href="#">
-            <img :src="'https://source.unsplash.com/random/300x'+(300+Math.random()*10)" :alt="titles[k]">
-            <h3 class="news-thumbs__title" v-html="helper.previewTitle(titles[k - 1], 30)" />
-          </a>
-        </li>
+        <NewsWrapper
+          v-for="(props, k) in newsPopulars"
+          type="Popular"
+          :properties="{ ...props }"
+          :key="k"
+        />
       </ul>
-      <article class="news-article" v-for="k in 5" :key="k">
-        <figure class="news-article__img">
-          <a href="#">
-            <img :src="'https://source.unsplash.com/random/200x'+(200+Math.random()*10)" alt="아이즈원, 신곡에 엠씨몽 작곡 참여…'불똥' 튈라 팬들은 '우려'">
-          </a>
-        </figure>
-        <div class="news-article__content">
-          <h3 class="news-article__title">
-            <a href="#">아이즈원, 신곡에 엠씨몽 작곡 참여…'불똥' 튈라 팬들은 '우려'</a>
-          </h3>
-          <p class="news-article__regdate">
-            <FAI :icon="['far', 'clock']" />2019-11-05 10:40:45
-          </p>
-        </div>
-      </article>
+      <NewsWrapper
+        v-for="(props, k) in newsArticles"
+        type="Article"
+        :properties="{ ...props }"
+        :key="k"
+      />
     </section>
   </main>
 </template>
 <script>
+import { mapState } from 'vuex';
+import {
+  CHANGE_TRANSITION,
+  FETCH_ARTICLES,
+  FETCH_HEADLINE,
+  FETCH_POPULAR,
+} from '@/store/const';
+import NewsWrapper from '@/components/news/NewsWrapper.vue';
+
 export default {
+  components: {
+    NewsWrapper,
+  },
+  computed: mapState(['newsArticles', 'newsHeadline', 'newsPopulars']),
   data() {
     return {
-      titles: [
-        'Lorem ipsum dolor sit amet',
-        'consectetur adipisicing elit',
-        'Aliquam deleniti dignissimos ducimus',
-        'laudantium maiores officia porro qui',
-      ],
+      page: 1,
     };
   },
   beforeRouteLeave(to, from, next) {
     if (to.path.indexOf('/news') !== -1) {
-      this.$store.commit('changeRouterTransition', 'slide-left');
+      this.$store.commit(CHANGE_TRANSITION, 'slide-left');
     }
     next();
+  },
+  created() {
+    this.$store.dispatch(FETCH_HEADLINE);
+    this.$store.dispatch(FETCH_POPULAR);
+    this.$store.dispatch(FETCH_ARTICLES);
+    window.removeEventListener('scroll', this.listLoading);
+    window.addEventListener('scroll', this.listLoading);
+  },
+  methods: {
+    listLoading() {
+      this.helper.windowBottomSensor(() => {
+        this.page += 1;
+        this.$store.dispatch(FETCH_ARTICLES, this.page);
+        if (this.page >= 5) {
+          window.removeEventListener('scroll', this.listLoading);
+        }
+      });
+    },
   },
   mounted() {
     window.scrollTo(0, 0);

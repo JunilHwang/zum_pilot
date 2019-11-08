@@ -8,7 +8,7 @@ const routes = [
     component: () => import('../views/Main.vue'),
   },
   {
-    path: '/news/:id',
+    path: '/news/:url',
     component: () => import('../views/news/View.vue'),
   },
   {

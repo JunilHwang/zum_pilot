@@ -11,9 +11,9 @@
           </li>
         </ul>
       </nav>
-      <transition :name="$store.state.routerTransition">
-        <router-view />
-      </transition>
+      <!--<transition :name="$store.state.routerTransition">-->
+      <router-view />
+      <!--</transition>-->
     </div>
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
