@@ -1,7 +1,6 @@
 package zuminternet.pilot.domain;
 
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 public class NewsArticle {
