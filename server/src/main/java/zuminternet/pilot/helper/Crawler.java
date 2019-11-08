@@ -20,8 +20,8 @@ public class Crawler {
     }
     return doc;
   }
-  static public NewsArticle[] getNewsList () {
-    Document doc = getDoc(SBSURL + "/news/ssports_list.jsp?code_category=SS04");
+  static public NewsArticle[] getNewsList (int page) {
+    Document doc = getDoc(SBSURL + "/news/ssports_list.jsp?code_category=SS04&pageNo=" + page);
     Elements els = doc.select(".list_news").select("li");
     NewsArticle[] articles = new NewsArticle[els.size()];
     els.forEach(el -> {

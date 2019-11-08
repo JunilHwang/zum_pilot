@@ -21,9 +21,9 @@ export default {
         commit(FETCH_POPULAR, data);
       });
   },
-  [FETCH_ARTICLES]: ({ commit }) => {
+  [FETCH_ARTICLES]: ({ commit }, page = 1) => {
     $http
-      .get(`${API_URL}/news`)
+      .get(`${API_URL}/news?page=${page}`)
       .then(({ data }) => {
         commit(FETCH_ARTICLES, data);
       });
