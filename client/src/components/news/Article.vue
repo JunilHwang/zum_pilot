@@ -1,13 +1,13 @@
 <template>
   <article class="news-article">
     <figure class="news-article__img">
-      <a :href="link" target="_blank">
+      <router-link :to="`/news/${encodeURIComponent(link)}`">
         <img :src="img" :alt="title">
-      </a>
+      </router-link>
     </figure>
     <div class="news-article__content">
       <h3 class="news-article__title">
-        <a :href="link" target="_blank" v-html="title" />
+        <router-link :to="`/news/${encodeURIComponent(link)}`" v-html="title" />
       </h3>
       <p class="news-article__regdate">
         <FAI :icon="['far', 'clock']" />

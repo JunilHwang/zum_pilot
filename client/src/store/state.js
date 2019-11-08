@@ -3,6 +3,10 @@ const state = {
   newsHeadline: null,
   newsPopulars: [],
   newsArticles: [],
+  newsArticle: {
+    title: '',
+    content: '',
+  },
 };
 
 export default state;

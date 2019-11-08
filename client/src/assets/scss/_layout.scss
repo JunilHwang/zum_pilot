@@ -63,7 +63,7 @@
     }
   }
   &-detail{position:relative;z-index:20;background:#fff;border-radius:3px;padding:20px;letter-spacing:-0.5px;
-    &__title{font-size:19px;font-weight:normal;padding-bottom:10px;}
+    &__title{font-size:19px;font-weight:normal;padding-bottom:10px;border-bottom:1px solid #bebebe;margin-bottom:20px;}
     &__info{line-height:1;color:#666;font-size:13px;margin-bottom:20px;@include clear-fix();}
     &__publisher,
     &__regdate{float:left;}

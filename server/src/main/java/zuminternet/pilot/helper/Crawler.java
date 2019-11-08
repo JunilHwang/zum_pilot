@@ -58,15 +58,18 @@ public class Crawler {
     });
     return articles;
   }
-  static public String getNewsContent (String url) {
+  static public NewsArticle getNewsContent (String url) {
+    NewsArticle article = new NewsArticle();
     Document doc = getDoc(url);
-    String content = "";
     Boolean bool = url.indexOf("sbsfune.sbs.co.kr") != -1;
     Elements el = doc.select(bool ? "#etv_news_content" : ".text");
-    el.select("*").forEach(v -> {
-      v.removeAttr("style").removeAttr("class").removeAttr("id").removeAttr("align");
-    });
-    content = el.html();
-    return content;
+    if (bool) {
+      el.select("img").forEach(v -> {
+        v.attr("src", v.attr("data-v_src"));
+      });
+    }
+    article.setTitle(doc.select(bool ? "h1" : ".ttl.tac .big").text());
+    article.setContent(el.html());
+    return article;
   }
 }

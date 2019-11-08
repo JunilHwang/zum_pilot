@@ -1,9 +1,9 @@
 <template>
   <li>
-    <a href="#">
+    <router-link :to="`/news/${encodeURIComponent(link)}`">
       <img :src="img" :alt="title">
       <h3 class="news-thumbs__title" v-html="helper.previewTitle(title, 30)" />
-    </a>
+    </router-link>
   </li>
 </template>
 

@@ -4,6 +4,7 @@ import {
   FETCH_POPULAR,
   FETCH_ARTICLES,
   APPEND_ARTICLES,
+  FETCH_CONTENT,
 } from './const';
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
   },
   [APPEND_ARTICLES]: (state, { articles }) => {
     state.newsArticles.push(...articles);
+  },
+  [FETCH_CONTENT]: (state, payload) => {
+    state.newsArticle = { ...payload };
   },
 };
 

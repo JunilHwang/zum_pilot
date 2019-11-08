@@ -1,6 +1,7 @@
 package zuminternet.pilot.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import zuminternet.pilot.domain.NewsArticle;
@@ -32,6 +33,14 @@ public class NewsController {
     NewsArticle[] articles = Crawler.getPopular();
     send.put("success", true);
     send.put("articles", articles);
+    return send;
+  }
+  @GetMapping(value="/api/news_content")
+  public HashMap getNewsContent (@RequestParam(value="url") String url) {
+    HashMap send = new HashMap();
+    NewsArticle article = Crawler.getNewsContent(url);
+    send.put("success", true);
+    send.put("article", article);
     return send;
   }
 }

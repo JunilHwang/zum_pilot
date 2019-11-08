@@ -1,6 +1,6 @@
 <template>
   <article class="news-main">
-    <router-link to="/news/1">
+    <router-link :to="`/news/${encodeURIComponent(link)}`">
       <figure class="news-main__img">
         <img :src="img" :alt="title">
       </figure>
@@ -11,6 +11,6 @@
 
 <script>
 export default {
-  props: ['title', 'img'],
+  props: ['title', 'img', 'link'],
 };
 </script>
