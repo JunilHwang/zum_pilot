@@ -58,4 +58,15 @@ public class Crawler {
     });
     return articles;
   }
+  static public String getNewsContent (String url) {
+    Document doc = getDoc(url);
+    String content = "";
+    Boolean bool = url.indexOf("sbsfune.sbs.co.kr") != -1;
+    Elements el = doc.select(bool ? "#etv_news_content" : ".text");
+    el.select("*").forEach(v -> {
+      v.removeAttr("style").removeAttr("class").removeAttr("id").removeAttr("align");
+    });
+    content = el.html();
+    return content;
+  }
 }
