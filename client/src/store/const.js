@@ -2,6 +2,7 @@ export const CHANGE_TRANSITION = 'changeRouterTransition';
 export const FETCH_HEADLINE = 'fetchHeadline';
 export const FETCH_POPULAR = 'fetchPopular';
 export const FETCH_ARTICLES = 'fetchArticles';
+export const APPEND_ARTICLES = 'appendArticles';
 export const API_URL = '/api';
 export default {
   CHANGE_TRANSITION,
@@ -9,4 +10,5 @@ export default {
   FETCH_HEADLINE,
   FETCH_POPULAR,
   FETCH_ARTICLES,
+  APPEND_ARTICLES,
 };

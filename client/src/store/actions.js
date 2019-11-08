@@ -3,7 +3,7 @@ import {
   API_URL,
   FETCH_HEADLINE,
   FETCH_POPULAR,
-  FETCH_ARTICLES,
+  FETCH_ARTICLES, APPEND_ARTICLES,
 } from './const';
 
 export default {
@@ -25,7 +25,7 @@ export default {
     $http
       .get(`${API_URL}/news?page=${page}`)
       .then(({ data }) => {
-        commit(FETCH_ARTICLES, data);
+        commit(page === 1 ? FETCH_ARTICLES : APPEND_ARTICLES, data);
       });
   },
 };

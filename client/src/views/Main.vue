@@ -38,6 +38,11 @@ export default {
     NewsWrapper,
   },
   computed: mapState(['newsArticles', 'newsHeadline', 'newsPopulars']),
+  data() {
+    return {
+      page: 1,
+    };
+  },
   beforeRouteLeave(to, from, next) {
     if (to.path.indexOf('/news') !== -1) {
       this.$store.commit(CHANGE_TRANSITION, 'slide-left');
@@ -48,6 +53,19 @@ export default {
     this.$store.dispatch(FETCH_HEADLINE);
     this.$store.dispatch(FETCH_POPULAR);
     this.$store.dispatch(FETCH_ARTICLES);
+    window.removeEventListener('scroll', this.listLoading);
+    window.addEventListener('scroll', this.listLoading);
+  },
+  methods: {
+    listLoading() {
+      this.helper.windowBottomSensor(() => {
+        this.page += 1;
+        this.$store.dispatch(FETCH_ARTICLES, this.page);
+        if (this.page >= 5) {
+          window.removeEventListener('scroll', this.listLoading);
+        }
+      });
+    },
   },
   mounted() {
     window.scrollTo(0, 0);
