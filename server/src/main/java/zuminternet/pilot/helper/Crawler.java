@@ -6,13 +6,11 @@ import org.jsoup.select.Elements;
 import zuminternet.pilot.domain.NewsArticle;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Stack;
 
 public class Crawler {
-  private String SBSURL ="http://sbsfune.sbs.co.kr/";
+  static private String SBSURL ="http://sbsfune.sbs.co.kr/";
 
-  public Document getDoc (String url) {
+  static private Document getDoc (String url) {
     Document doc = null;
     String connURI = url;
     try {
@@ -22,8 +20,8 @@ public class Crawler {
     }
     return doc;
   }
-  public NewsArticle[] getNewsList () {
-    Document doc = this.getDoc(SBSURL + "/news/ssports_list.jsp?code_category=SS04");
+  static public NewsArticle[] getNewsList () {
+    Document doc = getDoc(SBSURL + "/news/ssports_list.jsp?code_category=SS04");
     Elements els = doc.select(".list_news").select("li");
     NewsArticle[] articles = new NewsArticle[els.size()];
     els.forEach(el -> {
@@ -36,8 +34,8 @@ public class Crawler {
     });
     return articles;
   }
-  public NewsArticle getHeadline () {
-    Document doc = this.getDoc(SBSURL + "/news");
+  static public NewsArticle getHeadline () {
+    Document doc = getDoc(SBSURL + "/news");
     NewsArticle article = new NewsArticle();
     Elements el = doc.select(".hline_hot");
     article.setImg(el.select("span img").attr("src"));
@@ -46,9 +44,9 @@ public class Crawler {
     article.setLink(el.select("a").attr("href"));
     return article;
   }
-  public NewsArticle[] getPopular () {
+  static public NewsArticle[] getPopular () {
     String billboardURL = "http://billboard.co.kr";
-    Document doc = this.getDoc(billboardURL + "/main/news/list");
+    Document doc = getDoc(billboardURL + "/main/news/list");
     Elements els = doc.select("#new_area").select("li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4)");
     NewsArticle[] articles = new NewsArticle[els.size()];
     els.forEach(el -> {

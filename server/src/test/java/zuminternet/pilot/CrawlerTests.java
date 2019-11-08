@@ -10,8 +10,7 @@ class CrawlerTests {
 
   @Test
   public void CrawlerNewsList () {
-    Crawler crawler = new Crawler();
-    NewsArticle[] articles = crawler.getNewsList();
+    NewsArticle[] articles = Crawler.getNewsList();
     for (NewsArticle v : articles) {
       System.out.println(v);
     }
@@ -19,16 +18,13 @@ class CrawlerTests {
 
   @Test
   public void CrawlerHeadline () {
-    Crawler crawler = new Crawler();
-    NewsArticle article = crawler.getHeadline();
+    NewsArticle article = Crawler.getHeadline();
     System.out.println(article);
   }
 
   @Test
   public void CrawlerPopular () {
-    Crawler crawler = new Crawler();
-    // crawler.getPopular();
-    NewsArticle[] articles = crawler.getPopular();
+    NewsArticle[] articles = Crawler.getPopular();
     for (NewsArticle v : articles) {
       System.out.println(v);
     }
