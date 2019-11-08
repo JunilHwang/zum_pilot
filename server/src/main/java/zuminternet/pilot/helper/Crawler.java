@@ -8,7 +8,7 @@ import zuminternet.pilot.domain.NewsArticle;
 import java.io.IOException;
 
 public class Crawler {
-  static private String SBSURL ="http://sbsfune.sbs.co.kr/";
+  static private String SBSURL ="http://sbsfune.sbs.co.kr";
 
   static private Document getDoc (String url) {
     Document doc = null;

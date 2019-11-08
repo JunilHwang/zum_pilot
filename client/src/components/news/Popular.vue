@@ -1,7 +1,7 @@
 <template>
   <li>
     <a href="#">
-      <img :src="'https://source.unsplash.com/random/300x'+(300+Math.random()*10)" :alt="title">
+      <img :src="img" :alt="title">
       <h3 class="news-thumbs__title" v-html="helper.previewTitle(title, 30)" />
     </a>
   </li>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ['title'],
+  props: ['title', 'img', 'link'],
 };
 
 </script>
