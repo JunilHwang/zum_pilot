@@ -1,6 +1,6 @@
 <template>
   <main class="news-detail">
-    <article>
+    <article v-if="loaded">
       <h1 class="news-detail__title" v-html="newsArticle.title" />
       <div ref="content" class="news-detail__content" v-html="newsArticle.content" />
       <div class="btn-group center">
@@ -21,16 +21,14 @@ export default {
     next();
   },
   computed: mapState(['newsArticle']),
+  data() {
+    return {
+      loaded: false,
+    };
+  },
   created() {
     this.$store.dispatch(FETCH_CONTENT, this.$route.params.url);
-    setTimeout(() => {
-      const target = this.$refs.content.querySelectorAll('[style], [class], [id]');
-      target.forEach((el) => {
-        el.removeAttribute('style');
-        el.removeAttribute('class');
-        el.removeAttribute('id');
-      });
-    }, 100);
+    this.loaded = true;
   },
 };
 </script>

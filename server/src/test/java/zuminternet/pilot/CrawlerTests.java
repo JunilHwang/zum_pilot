@@ -2,6 +2,7 @@ package zuminternet.pilot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import zuminternet.pilot.domain.MusicArticle;
 import zuminternet.pilot.domain.NewsArticle;
 import zuminternet.pilot.helper.Crawler;
 
@@ -32,13 +33,21 @@ class CrawlerTests {
 
   @Test
   public void CrawlerContentOfSBS () {
-    String content = Crawler.getNewsContent("http://sbsfune.sbs.co.kr/news/news_content.jsp?article_id=E10009711713");
-    System.out.println(content);
+    NewsArticle article = Crawler.getNewsContent("http://sbsfune.sbs.co.kr/news/news_content.jsp?article_id=E10009711713");
+    System.out.println(article);
   }
 
   @Test
   public void CrawlerContentOfBillboard () {
-    String content = Crawler.getNewsContent("http://billboard.co.kr/main/news/view/296");
-    System.out.println(content);
+    NewsArticle article = Crawler.getNewsContent("http://billboard.co.kr/main/news/view/296");
+    System.out.println(article);
+  }
+
+  @Test
+  public void CrawlerMusicChart () {
+    MusicArticle[] articles = Crawler.getMusicList();
+    for (MusicArticle v : articles) {
+      System.out.println(v);
+    }
   }
 }
