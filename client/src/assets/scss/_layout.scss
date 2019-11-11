@@ -88,9 +88,9 @@
     }
   }
   &__rank{width:100px;font-family:Poppins, Verdana, sans-serif;font-size:27px;text-align:center;padding-top:25px;font-weight:100;}
-  &__info{padding-top:25px;width:calc(100% - 220px);
-    dt{font-size:19px;font-weight:bold;letter-spacing:-0.5px;}
-    dd{margin-top:10px;color:#888;}
+  &__info{padding-top:25px;width:calc(100% - 220px);line-height:1.2;
+    dt{font-size:15px;font-weight:normal;letter-spacing:-0.5px;}
+    dd{font-size:13px;margin-top:5px;color:#888;}
   }
   &__thumbnail{@include img-wrap($abs:true);position:absolute;right:0;top:0;bottom:0;width:100px;
     img{border-radius:3px;}

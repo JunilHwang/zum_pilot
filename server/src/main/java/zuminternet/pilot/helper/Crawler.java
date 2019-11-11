@@ -2,7 +2,9 @@ package zuminternet.pilot.helper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
+import zuminternet.pilot.domain.MusicArticle;
 import zuminternet.pilot.domain.NewsArticle;
 
 import java.io.IOException;
@@ -69,7 +71,22 @@ public class Crawler {
       });
     }
     article.setTitle(doc.select(bool ? "h1" : ".ttl.tac .big").text());
-    article.setContent(el.html());
+    String cleanContent = Jsoup.clean(el.html(), Whitelist.relaxed());
+    article.setContent(cleanContent);
     return article;
+  }
+  static public MusicArticle[] getMusicList () {
+    Document doc = getDoc("https://www.melon.com/chart/");
+    Elements els = doc.select("tr[class^=\"lst\"]");
+    MusicArticle[] articles = new MusicArticle[els.size()];
+    els.forEach(el -> {
+      MusicArticle article = new MusicArticle();
+      article.setImg(el.select("td:nth-child(4) img").attr("src"));
+      article.setTitle(el.select(".ellipsis.rank01 a").text());
+      article.setArtist(el.select(".ellipsis.rank02 > a").text());
+      article.setAlbum(el.select(".ellipsis.rank03 a").text());
+      articles[el.elementSiblingIndex()] = article;
+    });
+    return articles;
   }
 }

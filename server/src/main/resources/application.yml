@@ -4,3 +4,8 @@ spring:
      enabled: true
     livereload:
      enabled: true
+
+logging:
+  level:
+    root: warn
+    zuminternet.pilot.*: info

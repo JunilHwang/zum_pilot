@@ -1,12 +1,3 @@
-const state = {
+export default {
   routerTransition: '',
-  newsHeadline: null,
-  newsPopulars: [],
-  newsArticles: [],
-  newsArticle: {
-    title: '',
-    content: '',
-  },
 };
-
-export default state;
