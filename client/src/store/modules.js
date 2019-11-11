@@ -1,3 +1,5 @@
-const modules = {};
+import news from './news';
 
-export default modules;
+export default {
+  news,
+};
