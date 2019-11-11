@@ -3,9 +3,7 @@
     <strong class="chart__rank" v-html="k + 1" />
     <dl class="chart__info">
       <dt v-html="title" />
-      <dd>
-        {{artist}} / {{album}}
-      </dd>
+      <dd v-html="artist" />
     </dl>
     <figure class="chart__thumbnail">
       <img :src="img" :alt="title">
@@ -15,6 +13,6 @@
 
 <script>
 export default {
-  props: ['idx', 'title', 'album', 'artist', 'img'],
-}
+  props: ['k', 'title', 'album', 'artist', 'img'],
+};
 </script>

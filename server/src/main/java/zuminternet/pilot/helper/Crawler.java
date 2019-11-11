@@ -83,7 +83,7 @@ public class Crawler {
       MusicArticle article = new MusicArticle();
       article.setImg(el.select("td:nth-child(4) img").attr("src"));
       article.setTitle(el.select(".ellipsis.rank01 a").text());
-      article.setArtist(el.select(".ellipsis.rank02 a").text());
+      article.setArtist(el.select(".ellipsis.rank02 > a").text());
       article.setAlbum(el.select(".ellipsis.rank03 a").text());
       articles[el.elementSiblingIndex()] = article;
     });
