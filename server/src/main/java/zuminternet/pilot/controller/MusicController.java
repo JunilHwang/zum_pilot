@@ -18,7 +18,7 @@ public class MusicController {
   public HashMap getMusicList () {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("articles", Crawler.getMusicList());
+    send.put("result", Crawler.getMusicList());
     return send;
   }
 

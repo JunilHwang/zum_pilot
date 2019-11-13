@@ -15,28 +15,28 @@ public class NewsController {
   public HashMap getNews (@RequestParam(value = "page", defaultValue = "1") int page) {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("articles", Crawler.getNewsList(page));
+    send.put("result", Crawler.getNewsList(page));
     return send;
   }
   @GetMapping(value="/api/news/headline")
   public HashMap getHeadline () {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("article", Crawler.getHeadline());
+    send.put("result", Crawler.getHeadline());
     return send;
   }
   @GetMapping(value="/api/news/popular")
   public HashMap getPopular () {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("articles", Crawler.getPopular());
+    send.put("result", Crawler.getPopular());
     return send;
   }
   @GetMapping(value="/api/news_content")
   public HashMap getNewsContent (@RequestParam(value="url") String url) {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("article", Crawler.getNewsContent(url));
+    send.put("result", Crawler.getNewsContent(url));
     return send;
   }
 }
