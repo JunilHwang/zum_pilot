@@ -13,20 +13,21 @@ import java.util.List;
 
 @RestController
 public class MusicController {
-  @Cacheable(value="musicList")
+
   @GetMapping(value="/api/music")
   public HashMap getMusicList () {
     HashMap send = new HashMap();
+    MusicArticle[] list = Crawler.getMusicList();
+    list[0].setVideoList(YoutubeSearch.execute(list[0].getTitle()));
     send.put("success", true);
-    send.put("result", Crawler.getMusicList());
+    send.put("result", list);
     return send;
   }
 
   @GetMapping(value="/api/music-video")
   public HashMap getMusicVideoList (@RequestParam(required = true) String q) {
     HashMap send = new HashMap();
-    YoutubeSearch youtubeSearch = new YoutubeSearch();
-    List result = youtubeSearch.search(q);
+    List result = YoutubeSearch.execute(q);
     send.put("success", true);
     send.put("result", result);
     return send;

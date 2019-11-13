@@ -18,13 +18,16 @@ public class YoutubeSearch {
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final long NUMBER_OF_VIDEOS_RETURNED = 1;
-  private static YouTube youtube;
-  private static final String API_KEY = "AIzaSyB9-VhCcc2neB2aYgVxJPZLtkb_jmfNo1o";
+  private static YouTube youtube = null;
+  private static final String API_KEY = "AIzaSyAivIxmsxd4b1FA_C67gYKph56F4RseQeY";
 
-  public List search (String q) {
-    youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-      public void initialize(HttpRequest request) throws IOException {}
-    }).setApplicationName("youtube-cmdline-search-sample").build();
+  static public List execute (String q) {
+    if (youtube == null) {
+      youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+        public void initialize(HttpRequest request) throws IOException {
+        }
+      }).setApplicationName("youtube-cmdline-search-sample").build();
+    }
     YouTube.Search.List search;
     SearchListResponse searchResponse;
     List result = null;
@@ -35,6 +38,7 @@ public class YoutubeSearch {
       search.setQ(q);
       search.setType("video");
       search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+      search.setFields("items(id/videoId,snippet(title,thumbnails/default/url))");
       searchResponse = search.execute();
       result = searchResponse.getItems();
     } catch (Exception e) {
