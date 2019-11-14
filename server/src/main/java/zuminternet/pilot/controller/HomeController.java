@@ -28,8 +28,10 @@ public class HomeController {
   @PostMapping("/api/video")
   public HashMap setVideo (String title, String search_title, String thumbnail, String video_id) {
     HashMap send = new HashMap();
-    VideoGroup videoGroup = videoGroupRepository.findBySearchTitle(search_title);
-    videoRepository.save(new Video(title, video_id, thumbnail, videoGroup));
+    VideoGroup parent = videoGroupRepository.findBySearchTitle(search_title);
+    Video child = new Video(title, video_id, thumbnail);
+    parent.getVideoList().add(child);
+    videoRepository.save(child);
     send.put("success", true);
     return send;
   }

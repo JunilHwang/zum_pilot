@@ -23,18 +23,10 @@ public class Video {
   @Column(nullable = false)
   private String thumbnail;
 
-//  @Column(nullable = false, name = "search_title")
-//  private String searchTitle;
-
-  @ManyToOne
-  @JoinColumn(name = "search_title")
-  private VideoGroup videoGroup;
-
   @Builder
-  public Video (String title, String videoId, String thumbnail, VideoGroup videoGroup) {
+  public Video (String title, String videoId, String thumbnail) {
     this.title = title;
     this.videoId = videoId;
     this.thumbnail = thumbnail;
-    this.videoGroup = videoGroup;
   }
 }

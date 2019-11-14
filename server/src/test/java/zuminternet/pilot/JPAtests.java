@@ -18,8 +18,7 @@ public class JPAtests {
 
   @Test
   public void videoTest () {
-    VideoGroup videoGroup = videoGroupRepository.findBySearchTitle("황준일");
-    Video video = new Video("title", "video_id", "thumbnail", videoGroup);
+    Video video = new Video("title", "video_id", "thumbnail");
     videoRepository.save(video);
     System.out.println(videoRepository.findById(Long.valueOf(1)));
   }

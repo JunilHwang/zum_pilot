@@ -18,7 +18,8 @@ public class VideoGroup {
 
   @Column(nullable = false, name = "search_title") private String searchTitle;
 
-  @OneToMany(mappedBy = "videoGroup", fetch = FetchType.LAZY)
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "gid")
   private List<Video> VideoList;
 
   @Builder
