@@ -18,7 +18,7 @@ public class MusicController {
   public HashMap getMusicList () {
     HashMap send = new HashMap();
     MusicArticle[] list = Crawler.getMusicList();
-    list[0].setVideoList(YoutubeSearch.execute(list[0].getTitle()));
+    // list[0].setVideoList(YoutubeSearch.execute(list[0].getTitle()));
     send.put("success", true);
     send.put("result", list);
     return send;

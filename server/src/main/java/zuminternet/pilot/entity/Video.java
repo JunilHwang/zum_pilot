@@ -1,4 +1,4 @@
-package zuminternet.pilot.repository;
+package zuminternet.pilot.entity;
 
 import lombok.*;
 
@@ -8,21 +8,33 @@ import javax.persistence.*;
 @Entity
 @Getter
 @ToString
+@Table(name = "video")
 public class Video {
   @Id
   @GeneratedValue
-  private int idx;
+  private Long idx;
 
-  @Column private String title;
-  @Column private String video_id;
-  @Column private String thumbnail;
-  @Column private String search_title;
+  @Column(nullable = false)
+  private String title;
+
+  @Column(nullable = false, name = "video_id")
+  private String videoId;
+
+  @Column(nullable = false)
+  private String thumbnail;
+
+//  @Column(nullable = false, name = "search_title")
+//  private String searchTitle;
+
+  @ManyToOne
+  @JoinColumn(name = "search_title")
+  private VideoGroup videoGroup;
 
   @Builder
-  public Video (String title, String video_id, String thumbnail, String search_title) {
+  public Video (String title, String videoId, String thumbnail, VideoGroup videoGroup) {
     this.title = title;
-    this.video_id = video_id;
+    this.videoId = videoId;
     this.thumbnail = thumbnail;
-    this.search_title = search_title;
+    this.videoGroup = videoGroup;
   }
 }
