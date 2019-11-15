@@ -34,7 +34,7 @@ export default {
     $http
       .get(`${API_URL}/news_content?url=${encodeURIComponent(url)}`)
       .then(({ data }) => {
-        commit(FETCH_CONTENT, { ...data.article });
+        commit(FETCH_CONTENT, data);
       });
   },
 };

@@ -2,6 +2,7 @@ package zuminternet.pilot.helper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import zuminternet.pilot.domain.MusicArticle;
@@ -14,9 +15,10 @@ public class Crawler {
 
   static private Document getDoc (String url) {
     Document doc = null;
-    String connURI = url;
     try {
-      doc = Jsoup.connect(connURI).get();
+      doc = Jsoup.connect(url)
+                 .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36")
+                 .get();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -89,4 +91,21 @@ public class Crawler {
     });
     return articles;
   }
+  static public void getYoutube (String url) {
+    Document doc = getDoc(url);
+    Elements els = doc.select("body script");
+    String word = "window[\"ytInitialData\"] = ";
+    for (Element el : els) {
+      String str = el.toString();
+      int index = str.indexOf(word);
+      if (index != -1) {
+        int start = index + word.length();
+        int end = str.indexOf("\n", start);
+        System.out.println(str.substring(start, end));
+        break;
+      }
+    }
+    System.out.println(els.size());
+  }
+
 }

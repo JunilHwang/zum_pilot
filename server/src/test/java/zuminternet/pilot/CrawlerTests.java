@@ -10,7 +10,7 @@ import zuminternet.pilot.helper.Crawler;
 class CrawlerTests {
 
   @Test
-  public void CrawlerNewsList () {
+  public void NewsList () {
     NewsArticle[] articles = Crawler.getNewsList(1);
     for (NewsArticle v : articles) {
       System.out.println(v);
@@ -18,13 +18,13 @@ class CrawlerTests {
   }
 
   @Test
-  public void CrawlerHeadline () {
+  public void Headline () {
     NewsArticle article = Crawler.getHeadline();
     System.out.println(article);
   }
 
   @Test
-  public void CrawlerPopular () {
+  public void Popular () {
     NewsArticle[] articles = Crawler.getPopular();
     for (NewsArticle v : articles) {
       System.out.println(v);
@@ -32,22 +32,27 @@ class CrawlerTests {
   }
 
   @Test
-  public void CrawlerContentOfSBS () {
+  public void ContentOfSBS () {
     NewsArticle article = Crawler.getNewsContent("http://sbsfune.sbs.co.kr/news/news_content.jsp?article_id=E10009711713");
     System.out.println(article);
   }
 
   @Test
-  public void CrawlerContentOfBillboard () {
+  public void ContentOfBillboard () {
     NewsArticle article = Crawler.getNewsContent("http://billboard.co.kr/main/news/view/296");
     System.out.println(article);
   }
 
   @Test
-  public void CrawlerMusicChart () {
+  public void MusicChart () {
     MusicArticle[] articles = Crawler.getMusicList();
     for (MusicArticle v : articles) {
       System.out.println(v);
     }
+  }
+
+  @Test
+  public void Youtube () {
+    Crawler.getYoutube("https://www.youtube.com/results?search_query=%ED%99%A9%EC%A4%80%EC%9D%BC&sp=EgIQAQ%253D%253D");
   }
 }

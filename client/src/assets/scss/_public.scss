@@ -37,3 +37,13 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
     &-to{transform:translateX(-50vw);position:absolute;left:10px;right:10px;z-index:10;}
   }
 }
+.slide-down{
+  &-enter{height:0;
+    &-active{transition:height 0.5s;overflow:hidden;}
+    &-to{height:140px;}
+  }
+  &-leave{height:140px;
+    &-active{transition:height 0.5s;overflow:hidden;}
+    &-to{height:0;}
+  }
+}

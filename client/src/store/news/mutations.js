@@ -7,19 +7,19 @@ import {
 } from './const';
 
 export default {
-  [FETCH_HEADLINE]: (state, { article }) => {
-    state.headline = article;
+  [FETCH_HEADLINE]: (state, { result }) => {
+    state.headline = result;
   },
-  [FETCH_POPULAR]: (state, { articles }) => {
-    state.populars = articles;
+  [FETCH_POPULAR]: (state, { result }) => {
+    state.populars = result;
   },
-  [FETCH_ARTICLES]: (state, { articles }) => {
-    state.articles = articles;
+  [FETCH_ARTICLES]: (state, { result }) => {
+    state.articles = result;
   },
-  [APPEND_ARTICLES]: (state, { articles }) => {
-    state.articles.push(...articles);
+  [APPEND_ARTICLES]: (state, { result }) => {
+    state.articles.push(...result);
   },
-  [FETCH_CONTENT]: (state, payload) => {
-    state.article = { ...payload };
+  [FETCH_CONTENT]: (state, { result }) => {
+    state.article = { ...result };
   },
 };
