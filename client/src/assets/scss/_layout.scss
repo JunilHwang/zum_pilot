@@ -80,7 +80,8 @@
     /* background:url(https://source.unsplash.com/random/500x200) no-repeat center / cover; */
     >strong{display:block;text-align:center;line-height:200px;background:fade-out(#000, 0.5);color:#fff;border-radius:3px;}
   }
-  &__article{background:#fff;border-radius:3px;margin-top:5px;display:flex;height:100px;position:relative;line-height:1;
+  &__article{background:#fff;border-radius:3px;margin-top:5px;
+    &-wrap{display:flex;height:100px;position:relative;line-height:1;}
     &:nth-child(1) .chart__rank{color:$color-main;}
     &:nth-child(2) .chart__rank{color:$color-blue1;}
     &:nth-child(3) .chart__rank{color:$color-blue2;}
@@ -96,4 +97,13 @@
   &__thumbnail{@include img-wrap($abs:true);position:absolute;right:0;top:0;bottom:0;width:100px;
     img{border-radius:3px;}
   }
+}
+
+/* 음원에 대한 비디오 목록 */
+.video{
+  &__slide{position:relative;box-sizing:border-box;border:1px solid #fff;}
+  &__thumbnail{@include img-wrap(true);width:100%;padding-top:60%;
+    &::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);}
+  }
+  &__title{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;letter-spacing:-0.5px;font-size:13px;}
 }
