@@ -109,3 +109,13 @@
   }
   &__title{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;letter-spacing:-0.5px;font-size:13px;}
 }
+
+/* 비디오 컨트롤러 */
+.video-player{position:relative;height:260px;
+  iframe{position:absolute;left:0;top:0;width:100%;height:100%;}
+}
+.controls{position:absolute;left:0;right:0;bottom:0;height:40px;background:fade-out(#000, 0.3);color:#fff;line-height:40px;padding:0 20px;display:flex;justify-content:space-between;align-items:center;
+  &__play-toggle{cursor:pointer;}
+  &__expand-toggle{cursor:pointer;}
+  &__mute-toggle{cursor:pointer;margin-left:20px;}
+}
