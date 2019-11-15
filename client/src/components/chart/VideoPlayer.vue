@@ -1,28 +1,17 @@
 <template>
   <section class="chart__video">
-    <video ref="videoPlayer" class="video-js" height="200"></video>
+    <strong v-if="music.selected === null">음원을 선택해주세요</strong>
+    <youtube v-else
+             :video-id="music.selected.videoId"
+             player-width="100%"
+             player-height="200" />
   </section>
 </template>
 
 <script>
-import videojs from 'video.js';
+import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      player: null,
-    };
-  },
-  mounted() {
-    this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-      console.log('onPlayerReady', this);
-    });
-  },
-  beforeDestroy() {
-    if (this.player) {
-      this.player.dispose();
-    }
-  },
+  computed: mapState(['music']),
 };
-
 </script>
