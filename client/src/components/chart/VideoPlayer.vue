@@ -1,10 +1,10 @@
 <template>
   <section class="chart__video">
-    <strong v-if="music.video === null">음원을 선택해주세요</strong>
+    <strong v-if="music.selectedVideo === null">음원을 선택해주세요</strong>
     <youtube v-else
-             :video-id="music.video.videoId"
+             :video-id="music.selectedVideo.videoId"
              player-width="100%"
-             player-height="200" />
+             player-height="260" />
   </section>
 </template>
 
