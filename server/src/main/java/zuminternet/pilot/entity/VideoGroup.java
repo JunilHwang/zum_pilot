@@ -18,9 +18,9 @@ public class VideoGroup {
 
   @Column(nullable = false, name = "search_title") private String searchTitle;
 
-  @OneToMany(fetch = FetchType.LAZY)
+  @OneToMany
   @JoinColumn(name = "gid")
-  private List<Video> VideoList;
+  private List<Video> VideoList = new ArrayList<Video>();
 
   @Builder
   public VideoGroup(String searchTitle) {
