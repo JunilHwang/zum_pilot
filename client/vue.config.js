@@ -6,5 +6,6 @@ module.exports = {
         target: 'http://0.0.0.0:8080',
       }
     }
-  }
+  },
+  outputDir: '../server/src/main/resources/static'
 }
