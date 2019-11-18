@@ -118,4 +118,11 @@
   &__play-toggle{cursor:pointer;}
   &__expand-toggle{cursor:pointer;}
   &__mute-toggle{cursor:pointer;margin-left:20px;}
+  &__progress{position:absolute;top:-4px;height:4px;left:0;right:0;
+    input{-webkit-appearance:none;background:transparent;margin:-4px 0 0;position:absolute;top:2px;left:0;width:100%;z-index:10;border:none;
+      &::-webkit-slider-thumb{-webkit-appearance:none;height:8px;width:8px;border-radius:8px;background:$color-main;cursor:pointer;}
+    }
+    .bg{background:fade-out(#fff, 0.5);height:4px;position:absolute;left:0;right:0;top:0;}
+    .fill{background:$color-main;height:4px;position:absolute;left:0;top:0;}
+  }
 }

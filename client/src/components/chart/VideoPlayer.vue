@@ -9,10 +9,21 @@
                ref="youtube"
                @ready="ready" />
       <div class="controls" v-if="showControls">
+        <div class="controls__progress">
+          <div class="bg" />
+          <div class="fill"
+               :style="{width: `${(current / duration) * 100}%`}" />
+          <input type="range"
+                 v-model="current"
+                 step="0.1"
+                 :max="duration"
+                 @change="timeUpdated"
+                 @input="timeUpdating" />
+        </div>
         <div class="controls__left">
           <span class="controls__play-toggle">
-            <FAI icon="pause" v-if="isPlay" @click="pause" />
-            <FAI icon="play" v-else @click="play" />
+            <FAI icon="pause" v-if="isPlay" @click="player.pauseVideo" />
+            <FAI icon="play" v-else @click=" player.playVideo" />
           </span>
           <span class="controls__mute-toggle">
             <FAI icon="volume-down" size="lg" v-if="isMuted === false" @click="toggleMute" />
@@ -32,6 +43,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import bus from '@/eventBus';
 
 export default {
   computed: {
@@ -43,6 +55,9 @@ export default {
       return [1, 3].indexOf(this.state) !== -1;
     },
   },
+  created() {
+    bus.$on('selectVideo', this.selectVideo);
+  },
   data() {
     return {
       options: {
@@ -53,6 +68,9 @@ export default {
       state: 0,
       isFullScreen: false,
       isMuted: false,
+      duration: 100,
+      current: 0,
+      timer: null,
     };
   },
   methods: {
@@ -62,16 +80,24 @@ export default {
       document.removeEventListener('fullscreenchange', this.screenChange);
       document.addEventListener('fullscreenchange', this.screenChange);
     },
-    play() {
-      this.player.playVideo();
+    clear() {
+      clearTimeout(this.timer);
     },
-    pause() {
-      this.player.pauseVideo();
+    videoInit() {
+      this.isMuted = false;
+      this.player.unMute();
+      this.current = 0;
+      this.duration = 100;
+      this.timer = null;
     },
     async stateChange({ data }) {
+      console.log(data);
       if (data === -1) {
-        this.isMuted = false;
-        this.player.unMute();
+        this.videoInit();
+      } else if (data === 1) {
+        this.timeCheck();
+      } else {
+        this.clear();
       }
       this.state = await this.player.getPlayerState();
     },
@@ -87,6 +113,20 @@ export default {
     async toggleMute() {
       this.player[this.isMuted ? 'unMute' : 'mute']();
       this.isMuted = !this.isMuted;
+    },
+    async timeCheck() {
+      this.clear();
+      this.duration = await this.player.getDuration();
+      this.timer = setInterval(() => {
+        this.current = (this.current + 0.1) % this.duration;
+      }, 100);
+    },
+    timeUpdating({ target }) {
+      this.player.seekTo(target.value);
+    },
+    async timeUpdated() {
+      this.current = await this.player.getCurrentTime();
+      this.timeCheck();
     },
   },
 };
