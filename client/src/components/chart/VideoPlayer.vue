@@ -8,7 +8,7 @@
                height="260"
                ref="youtube"
                @ready="ready" />
-      <div class="controls" v-if="showControls">
+      <div class="controls" :class="{ active: controlsActive }" v-if="showControls">
         <div class="controls__progress">
           <div class="bg" />
           <div class="fill"
@@ -17,8 +17,7 @@
                  v-model="current"
                  step="0.1"
                  :max="duration"
-                 @change="timeUpdated"
-                 @input="timeUpdating" />
+                 @input="timeUpdate" />
         </div>
         <div class="controls__left">
           <span class="controls__play-toggle">
@@ -71,6 +70,7 @@ export default {
       duration: 100,
       current: 0,
       timer: null,
+      controlsActive: false,
     };
   },
   methods: {
@@ -91,10 +91,11 @@ export default {
       this.timer = null;
     },
     async stateChange({ data }) {
-      console.log(data);
+      this.controlsActive = true;
       if (data === -1) {
         this.videoInit();
       } else if (data === 1) {
+        this.controlsActive = false;
         this.timeCheck();
       } else {
         this.clear();
@@ -117,16 +118,12 @@ export default {
     async timeCheck() {
       this.clear();
       this.duration = await this.player.getDuration();
-      this.timer = setInterval(() => {
-        this.current = (this.current + 0.1) % this.duration;
+      this.timer = setInterval(async () => {
+        this.current = await this.player.getCurrentTime();
       }, 100);
     },
-    timeUpdating({ target }) {
+    timeUpdate({ target }) {
       this.player.seekTo(target.value);
-    },
-    async timeUpdated() {
-      this.current = await this.player.getCurrentTime();
-      this.timeCheck();
     },
   },
 };
