@@ -9,7 +9,6 @@ export default {
     state.video = result;
   },
   [SELECT_VIDEO]: (state, payload) => {
-    console.log(payload);
     state.selectedVideo = payload;
   },
 };

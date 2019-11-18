@@ -3,4 +3,5 @@ export default {
   video: null,
   selected: null,
   selectedVideo: null,
+  videoId: null,
 };
