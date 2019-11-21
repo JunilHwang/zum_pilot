@@ -102,8 +102,9 @@
 }
 
 /* 음원에 대한 비디오 목록 */
+.panels{height:140px;}
+.panel{position:relative;width:50%;height:100%;border-radius:10px;}
 .video{
-  &__slide{position:relative;box-sizing:border-box;border:1px solid #fff;}
   &__thumbnail{@include img-wrap(true);width:100%;padding-top:60%;
     &::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);}
   }

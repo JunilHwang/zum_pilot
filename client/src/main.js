@@ -1,5 +1,5 @@
 import VueYoutube from 'vue-youtube';
-import VueCarousel from 'vue-carousel';
+import VueFlicking from '@egjs/vue-flicking';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -11,7 +11,7 @@ require('./icon');
 Vue.config.productionTip = false;
 Vue.prototype.helper = helper;
 Vue.use(VueYoutube);
-Vue.use(VueCarousel);
+Vue.use(VueFlicking);
 
 new Vue({
   router,

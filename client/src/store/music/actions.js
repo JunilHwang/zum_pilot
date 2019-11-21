@@ -20,12 +20,11 @@ export default {
       $http
         .get(`${API_URL}/music-video`, { params })
         .then(({ data }) => {
-          const payload = { ...data, ...params };
-          call(payload);
-          localStorage.setItem(params.q, JSON.stringify(payload));
+          call({ ...data, selected: params.selected });
+          localStorage.setItem(params.q, JSON.stringify(data));
         });
     } else {
-      call(JSON.parse(cache));
+      call({ ...params, ...JSON.parse(cache) });
     }
   },
 };
