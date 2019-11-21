@@ -21,33 +21,24 @@
         :key="k"
       />
     </section>
+    <transition name="page-up">
+      <NewsDetail v-if="news.viewState !== false" />
+    </transition>
   </main>
 </template>
 <script>
 import { mapState } from 'vuex';
-import { CHANGE_TRANSITION } from '@/store/const';
-import {
-  FETCH_HEADLINE,
-  FETCH_POPULAR,
-  FETCH_ARTICLES,
-} from '@/store/news/const';
+import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
 import NewsWrapper from '@/components/news/NewsWrapper.vue';
+import NewsDetail from '@/components/news/Detail.vue';
 
 export default {
-  components: {
-    NewsWrapper,
-  },
+  components: { NewsWrapper, NewsDetail },
   computed: mapState(['news']),
   data() {
     return {
       page: 1,
     };
-  },
-  beforeRouteLeave(to, from, next) {
-    if (to.path.indexOf('/news') !== -1) {
-      this.$store.commit(CHANGE_TRANSITION, 'slide-left');
-    }
-    next();
   },
   created() {
     this.$store.dispatch(FETCH_HEADLINE);

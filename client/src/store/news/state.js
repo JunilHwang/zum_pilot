@@ -6,4 +6,5 @@ export default {
     title: '',
     content: '',
   },
+  viewState: false,
 };
