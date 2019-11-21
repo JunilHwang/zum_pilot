@@ -3,15 +3,12 @@
 </template>
 
 <script>
-import Headline from './Headline.vue';
-import Popular from './Popular.vue';
-import Article from './Article.vue';
+const Headline = () => import('./Headline.vue');
+const Popular = () => import('./Popular.vue');
+const Article = () => import('./Article.vue');
 
 export default {
-  components: {
-    Headline, Popular, Article,
-  },
+  components: { Headline, Popular, Article },
   props: ['type', 'properties'],
 };
-
 </script>

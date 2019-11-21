@@ -8,15 +8,13 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import CharArticle from '@/components/chart/Article.vue';
-import VideoPlayer from '@/components/chart/VideoPlayer.vue';
 import { FETCH_MUSIC } from '@/store/music/const';
 
+const CharArticle = () => import('@/components/chart/Article.vue');
+const VideoPlayer = () => import('@/components/chart/VideoPlayer.vue');
+
 export default {
-  components: {
-    CharArticle,
-    VideoPlayer,
-  },
+  components: { CharArticle, VideoPlayer },
   computed: mapState(['music']),
   data() {
     return {

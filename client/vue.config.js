@@ -1,3 +1,5 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   devServer: {
     port: 3000,
@@ -7,5 +9,12 @@ module.exports = {
       }
     }
   },
-  outputDir: '../server/src/main/resources/static'
+  outputDir: '../server/src/main/resources/static',
+  configureWebpack: {
+    plugins: [
+      new BundleAnalyzerPlugin({
+        // analyzerMode: 'disabled'
+      })
+    ]
+  }
 }

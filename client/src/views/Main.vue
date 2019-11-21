@@ -29,8 +29,9 @@
 <script>
 import { mapState } from 'vuex';
 import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
-import NewsWrapper from '@/components/news/NewsWrapper.vue';
-import NewsDetail from '@/components/news/Detail.vue';
+
+const NewsWrapper = () => import(/* webpackChunkName: "news-component" */ '@/components/news/NewsWrapper.vue');
+const NewsDetail = () => import(/* webpackChunkName: "news-component" */ '@/components/news/Detail.vue');
 
 export default {
   components: { NewsWrapper, NewsDetail },

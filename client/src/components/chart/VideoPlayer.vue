@@ -92,13 +92,17 @@ export default {
     },
     async stateChange({ data }) {
       this.controlsActive = true;
-      if (data === -1) {
-        this.videoInit();
-      } else if (data === 1) {
-        this.controlsActive = false;
-        this.timeCheck();
-      } else {
-        this.clear();
+      switch (true) {
+        case data === -1:
+          this.videoInit();
+          break;
+        case data === 1:
+          this.controlsActive = false;
+          this.timeCheck();
+          break;
+        default:
+          this.clear();
+          break;
       }
       this.state = await this.player.getPlayerState();
     },

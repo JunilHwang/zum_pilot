@@ -10,7 +10,4 @@ export const windowBottomSensor = (callback) => {
   }
 };
 
-export default {
-  previewTitle,
-  windowBottomSensor,
-};
+export default { previewTitle, windowBottomSensor };

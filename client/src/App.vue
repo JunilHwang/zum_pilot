@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="{ sticky: isSticky }">
-    <SiteHeader />
+    <SiteHeader v-once />
     <div class="content-wrap">
       <nav class="main-content__header" ref="nav">
         <ul>
@@ -16,19 +16,16 @@
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
-    <SiteFooter />
+    <SiteFooter v-once />
   </div>
 </template>
 
 <script>
-import SiteHeader from '@/components/templates/SiteHeader.vue';
-import SiteFooter from '@/components/templates/SiteFooter.vue';
+const SiteHeader = () => import(/* webpackChunkName: "template" */'@/components/templates/SiteHeader.vue');
+const SiteFooter = () => import(/* webpackChunkName: "template" */'@/components/templates/SiteFooter.vue');
 
 export default {
-  components: {
-    SiteHeader,
-    SiteFooter,
-  },
+  components: { SiteHeader, SiteFooter },
   data() {
     return {
       menu: [
@@ -52,10 +49,15 @@ export default {
       this.sticky(scrollY, ot);
     },
     sticky(scrollY, ot) {
-      if (scrollY > ot && !this.isSticky) {
-        this.isSticky = true;
-      } else if (scrollY <= ot && this.isSticky) {
-        this.isSticky = false;
+      switch (true) {
+        case scrollY > ot && !this.isSticky:
+          this.isSticky = true;
+          break;
+        case scrollY <= ot && this.isSticky:
+          this.isSticky = false;
+          break;
+        default:
+          break;
       }
     },
   },

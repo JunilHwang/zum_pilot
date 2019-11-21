@@ -18,8 +18,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import VideoList from './VideoList.vue';
 import { FETCH_VIDEO } from '@/store/music/const';
+
+const VideoList = () => import('./VideoList.vue');
 
 export default {
   components: { VideoList },
