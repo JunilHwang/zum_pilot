@@ -1,13 +1,13 @@
 <template>
   <article class="news-article">
     <figure class="news-article__img">
-      <router-link :to="`/news/${encodeURIComponent(link)}`">
+      <a @click.prevent="viewDetail">
         <img :src="img" :alt="title">
-      </router-link>
+      </a>
     </figure>
     <div class="news-article__content">
       <h3 class="news-article__title">
-        <router-link :to="`/news/${encodeURIComponent(link)}`" v-html="title" />
+        <a @click.prevent="viewDetail" v-html="title" />
       </h3>
       <p class="news-article__regdate">
         <FAI :icon="['far', 'clock']" />
@@ -18,7 +18,14 @@
 </template>
 
 <script>
+import { VIEW_CONTENT } from '@/store/news/const';
+
 export default {
+  methods: {
+    viewDetail() {
+      this.$store.commit(VIEW_CONTENT, this.link);
+    },
+  },
   props: ['title', 'regDate', 'img', 'link'],
 };
 

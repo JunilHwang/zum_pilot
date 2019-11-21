@@ -1,9 +1,6 @@
 import {
-  FETCH_HEADLINE,
-  FETCH_POPULAR,
-  FETCH_ARTICLES,
-  APPEND_ARTICLES,
-  FETCH_CONTENT,
+  FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES, APPEND_ARTICLES,
+  FETCH_CONTENT, VIEW_CONTENT,
 } from './const';
 
 export default {
@@ -21,5 +18,8 @@ export default {
   },
   [FETCH_CONTENT]: (state, { result }) => {
     state.article = { ...result };
+  },
+  [VIEW_CONTENT]: (state, payload) => {
+    state.viewState = payload;
   },
 };

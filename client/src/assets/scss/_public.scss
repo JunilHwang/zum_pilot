@@ -27,16 +27,6 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
 }
 
 /* vue transition */
-.slide-left{
-  &-enter{transform:translateX(100vw);
-    &-active{transition:transform 0.5s;}
-    &-to{transform:translateX(0);position:relative;z-index:20}
-  }
-  &-leave{
-    &-active{transition:transform 0.5s;}
-    &-to{transform:translateX(-50vw);position:absolute;left:10px;right:10px;z-index:10;}
-  }
-}
 .slide-down{
   &-enter{height:0;
     &-active{transition:height 0.5s;overflow:hidden;}
@@ -45,5 +35,15 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
   &-leave{height:140px;
     &-active{transition:height 0.5s;overflow:hidden;}
     &-to{height:0;}
+  }
+}
+.page-up{
+  &-enter{transform:translateY(100%);
+    &-active{transition:transform 0.5s;}
+    &-to{transform:translateY(0);}
+  }
+  &-leave{transform:translateY(0);
+    &-active{transition:transform 0.5s;}
+    &-to{transform:translateY(100%);}
   }
 }

@@ -1,8 +1,5 @@
 import $http from 'axios';
-import {
-  FETCH_MUSIC,
-  FETCH_VIDEO,
-} from './const';
+import { FETCH_MUSIC, FETCH_VIDEO } from './const';
 import { API_URL } from '../const';
 
 export default {
