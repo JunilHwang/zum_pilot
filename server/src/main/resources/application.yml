@@ -32,3 +32,6 @@ logging:
   level:
     root: warn
     zuminternet.pilot.*: info
+
+pebble:
+  suffix: .html

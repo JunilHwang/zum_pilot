@@ -141,3 +141,18 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 2019-11-14 16:39:16 jdbc[45]: exception
 org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "search_title_test"; SQL statement:
 alter table video add constraint FKr20ll1cloq0x7tb8exdk7o6ol foreign key (search_title) references video_group [22018-199]
+2019-11-20 17:44:50 database: wrong user or password; user: ""
+org.h2.message.DbException: Wrong user name or password [28000-199]
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.message.DbException.get(DbException.java:170)
+	at org.h2.engine.Engine.openSession(Engine.java:126)
+	at org.h2.engine.Engine.openSession(Engine.java:201)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.server.TcpServerThread.run(TcpServerThread.java:160)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name or password [28000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:459)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	... 9 more
