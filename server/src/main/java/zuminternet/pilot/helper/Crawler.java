@@ -5,10 +5,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
+import org.springframework.cache.annotation.Cacheable;
 import zuminternet.pilot.domain.MusicArticle;
 import zuminternet.pilot.domain.NewsArticle;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Crawler {
   static private String SBSURL ="http://sbsfune.sbs.co.kr";
@@ -24,20 +27,22 @@ public class Crawler {
     }
     return doc;
   }
-  static public NewsArticle[] getNewsList (int page) {
+
+  static public List<NewsArticle> getNewsList (int page) {
     Document doc = getDoc(SBSURL + "/news/ssports_list.jsp?code_category=SS04&pageNo=" + page);
     Elements els = doc.select(".list_news").select("li");
-    NewsArticle[] articles = new NewsArticle[els.size()];
+    List<NewsArticle> articles = new ArrayList();
     els.forEach(el -> {
       NewsArticle article = new NewsArticle();
       article.setImg(el.select("img").attr("data-src"));
       article.setTitle(el.select("a strong").text());
       article.setRegDate(el.select(">span").text());
       article.setLink(SBSURL + el.select(">a").attr("href"));
-      articles[el.elementSiblingIndex()] = article;
+      articles.add(article);
     });
     return articles;
   }
+
   static public NewsArticle getHeadline () {
     Document doc = getDoc(SBSURL + "/news");
     NewsArticle article = new NewsArticle();
@@ -48,17 +53,17 @@ public class Crawler {
     article.setLink(el.select("a").attr("href"));
     return article;
   }
-  static public NewsArticle[] getPopular () {
+  static public List<NewsArticle> getPopular () {
     String billboardURL = "http://billboard.co.kr";
     Document doc = getDoc(billboardURL + "/main/news/list");
     Elements els = doc.select("#new_area").select("li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4)");
-    NewsArticle[] articles = new NewsArticle[els.size()];
+    List<NewsArticle> articles = new ArrayList();
     els.forEach(el -> {
       NewsArticle article = new NewsArticle();
       article.setTitle(el.select(".txt span").text());
       article.setImg(billboardURL + el.select("img").attr("src"));
       article.setLink(billboardURL + el.select("a").attr("href"));
-      articles[el.elementSiblingIndex()] = article;
+      articles.add(article);
     });
     return articles;
   }
@@ -77,17 +82,17 @@ public class Crawler {
     article.setContent(cleanContent);
     return article;
   }
-  static public MusicArticle[] getMusicList () {
+  static public List<MusicArticle> getMusicList () {
     Document doc = getDoc("https://www.melon.com/chart/");
     Elements els = doc.select("tr[class^=\"lst\"]");
-    MusicArticle[] articles = new MusicArticle[els.size()];
+    List<MusicArticle> articles = new ArrayList();
     els.forEach(el -> {
       MusicArticle article = new MusicArticle();
       article.setImg(el.select("td:nth-child(4) img").attr("src"));
       article.setTitle(el.select(".ellipsis.rank01 a").text());
       article.setArtist(el.select(".ellipsis.rank02 > a").text());
       article.setAlbum(el.select(".ellipsis.rank03 a").text());
-      articles[el.elementSiblingIndex()] = article;
+      articles.add(article);
     });
     return articles;
   }
