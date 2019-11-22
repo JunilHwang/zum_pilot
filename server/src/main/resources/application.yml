@@ -34,4 +34,5 @@ logging:
     zuminternet.pilot.*: info
 
 pebble:
+  prefix: /static/
   suffix: .html

@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
-const Main = () => import('../views/Main.vue');
-const Chart = () => import('../views/Chart.vue');
+import { Main, Chart } from '@/views';
 
 Vue.use(VueRouter);
 const routes = [

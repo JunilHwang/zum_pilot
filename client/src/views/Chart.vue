@@ -2,19 +2,17 @@
   <main class="chart">
     <VideoPlayer />
     <section class="chart__wrap">
-      <CharArticle v-for="(v, k) in len" :key="v" v-bind="{ k, ...music.articles[k] }" />
+      <ChartArticle v-for="(v, k) in len" :key="v" v-bind="{ k, ...music.articles[k] }" />
     </section>
   </main>
 </template>
 <script>
 import { mapState } from 'vuex';
 import { FETCH_MUSIC } from '@/store/music/const';
-
-const CharArticle = () => import('@/components/chart/Article.vue');
-const VideoPlayer = () => import('@/components/chart/VideoPlayer.vue');
+import { ChartArticle, VideoPlayer } from '@/components/chart';
 
 export default {
-  components: { CharArticle, VideoPlayer },
+  components: { ChartArticle, VideoPlayer },
   computed: mapState(['music']),
   data() {
     return {

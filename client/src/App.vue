@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="{ sticky: isSticky }">
-    <SiteHeader v-once />
+    <SiteHeader />
     <div class="content-wrap">
       <nav class="main-content__header" ref="nav">
         <ul>
@@ -16,13 +16,12 @@
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
-    <SiteFooter v-once />
+    <SiteFooter />
   </div>
 </template>
 
 <script>
-const SiteHeader = () => import(/* webpackChunkName: "template" */'@/components/templates/SiteHeader.vue');
-const SiteFooter = () => import(/* webpackChunkName: "template" */'@/components/templates/SiteFooter.vue');
+import { SiteHeader, SiteFooter } from '@/components/templates';
 
 export default {
   components: { SiteHeader, SiteFooter },

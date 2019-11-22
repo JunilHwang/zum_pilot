@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -10,11 +11,18 @@ module.exports = {
     }
   },
   outputDir: '../server/src/main/resources/static',
-  configureWebpack: {
-    plugins: [
-      new BundleAnalyzerPlugin({
-        // analyzerMode: 'disabled'
-      })
-    ]
-  }
+  configureWebpack: config => {
+    config.optimization = {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          parallel: 4,
+          cache: true
+        })
+      ]
+    }
+    if (process.env.NODE_ENV === 'analyze') {
+      config.plugins = [new BundleAnalyzerPlugin()];
+    }
+  },
 }

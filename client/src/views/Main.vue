@@ -3,20 +3,20 @@
     <section class="main-content__section news">
       <NewsWrapper
         v-if="news.headline !== null"
-        type="Headline"
+        type="NewsHeadline"
         :properties="news.headline"
       />
       <ul class="news-thumbs">
         <NewsWrapper
           v-for="(props, k) in news.populars"
-          type="Popular"
+          type="NewsPopular"
           :properties="{ ...props }"
           :key="k"
         />
       </ul>
       <NewsWrapper
         v-for="(props, k) in news.articles"
-        type="Article"
+        type="NewsArticle"
         :properties="{ ...props }"
         :key="k"
       />
@@ -29,9 +29,7 @@
 <script>
 import { mapState } from 'vuex';
 import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
-
-const NewsWrapper = () => import(/* webpackChunkName: "news-component" */ '@/components/news/NewsWrapper.vue');
-const NewsDetail = () => import(/* webpackChunkName: "news-component" */ '@/components/news/Detail.vue');
+import { NewsWrapper, NewsDetail } from '@/components/news';
 
 export default {
   components: { NewsWrapper, NewsDetail },

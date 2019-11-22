@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c86a5"],{"557f":function(e,t,n){"use strict";n.r(t);var r=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},s=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("footer",{staticClass:"site-footer"},[n("p",[e._v("© "),n("strong",[e._v("ZUM Internet Corp")]),e._v(". All Rights Reserved.")])])}],c=n("2877"),l={},o=Object(c["a"])(l,r,s,!1,null,null,null);t["default"]=o.exports}}]);
-//# sourceMappingURL=chunk-2d0c86a5.4ae37cce.js.map
