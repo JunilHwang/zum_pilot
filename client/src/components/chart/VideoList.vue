@@ -1,6 +1,6 @@
 <template>
   <div class="video__wrap">
-    <flicking class="panels"
+    <Flicking class="panels"
               @select="selectVideo"
               :options="{ gap: 2, circular: true, hanger: 0, anchor: 0 }">
       <div v-for="(v, k) in music.video"
@@ -11,19 +11,18 @@
         </figure>
         <strong class="video__title" v-html="v.title" />
       </div>
-    </flicking>
+    </Flicking>
   </div>
 </template>
 
 <script>
+import { Flicking } from '@egjs/vue-flicking';
 import { mapState } from 'vuex';
 import { SELECT_VIDEO } from '@/store/music/const';
 
 export default {
+  components: { Flicking },
   computed: mapState(['music']),
-  data() {
-    return { x: 0, y: 0 };
-  },
   methods: {
     selectVideo({ index }) {
       this.$store.commit(SELECT_VIDEO, this.music.video[index]);

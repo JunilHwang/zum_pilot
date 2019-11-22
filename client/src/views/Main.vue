@@ -1,64 +1,80 @@
 <template>
   <main class="main-content">
-    <section class="main-content__section news">
-      <NewsWrapper
-        v-if="news.headline !== null"
-        type="NewsHeadline"
-        :properties="news.headline"
-      />
-      <ul class="news-thumbs">
-        <NewsWrapper
-          v-for="(props, k) in news.populars"
-          type="NewsPopular"
-          :properties="{ ...props }"
-          :key="k"
-        />
-      </ul>
-      <NewsWrapper
-        v-for="(props, k) in news.articles"
-        type="NewsArticle"
-        :properties="{ ...props }"
-        :key="k"
-      />
-    </section>
+    <Flicking class="main-content__panels"
+              :options="flickOption"
+              @change="pageChange"
+              ref="flicking">
+      <div class="main-content__panel">
+        <News />
+      </div>
+      <div class="main-content__panel">
+        <Chart />
+      </div>
+    </Flicking>
     <transition name="page-up">
       <NewsDetail v-if="news.viewState !== false" />
     </transition>
   </main>
 </template>
 <script>
+import { Flicking } from '@egjs/vue-flicking';
 import { mapState } from 'vuex';
-import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
-import { NewsWrapper, NewsDetail } from '@/components/news';
+import { News, NewsDetail } from '@/components/news';
+import { Chart } from '@/components/chart';
+import eventBus from '@/eventBus';
 
 export default {
-  components: { NewsWrapper, NewsDetail },
-  computed: mapState(['news']),
-  data() {
-    return {
-      page: 1,
-    };
+  components: {
+    News,
+    NewsDetail,
+    Chart,
+    Flicking,
   },
-  created() {
-    this.$store.dispatch(FETCH_HEADLINE);
-    this.$store.dispatch(FETCH_POPULAR);
-    this.$store.dispatch(FETCH_ARTICLES);
-    window.removeEventListener('scroll', this.listLoading);
-    window.addEventListener('scroll', this.listLoading);
-  },
-  methods: {
-    listLoading() {
-      this.helper.windowBottomSensor(() => {
-        this.page += 1;
-        this.$store.dispatch(FETCH_ARTICLES, this.page);
-        if (this.page >= 5) {
-          window.removeEventListener('scroll', this.listLoading);
-        }
-      });
+  computed: {
+    ...mapState(['news']),
+    path() {
+      return this.$route.path;
+    },
+    flicking() {
+      return this.$refs.flicking;
     },
   },
+  data() {
+    return {
+      flickOption: {
+        classPrefix: 'main-content__flick',
+        hanger: 0,
+        anchor: 0,
+        zIndex: 10,
+        gap: 10,
+        renderOnlyVisible: true,
+      },
+    };
+  },
+  methods: {
+    pageChange({ index }) {
+      const nextPath = ['/', '/chart'][index];
+      if (nextPath !== this.path) {
+        this.$router.push(nextPath);
+      }
+    },
+    move() {
+      const index = { '/': 0, '/chart': 1 }[this.path];
+      this.flicking.moveTo(index);
+    },
+  },
+  created() {
+    eventBus.$on('resize', () => {
+      this.flicking.resize();
+    });
+  },
   mounted() {
-    window.scrollTo(0, 0);
+    this.move();
+  },
+  watch: {
+    path() {
+      this.move();
+    },
   },
 };
 </script>

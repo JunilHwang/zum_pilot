@@ -1,16 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { Main, Chart } from '@/views';
+import { Main } from '@/views';
 
 Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
+    alias: '/chart',
     component: Main,
-  },
-  {
-    path: '/chart',
-    component: Chart,
   },
 ];
 const router = new VueRouter({
