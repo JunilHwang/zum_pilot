@@ -21,14 +21,10 @@
 </template>
 
 <script>
-import SiteHeader from '@/components/templates/SiteHeader.vue';
-import SiteFooter from '@/components/templates/SiteFooter.vue';
+import { SiteHeader, SiteFooter } from '@/components/templates';
 
 export default {
-  components: {
-    SiteHeader,
-    SiteFooter,
-  },
+  components: { SiteHeader, SiteFooter },
   data() {
     return {
       menu: [
@@ -52,10 +48,15 @@ export default {
       this.sticky(scrollY, ot);
     },
     sticky(scrollY, ot) {
-      if (scrollY > ot && !this.isSticky) {
-        this.isSticky = true;
-      } else if (scrollY <= ot && this.isSticky) {
-        this.isSticky = false;
+      switch (true) {
+        case scrollY > ot && !this.isSticky:
+          this.isSticky = true;
+          break;
+        case scrollY <= ot && this.isSticky:
+          this.isSticky = false;
+          break;
+        default:
+          break;
       }
     },
   },

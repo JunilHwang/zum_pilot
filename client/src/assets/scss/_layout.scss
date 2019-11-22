@@ -102,7 +102,7 @@
 }
 
 /* 음원에 대한 비디오 목록 */
-.panels{height:140px;}
+.panels{height:140px;margin-top:2px;}
 .panel{position:relative;width:50%;height:100%;border-radius:10px;}
 .video{
   &__thumbnail{@include img-wrap(true);width:100%;padding-top:60%;
