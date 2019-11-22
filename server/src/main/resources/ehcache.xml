@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+    <cache name="NewsCache"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="60"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+    <cache name="MusicCache"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="300"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+    <cache name="VideoCache"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+</ehcache>

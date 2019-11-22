@@ -6,12 +6,14 @@ import zuminternet.pilot.domain.MusicArticle;
 import zuminternet.pilot.domain.NewsArticle;
 import zuminternet.pilot.helper.Crawler;
 
+import java.util.List;
+
 @SpringBootTest
 class CrawlerTests {
 
   @Test
   public void NewsList () {
-    NewsArticle[] articles = Crawler.getNewsList(1);
+    List<NewsArticle> articles = Crawler.getNewsList(1);
     for (NewsArticle v : articles) {
       System.out.println(v);
     }
@@ -25,7 +27,7 @@ class CrawlerTests {
 
   @Test
   public void Popular () {
-    NewsArticle[] articles = Crawler.getPopular();
+    List<NewsArticle> articles = Crawler.getPopular();
     for (NewsArticle v : articles) {
       System.out.println(v);
     }
@@ -45,7 +47,7 @@ class CrawlerTests {
 
   @Test
   public void MusicChart () {
-    MusicArticle[] articles = Crawler.getMusicList();
+    List<MusicArticle> articles = Crawler.getMusicList();
     for (MusicArticle v : articles) {
       System.out.println(v);
     }
