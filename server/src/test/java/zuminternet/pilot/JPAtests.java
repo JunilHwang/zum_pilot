@@ -4,9 +4,12 @@ import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import zuminternet.pilot.entity.User;
 import zuminternet.pilot.entity.Video;
 import zuminternet.pilot.entity.VideoGroup;
+import zuminternet.pilot.entity.VideoLike;
 import zuminternet.pilot.repository.VideoGroupRepository;
+import zuminternet.pilot.repository.VideoLikeRepository;
 import zuminternet.pilot.repository.VideoRepository;
 
 import java.util.ArrayList;
@@ -19,6 +22,9 @@ public class JPAtests {
 
   @Autowired
   VideoGroupRepository videoGroupRepository;
+
+  @Autowired
+  VideoLikeRepository videoLikeRepository;
 
   @Test
   public void videoTest () {
@@ -39,5 +45,42 @@ public class JPAtests {
     videoRepository.saveAll(videoList);
     parent.getVideoList().addAll(videoList);
     System.out.println(videoList);
+  }
+
+  @Test
+  public void videoBuild () {
+    Video video = Video.builder()
+                       .videoId("videoId")
+                       .thumbnail("thumbnail")
+                       .title("title")
+                       .build();
+    System.out.println(video);
+  }
+
+  @Test
+  public void videoLikeBuild () {
+    VideoLike like = VideoLike.builder().videoIdx(1).userIdx(1).build();
+    System.out.println(like);
+  }
+
+  @Test
+  public void userBuild () {
+    User user = User.builder().id("test").pw("test").name("test").build();
+    System.out.println(user);
+  }
+
+  @Test
+  public void countLike () {
+    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(1).build());
+    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(2).build());
+    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(3).build());
+    videoLikeRepository.save(VideoLike.builder().userIdx(2).videoIdx(1).build());
+    videoLikeRepository.save(VideoLike.builder().userIdx(3).videoIdx(1).build());
+    long cnt1 = videoLikeRepository.countAllByUserIdx(1);
+    long cnt2 = videoLikeRepository.countAllByVideoIdx(1);
+    System.out.println("----");
+    System.out.println(cnt1);
+    System.out.println(cnt2);
+    System.out.println("----\n");
   }
 }

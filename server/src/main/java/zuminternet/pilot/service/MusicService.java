@@ -22,9 +22,6 @@ public class MusicService {
   @Autowired
   private VideoGroupRepository videoGroupRepository;
 
-  @Autowired
-  private MusicService musicService;
-
   @Cacheable(cacheNames = "MusicCache", key = "'top100'")
   public List<MusicArticle> getMusic () {
     return Crawler.getMusicList();
@@ -35,7 +32,7 @@ public class MusicService {
     VideoGroup parent = videoGroupRepository.findBySearchTitle(q);
     List<Video> result;
     if (parent == null) {
-      parent = new VideoGroup(q);
+      parent = VideoGroup.builder().searchTitle(q).build();
       result = YoutubeSearch.execute(q);
       videoRepository.saveAll(result);
       parent.getVideoList().addAll(result);
