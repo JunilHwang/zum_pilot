@@ -30,6 +30,7 @@
 import { mapState } from 'vuex';
 import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
 import { NewsWrapper, NewsDetail } from '@/components/news';
+import eventBus from '@/eventBus';
 
 export default {
   components: { NewsWrapper, NewsDetail },
@@ -43,18 +44,13 @@ export default {
     this.$store.dispatch(FETCH_HEADLINE);
     this.$store.dispatch(FETCH_POPULAR);
     this.$store.dispatch(FETCH_ARTICLES);
-    window.removeEventListener('scroll', this.listLoading);
-    window.addEventListener('scroll', this.listLoading);
+    eventBus.$on('newsLoad', this.listLoading);
   },
   methods: {
     listLoading() {
-      this.helper.windowBottomSensor(() => {
-        this.page += 1;
-        this.$store.dispatch(FETCH_ARTICLES, this.page);
-        if (this.page >= 5) {
-          window.removeEventListener('scroll', this.listLoading);
-        }
-      });
+      if (this.page >= 5) return;
+      this.page += 1;
+      this.$store.dispatch(FETCH_ARTICLES, this.page);
     },
   },
   mounted() {

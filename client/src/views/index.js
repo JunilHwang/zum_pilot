@@ -1,4 +1,4 @@
-export const Chart = () => import(/* webpackChunkName: "router.chart" */'./Chart.vue');
-export const Main = () => import(/* webpackChunkName: "router.Main" */'./Main.vue');
+export const News = () => import(/* webpackChunkName: "views" */'./News.vue');
+export const Chart = () => import(/* webpackChunkName: "views" */'./Chart.vue');
 
 export default { };

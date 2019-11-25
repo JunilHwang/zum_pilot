@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { Main, Chart } from '@/views';
+import { News, Chart } from '@/views';
 
 Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    component: Main,
+    alias: '/news',
+    component: News,
   },
   {
     path: '/chart',
