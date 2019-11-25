@@ -35,30 +35,22 @@ export default {
       page: 1,
     };
   },
-  created() {
-    console.log('before');
-    Promise.all([
+  async created() {
+    await Promise.all([
       this.$store.dispatch(FETCH_HEADLINE),
       this.$store.dispatch(FETCH_POPULAR),
       this.$store.dispatch(FETCH_ARTICLES),
-    ]).then(() => {
-      this.$nextTick(() => {
-        eventBus.$emit('resize');
-      });
-    });
-    window.removeEventListener('scroll', this.listLoading);
-    window.addEventListener('scroll', this.listLoading);
+    ]);
+    eventBus.$emit('resize');
   },
   methods: {
     listLoading() {
-      this.helper.windowBottomSensor(() => {
-        this.page += 1;
-        this.$store.dispatch(FETCH_ARTICLES, this.page);
-        if (this.page >= 5) {
-          window.removeEventListener('scroll', this.listLoading);
-        }
-        eventBus.$emit('resize');
-      });
+      this.page += 1;
+      this.$store.dispatch(FETCH_ARTICLES, this.page);
+      if (this.page >= 5) {
+        window.removeEventListener('scroll', this.listLoading);
+      }
+      eventBus.$emit('resize');
     },
   },
   mounted() {

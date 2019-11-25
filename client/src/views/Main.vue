@@ -39,6 +39,9 @@ export default {
       return this.$refs.flicking;
     },
   },
+  created() {
+    window.addEventListener('scroll', this.listLoading);
+  },
   data() {
     return {
       flickOption: {
@@ -47,7 +50,6 @@ export default {
         anchor: 0,
         zIndex: 10,
         gap: 10,
-        renderOnlyVisible: true,
       },
     };
   },
@@ -61,15 +63,25 @@ export default {
     move() {
       const index = { '/': 0, '/chart': 1 }[this.path];
       this.flicking.moveTo(index);
+      this.autoHeight();
     },
-  },
-  created() {
-    eventBus.$on('resize', () => {
-      this.flicking.resize();
-    });
+    listLoading() {
+      this.helper.windowBottomSensor(() => {
+        const idx = this.flicking.getIndex();
+        console.log(idx);
+      });
+    },
+    autoHeight() {
+      setTimeout(() => {
+        const { getIndex: idx, getElement: el } = this.flicking;
+        const { clientHeight: h } = el().querySelector(`.main-content__panel:nth-child(${idx() + 1})`);
+        el().querySelector('.main-content__flick-viewport').style.height = `${h}px`;
+      }, 100);
+    },
   },
   mounted() {
     this.move();
+    eventBus.$on('resize', this.autoHeight);
   },
   watch: {
     path() {

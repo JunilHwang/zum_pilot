@@ -21,17 +21,13 @@ export default {
   },
   created() {
     this.$store.dispatch(FETCH_MUSIC);
-    window.removeEventListener('scroll', this.listLoading);
-    window.addEventListener('scroll', this.listLoading);
   },
   methods: {
     listLoading() {
-      this.helper.windowBottomSensor(() => {
-        this.len += 10;
-        if (this.len >= 100) {
-          window.removeEventListener('scroll', this.listLoading);
-        }
-      });
+      this.len += 10;
+      if (this.len >= 100) {
+        window.removeEventListener('scroll', this.listLoading);
+      }
     },
   },
 };
