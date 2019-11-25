@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export const previewTitle = (str, len) => (
   str.length < len ? str : `${str.substring(0, len)}...`
 );
@@ -9,5 +11,7 @@ export const windowBottomSensor = (callback) => {
     callback();
   }
 };
+
+export const eventBus = new Vue();
 
 export default { previewTitle, windowBottomSensor };

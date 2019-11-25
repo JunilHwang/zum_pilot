@@ -28,9 +28,9 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/store/news/const';
+import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/middleware/store/news/const';
 import { NewsWrapper, NewsDetail } from '@/components/news';
-import eventBus from '@/eventBus';
+import { eventBus } from '@/helper';
 
 export default {
   components: { NewsWrapper, NewsDetail },

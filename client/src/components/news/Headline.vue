@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { VIEW_CONTENT } from '@/store/news/const';
+import { VIEW_CONTENT } from '@/middleware/store/news/const';
 
 export default {
   methods: {

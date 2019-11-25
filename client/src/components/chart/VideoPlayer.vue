@@ -42,7 +42,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import bus from '@/eventBus';
+import { eventBus as bus } from '@/helper';
 
 export default {
   computed: {

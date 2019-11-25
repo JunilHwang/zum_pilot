@@ -18,7 +18,7 @@
 <script>
 import { Flicking } from '@egjs/vue-flicking';
 import { mapState } from 'vuex';
-import { SELECT_VIDEO } from '@/store/music/const';
+import { SELECT_VIDEO } from '@/middleware/store/music/const';
 
 export default {
   components: { Flicking },
