@@ -1,8 +1,8 @@
 <template>
-  <main class="chart">
+  <main class="main-content">
     <VideoPlayer />
     <section class="chart__wrap">
-      <ChartArticle v-for="(v, k) in len" :key="v" v-bind="{ k, ...music.articles[k] }" />
+      <ChartArticle v-for="(v, k) in limit" :key="v" v-bind="{ k, ...music.articles[k] }" />
     </section>
   </main>
 </template>
@@ -10,24 +10,24 @@
 import { mapState } from 'vuex';
 import { FETCH_MUSIC } from '@/store/music/const';
 import { ChartArticle, VideoPlayer } from '@/components/chart';
+import eventBus from '@/eventBus';
 
 export default {
   components: { ChartArticle, VideoPlayer },
   computed: mapState(['music']),
   data() {
     return {
-      len: 10,
+      limit: 10,
     };
   },
   created() {
     this.$store.dispatch(FETCH_MUSIC);
+    eventBus.$on('chartLoad', this.listLoading);
   },
   methods: {
     listLoading() {
-      this.len += 10;
-      if (this.len >= 100) {
-        window.removeEventListener('scroll', this.listLoading);
-      }
+      if (this.limit >= 100) return;
+      this.limit += 10;
     },
   },
 };

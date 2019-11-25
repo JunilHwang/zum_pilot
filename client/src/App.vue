@@ -22,9 +22,15 @@
 
 <script>
 import { SiteHeader, SiteFooter } from '@/components/templates';
+import eventBus from '@/eventBus';
 
 export default {
   components: { SiteHeader, SiteFooter },
+  computed: {
+    path() {
+      return this.$route.path;
+    },
+  },
   data() {
     return {
       menu: [
@@ -46,6 +52,14 @@ export default {
       const { scrollY } = window;
       const ot = this.menuOffestTop;
       this.sticky(scrollY, ot);
+      this.helper.windowBottomSensor(() => {
+        const methodName = {
+          '/': 'newsLoad',
+          '/news': 'newsLoad',
+          '/chart': 'chartLoad',
+        }[this.path];
+        eventBus.$emit(methodName);
+      });
     },
     sticky(scrollY, ot) {
       switch (true) {
