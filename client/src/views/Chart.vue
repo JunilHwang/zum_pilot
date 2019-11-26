@@ -1,5 +1,5 @@
 <template>
-  <main class="main-content">
+  <main>
     <VideoPlayer />
     <section class="chart__wrap">
       <ChartArticle v-for="(v, k) in limit" :key="v" v-bind="{ k, ...music.articles[k] }" />

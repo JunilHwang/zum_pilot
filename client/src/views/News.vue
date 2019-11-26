@@ -1,5 +1,5 @@
 <template>
-  <main class="main-content">
+  <main>
     <section class="main-content__section news">
       <NewsWrapper
         v-if="news.headline !== null"

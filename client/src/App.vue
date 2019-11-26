@@ -3,7 +3,7 @@
     <SiteHeader />
     <div class="content-wrap" ref="wrap">
       <Navigation />
-      <router-view />
+      <router-view class="main-content" />
     </div>
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
