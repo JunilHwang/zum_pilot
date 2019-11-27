@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form action="" class="fields">
+    <form action="" class="fields" @submit.prevent="loginCheck">
       <fieldset>
         <legend class="legend">로그인</legend>
         <ul>
@@ -10,7 +10,7 @@
               <input type="text"
                      class="fields__input full"
                      placeholder="아이디를 입력해주세요"
-                     v-bind="id"
+                     v-model="id"
                      ref="id"
                      required autofocus />
             </label>
@@ -21,7 +21,7 @@
               <input type="password"
                      class="fields__input full"
                      placeholder="비밀번호를 입력해주세요"
-                     v-bind="pw"
+                     v-model="pw"
                      required />
             </label>
           </li>
@@ -35,12 +35,20 @@
   </main>
 </template>
 <script>
+import { mapState } from 'vuex';
+import { FETCH_USER } from '@/middleware/store/user/const';
+
 export default {
+  computed: mapState(['user']),
   data() {
-    return {
-      id: '',
-      pw: '',
-    };
+    return { id: '', pw: '' };
+  },
+  methods: {
+    async loginCheck() {
+      const { id, pw } = this;
+      await this.$store.dispatch(FETCH_USER, { id, pw });
+      console.log(this.user.permission);
+    },
   },
   mounted() {
     this.$refs.id.focus();
