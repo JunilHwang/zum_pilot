@@ -4,7 +4,6 @@ import { API_URL } from '../const';
 
 export default {
   [FETCH_USER]: ({ commit }, payload) => {
-    console.log(payload);
     $http
       .post(`${API_URL}/sign-in`, payload)
       .then(({ data }) => {
@@ -12,7 +11,7 @@ export default {
           alert('아이디 또는 비밀번호가 일치하지 않습니다.');
           return;
         }
-        commit(FETCH_USER, data.result);
+        commit(FETCH_USER, data);
         alert('로그인 되었습니다.');
       });
   },

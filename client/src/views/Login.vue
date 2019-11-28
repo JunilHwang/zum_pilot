@@ -36,7 +36,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_USER } from '@/middleware/store/user/const';
+import { FETCH_USER, NO_MEMBER } from '@/middleware/store/user/const';
 
 export default {
   computed: mapState(['user']),
@@ -47,11 +47,19 @@ export default {
     async loginCheck() {
       const { id, pw } = this;
       await this.$store.dispatch(FETCH_USER, { id, pw });
-      console.log(this.user.permission);
     },
   },
   mounted() {
+    if (this.user.permission !== NO_MEMBER) {
+      alert('비회원만 접근 가능합니다.');
+      this.$router.go(-1);
+    }
     this.$refs.id.focus();
+  },
+  watch: {
+    'user.permission': function () {
+      this.$router.push('/');
+    },
   },
 };
 </script>
