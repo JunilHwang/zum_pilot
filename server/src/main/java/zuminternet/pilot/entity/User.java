@@ -33,41 +33,49 @@ public class User implements UserDetails {
   @Column(nullable = false, unique = true, length = 255)
   private String name;
 
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default
   private List<String> roles = new ArrayList();
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public String getPassword() {
     return null;
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public String getUsername() {
-    return this.id;
+    return null;
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public boolean isAccountNonExpired() {
     return true;
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public boolean isAccountNonLocked() {
     return true;
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
   @Override
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public boolean isEnabled() {
     return true;
   }

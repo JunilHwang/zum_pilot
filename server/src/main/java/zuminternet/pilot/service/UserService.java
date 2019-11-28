@@ -1,31 +1,37 @@
 package zuminternet.pilot.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.User;
 import zuminternet.pilot.repository.UserRepository;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-  @Autowired
-  UserRepository userRepository;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
   public User fetch (HashMap params) {
-    return userRepository.findByIdAndPw(
-      params.get("id").toString(),
-      params.get("pw").toString()
-    );
+    String id = params.get("id").toString(),
+           pw = params.get("pw").toString();
+    User user = userRepository.findById(id);
+    boolean confirmPassword = passwordEncoder.matches(pw, user.getPw());
+    return confirmPassword ? user : null;
   }
 
   public boolean insert (HashMap params) {
     String id = params.get("id").toString();
-    String pw = params.get("pw").toString();
+    String pw = passwordEncoder.encode(params.get("pw").toString());
     String name = params.get("name").toString();
     long count = userRepository.countAllById(id);
     if (count != 0) {
@@ -37,6 +43,7 @@ public class UserService implements UserDetailsService {
         .id(id)
         .pw(pw)
         .name(name)
+        .roles(Collections.singletonList("ROLE_USER"))
         .build()
     );
     return true;
