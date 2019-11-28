@@ -1,6 +1,9 @@
 package zuminternet.pilot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.User;
 import zuminternet.pilot.repository.UserRepository;
@@ -8,7 +11,7 @@ import zuminternet.pilot.repository.UserRepository;
 import java.util.HashMap;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
   @Autowired
   UserRepository userRepository;
@@ -37,5 +40,14 @@ public class UserService {
         .build()
     );
     return true;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findById(username);
+    if (user == null) {
+      throw new UsernameNotFoundException(username);
+    }
+    return user;
   }
 }

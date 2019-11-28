@@ -6,4 +6,5 @@ import zuminternet.pilot.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
   User findByIdAndPw(String id, String pw);
   long countAllById(String id);
+  User findById(String id);
 }

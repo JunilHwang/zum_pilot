@@ -1,6 +1,6 @@
 #FileLock
-#Tue Nov 26 12:53:34 KST 2019
-hostName=localhost
-id=16ea5d7c1bf4067677ffc64af35cd84b235f32246b6
+#Thu Nov 28 13:52:22 KST 2019
+hostName=DESKTOP-HDK0B7D
+id=16eb05a56228de3beadcd87fce500eebe323ab2fe43
 method=file
-server=localhost\:61677
+server=192.168.183.187\:64700

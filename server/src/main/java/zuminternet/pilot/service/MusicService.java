@@ -1,5 +1,6 @@
 package zuminternet.pilot.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,12 @@ import zuminternet.pilot.repository.VideoRepository;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class MusicService {
 
-  @Autowired
-  private VideoRepository videoRepository;
-
-  @Autowired
-  private VideoGroupRepository videoGroupRepository;
+  private final VideoRepository videoRepository;
+  private final VideoGroupRepository videoGroupRepository;
 
   @Cacheable(cacheNames = "MusicCache", key = "'top100'")
   public List<MusicArticle> getMusic () {

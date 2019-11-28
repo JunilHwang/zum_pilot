@@ -1,19 +1,22 @@
 package zuminternet.pilot.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import zuminternet.pilot.config.security.JwtTokenProvider;
 import zuminternet.pilot.entity.User;
 import zuminternet.pilot.service.UserService;
 
 import java.util.HashMap;
 
+@RequiredArgsConstructor
 @RestController
 public class UserController {
 
-  @Autowired
-  UserService userService;
+  private final UserService userService;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @PostMapping(value="/api/sign-in", consumes = { "application/json" })
   public HashMap signIn (@RequestBody HashMap params) {

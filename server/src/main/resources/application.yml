@@ -23,12 +23,14 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: H2
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: update
   cache:
     ehcache:
       config: classpath:ehcache.xml
+  jwt:
+    secret: zum.pilot@junil#@!
 
 
 logging:
