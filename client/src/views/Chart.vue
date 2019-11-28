@@ -1,5 +1,5 @@
 <template>
-  <main class="main-content">
+  <main>
     <VideoPlayer />
     <section class="chart__wrap">
       <ChartArticle v-for="(v, k) in limit" :key="v" v-bind="{ k, ...music.articles[k] }" />
@@ -8,9 +8,9 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_MUSIC } from '@/store/music/const';
+import { FETCH_MUSIC } from '@/middleware/store/music/const';
 import { ChartArticle, VideoPlayer } from '@/components/chart';
-import eventBus from '@/eventBus';
+import { eventBus } from '@/helper';
 
 export default {
   components: { ChartArticle, VideoPlayer },

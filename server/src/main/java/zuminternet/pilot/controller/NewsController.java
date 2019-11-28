@@ -1,5 +1,6 @@
 package zuminternet.pilot.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,11 +9,11 @@ import zuminternet.pilot.service.NewsService;
 
 import java.util.HashMap;
 
+@RequiredArgsConstructor
 @RestController
 public class NewsController {
 
-  @Autowired
-  private NewsService newsService;
+  private final NewsService newsService;
 
   @GetMapping(value="/api/news")
   public HashMap getNews (@RequestParam(value = "page", defaultValue = "1") int page) {

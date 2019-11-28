@@ -18,7 +18,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { FETCH_VIDEO } from '@/store/music/const';
+import { FETCH_VIDEO } from '@/middleware/store/music/const';
 import { VideoList } from './index';
 
 export default {

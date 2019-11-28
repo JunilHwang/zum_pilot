@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { News, Chart } from '@/views';
+import {
+  News,
+  Chart,
+  Login,
+  Join,
+} from '@/views';
 
 Vue.use(VueRouter);
 const routes = [
@@ -12,6 +17,14 @@ const routes = [
   {
     path: '/chart',
     component: Chart,
+  },
+  {
+    path: '/sign-in',
+    component: Login,
+  },
+  {
+    path: '/sign-up',
+    component: Join,
   },
 ];
 const router = new VueRouter({

@@ -2,7 +2,7 @@
   <section class="chart__video">
     <strong v-if="music.selectedVideo === null">음원을 선택해주세요</strong>
     <div class="video-player" ref="container" v-else>
-      <youtube :video-id="music.selectedVideo.videoId"
+      <Youtube :video-id="music.selectedVideo.videoId"
                :player-vars="options"
                width="100%"
                height="260"
@@ -41,10 +41,12 @@
 </template>
 
 <script>
+import { Youtube } from 'vue-youtube';
 import { mapState } from 'vuex';
-import bus from '@/eventBus';
+import { eventBus as bus } from '@/helper';
 
 export default {
+  components: { Youtube },
   computed: {
     ...mapState(['music']),
     player() {

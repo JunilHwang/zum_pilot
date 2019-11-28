@@ -1,6 +1,6 @@
 #FileLock
-#Mon Nov 25 13:25:09 KST 2019
+#Thu Nov 28 16:30:17 KST 2019
 hostName=DESKTOP-HDK0B7D
-id=16ea0ce54b31efd7a9694544cb7d01e60a1fa5c4ac4
+id=16eb0eae76efbcac759a07069150f1789c521e9d2cb
 method=file
-server=192.168.183.187\:60998
+server=192.168.183.187\:52999

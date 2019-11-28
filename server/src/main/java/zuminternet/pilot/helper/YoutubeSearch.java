@@ -42,10 +42,13 @@ public class YoutubeSearch {
         .getItems()
         .forEach(v -> {
           SearchResultSnippet snippet = v.getSnippet();
-          String videoId = v.getId().getVideoId(),
-                 thumbnail = snippet.getThumbnails().getDefault().getUrl(),
-                 title = snippet.getTitle();
-          result.add(new Video(title, videoId, thumbnail));
+          result.add(
+            Video.builder()
+              .title(snippet.getTitle())
+              .videoId(v.getId().getVideoId())
+              .thumbnail(snippet.getThumbnails().getDefault().getUrl())
+              .build()
+          );
         });
     } catch (Exception e) {
       e.printStackTrace();

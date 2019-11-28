@@ -20,7 +20,7 @@ public class VideoGroup {
 
   @OneToMany
   @JoinColumn(name = "gid")
-  private List<Video> VideoList = new ArrayList<Video>();
+  private List<Video> VideoList = new ArrayList();
 
   @Builder
   public VideoGroup(String searchTitle) {

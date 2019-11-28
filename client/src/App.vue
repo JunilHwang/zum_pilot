@@ -1,17 +1,9 @@
 <template>
   <div id="app" :class="{ sticky: isSticky }">
     <SiteHeader />
-    <div class="content-wrap">
-      <nav class="main-content__header" ref="nav">
-        <ul>
-          <li v-for="(v, k) in menu" :key="k">
-            <router-link :to="v.url">
-              <span v-html="v.title" />
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-      <router-view />
+    <div class="content-wrap" ref="wrap">
+      <Navigation />
+      <router-view class="main-content" />
     </div>
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
@@ -21,38 +13,34 @@
 </template>
 
 <script>
-import { SiteHeader, SiteFooter } from '@/components/templates';
-import eventBus from '@/eventBus';
+import { SiteHeader, Navigation, SiteFooter } from '@/components/templates';
+import { eventBus, windowBottomSensor } from '@/helper';
 
 export default {
-  components: { SiteHeader, SiteFooter },
+  components: { SiteHeader, Navigation, SiteFooter },
   computed: {
     path() {
       return this.$route.path;
     },
+    wrap() {
+      return this.$refs.wrap;
+    },
   },
   data() {
     return {
-      menu: [
-        { title: '뉴스', url: '/' },
-        { title: '음원차트', url: '/chart' },
-        { title: '인기영상', url: '/popular' },
-      ],
       isSticky: false,
-      menuOffestTop: 0,
     };
   },
   mounted() {
-    this.menuOffestTop = this.$refs.nav.offsetTop;
     window.removeEventListener('scroll', this.scrollEvents);
     window.addEventListener('scroll', this.scrollEvents);
   },
   methods: {
     scrollEvents() {
-      const { scrollY } = window;
-      const ot = this.menuOffestTop;
-      this.sticky(scrollY, ot);
-      this.helper.windowBottomSensor(() => {
+      const sy = window.scrollY;
+      const ot = this.wrap.offsetTop;
+      this.sticky(sy, ot);
+      windowBottomSensor(() => {
         const methodName = {
           '/': 'newsLoad',
           '/news': 'newsLoad',
@@ -61,12 +49,12 @@ export default {
         eventBus.$emit(methodName);
       });
     },
-    sticky(scrollY, ot) {
+    sticky(sy, ot) {
       switch (true) {
-        case scrollY > ot && !this.isSticky:
+        case sy > ot && !this.isSticky:
           this.isSticky = true;
           break;
-        case scrollY <= ot && this.isSticky:
+        case sy <= ot && this.isSticky:
           this.isSticky = false;
           break;
         default:
