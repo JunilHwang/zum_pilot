@@ -21,7 +21,6 @@ public class UserController {
 
   private final UserService userService;
   private final JwtTokenProvider jwtTokenProvider;
-  private final PasswordEncoder passwordEncoder;
 
   @PostMapping(value="/api/sign-in", consumes = { "application/json" })
   public HashMap signIn (@RequestBody HashMap params) {
