@@ -1,5 +1,5 @@
 import $http from 'axios';
-import { FETCH_VIDEO } from './const';
+import { FETCH_VIDEO, VIEW_VIDEO } from './const';
 import { API_URL } from '../const';
 
 export default {
@@ -16,5 +16,16 @@ export default {
     } else {
       call({ ...cache });
     }
+  },
+  [VIEW_VIDEO]: ({ commit, state }, idx) => {
+    const viewCount = state.selectedVideo.viewCount + 1;
+    $http
+      .patch(`${API_URL}/video-view/${idx}`, { viewCount })
+      .then(({ data }) => {
+        const { success } = data;
+        if (success) {
+          commit(VIEW_VIDEO, viewCount);
+        }
+      });
   },
 };

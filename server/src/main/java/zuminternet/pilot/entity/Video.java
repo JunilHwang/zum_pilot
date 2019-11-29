@@ -24,7 +24,7 @@ public class Video {
   @Column(nullable = false)
   private String thumbnail;
 
-  @Column(nullable = false, name="view_count")
+  @Column(nullable = false, name = "view_count")
   @ColumnDefault("0")
   private int viewCount;
 

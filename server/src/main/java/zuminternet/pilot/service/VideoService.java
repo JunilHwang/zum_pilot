@@ -1,6 +1,7 @@
 package zuminternet.pilot.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.Video;
@@ -33,5 +34,4 @@ public class VideoService {
     }
     return result;
   }
-
 }
