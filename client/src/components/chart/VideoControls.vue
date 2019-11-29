@@ -73,13 +73,14 @@ export default {
     },
     async stateChange({ data }) {
       this.controlsActive = true;
-      switch (true) {
-        case data === -1:
+      switch (data) {
+        case -1:
           this.videoInit();
           break;
-        case data === 1:
+        case 1:
           this.controlsActive = false;
           this.timeCheck();
+          console.log('playing');
           break;
         default:
           this.clear();

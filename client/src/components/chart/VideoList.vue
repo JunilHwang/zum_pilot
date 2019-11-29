@@ -3,7 +3,7 @@
     <Flicking class="panels"
               @select="selectVideo"
               :options="{ gap: 2, circular: true, hanger: 0, anchor: 0, zIndex: 10 }">
-      <div v-for="(v, k) in music.video"
+      <div v-for="(v, k) in video.videoList"
            class="panel"
            :key="k">
         <figure class="video__thumbnail">
@@ -18,14 +18,14 @@
 <script>
 import { Flicking } from '@egjs/vue-flicking';
 import { mapState } from 'vuex';
-import { SELECT_VIDEO } from '@/middleware/store/music/const';
+import { SELECT_VIDEO } from '@/middleware/store/video/const';
 
 export default {
   components: { Flicking },
-  computed: mapState(['music']),
+  computed: mapState(['video']),
   methods: {
     selectVideo({ index }) {
-      this.$store.commit(SELECT_VIDEO, this.music.video[index]);
+      this.$store.commit(SELECT_VIDEO, this.video.videoList[index]);
     },
   },
 };

@@ -17,9 +17,8 @@
       <ChartArticle
         v-for="(v, k) in limit"
         :key="v"
-        :class="{ active: selectedArticle === k }"
+        :class="{ active: isActive(k) }"
         v-bind="{ k, ...music.articles[k] }"
-        @select="selectArticle"
       />
     </section>
   </main>
@@ -38,7 +37,6 @@ export default {
       limit: 10,
       categories: ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul', '인디'],
       selectedCategory: 0,
-      selectedArticle: null,
     };
   },
   created() {
@@ -54,8 +52,11 @@ export default {
       if (this.limit >= 100) return;
       this.limit += 10;
     },
-    selectArticle(k) {
-      this.selectedArticle = k;
+    isActive(k) {
+      const { articles, selectedMusic } = this.music;
+      if (selectedMusic === null) return false;
+      const { title, artist } = articles[k];
+      return selectedMusic === `${title}/${artist}`;
     },
   },
   destroyed() {

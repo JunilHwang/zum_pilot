@@ -14,18 +14,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { FETCH_VIDEO } from '@/middleware/store/music/const';
+import { FETCH_VIDEO } from '@/middleware/store/video/const';
+import { SELECT_MUSIC } from '@/middleware/store/music/const';
 
 export default {
-  computed: mapState(['music']),
   methods: {
     searchVideo() {
-      this.$store.dispatch(FETCH_VIDEO, {
-        selected: this.k,
-        q: this.title,
-      });
-      this.$emit('select', this.k);
+      const { title, artist } = this;
+      this.$store.dispatch(FETCH_VIDEO, title);
+      this.$store.commit(SELECT_MUSIC, `${title}/${artist}`);
     },
   },
   props: ['k', 'title', 'album', 'artist', 'img'],

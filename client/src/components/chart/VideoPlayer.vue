@@ -1,7 +1,7 @@
 <template>
-  <section class="chart__video" v-if="music.selectedVideo !== null">
+  <section class="chart__video" v-if="video.selectedVideo !== null">
     <div class="video-player" ref="container">
-      <Youtube :video-id="music.selectedVideo.videoId"
+      <Youtube :video-id="video.selectedVideo.videoId"
                :player-vars="options"
                width="100%"
                height="100%"
@@ -19,7 +19,7 @@ import { VideoControls, VideoList } from './index';
 
 export default {
   components: { Youtube, VideoControls, VideoList },
-  computed: mapState(['music']),
+  computed: mapState(['video']),
   data() {
     return {
       options: {

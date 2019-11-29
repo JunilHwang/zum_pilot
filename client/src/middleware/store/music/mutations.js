@@ -1,21 +1,10 @@
-import {
-  FETCH_MUSIC,
-  FETCH_VIDEO,
-  SELECT_VIDEO,
-} from './const';
+import { FETCH_MUSIC, SELECT_MUSIC } from './const';
 
 export default {
   [FETCH_MUSIC]: (state, payload) => {
     state.articles = payload;
   },
-  [FETCH_VIDEO]: (state, { selected, result: video }) => {
-    Object.assign(state, {
-      selected,
-      video,
-      selectedVideo: video[0],
-    });
-  },
-  [SELECT_VIDEO]: (state, payload) => {
-    state.selectedVideo = payload;
+  [SELECT_MUSIC]: (state, payload) => {
+    state.selectedMusic = payload;
   },
 };
