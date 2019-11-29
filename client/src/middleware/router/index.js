@@ -5,6 +5,7 @@ import {
   Chart,
   Login,
   Join,
+  Popular,
 } from '@/views';
 
 Vue.use(VueRouter);
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/sign-up',
     component: Join,
+  },
+  {
+    path: '/popular',
+    component: Popular,
   },
 ];
 const router = new VueRouter({

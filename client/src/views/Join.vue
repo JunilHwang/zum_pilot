@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form action="" class="fields">
+    <form action="" class="fields" @submit.prevent="signUp">
       <fieldset>
         <legend class="legend">회원가입</legend>
         <ul>
@@ -10,7 +10,7 @@
               <input type="text"
                      class="fields__input full"
                      placeholder="아이디를 입력해주세요"
-                     v-bind="id"
+                     v-model="id"
                      ref="id"
                      required autofocus />
             </label>
@@ -21,7 +21,7 @@
               <input type="password"
                      class="fields__input full"
                      placeholder="비밀번호를 입력해주세요"
-                     v-bind="pw"
+                     v-model="pw"
                      required />
             </label>
           </li>
@@ -31,7 +31,7 @@
               <input type="text"
                      class="fields__input full"
                      placeholder="아이디를 입력해주세요"
-                     v-bind="name"
+                     v-model="name"
                      required />
             </label>
           </li>
@@ -45,6 +45,8 @@
   </main>
 </template>
 <script>
+import { SIGN_UP } from '@/middleware/store/user/const';
+
 export default {
   data() {
     return {
@@ -54,7 +56,23 @@ export default {
     };
   },
   mounted() {
-    this.$refs.id.focus();
+    this.idFocus();
+  },
+  methods: {
+    idFocus() {
+      this.$refs.id.focus();
+    },
+    async signUp() {
+      const { id, pw, name } = this;
+      const { data } = await this.$store.dispatch(SIGN_UP, { id, pw, name });
+      if (data.success) {
+        alert('회원가입이 완료되었습니다.');
+        this.$router.push('/sign-in');
+      } else {
+        alert('이미 중복된 아이디가 있습니다.');
+        this.idFocus();
+      }
+    },
   },
 };
 </script>

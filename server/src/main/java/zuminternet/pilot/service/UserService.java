@@ -9,8 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.User;
 import zuminternet.pilot.repository.UserRepository;
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -34,7 +32,7 @@ public class UserService implements UserDetailsService {
     String pw = passwordEncoder.encode(params.get("pw").toString());
     String name = params.get("name").toString();
     long count = userRepository.countAllById(id);
-    if (count != 0) {
+    if (count > 0) {
       return false;
     }
     userRepository.save(

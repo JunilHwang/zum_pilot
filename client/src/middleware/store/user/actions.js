@@ -1,9 +1,9 @@
 import $http from 'axios';
-import { FETCH_USER, INSERT_USER } from './const';
+import { SIGN_IN, SIGN_UP, FETCH_USER } from './const';
 import { API_URL } from '../const';
 
 export default {
-  [FETCH_USER]: ({ commit }, payload) => {
+  [SIGN_IN]: ({ commit }, payload) => {
     $http
       .post(`${API_URL}/sign-in`, payload)
       .then(({ data }) => {
@@ -11,19 +11,12 @@ export default {
           alert('아이디 또는 비밀번호가 일치하지 않습니다.');
           return;
         }
-        commit(FETCH_USER, data);
+        commit(SIGN_IN, data);
         alert('로그인 되었습니다.');
       });
   },
-  [INSERT_USER]: ({ commit }, payload) => {
-    $http
-      .post(`${API_URL}/sign-up`, payload)
-      .then(({ data }) => {
-        if (data.success === false) {
-          alert('중복된 아이디가 있습니다.');
-          return;
-        }
-        commit(INSERT_USER);
-      });
-  },
+  [SIGN_UP]: (context, payload) => $http.post(`${API_URL}/sign-up`, payload),
+  [FETCH_USER]: ({ state }) => $http.get(`${API_URL}/user`, {
+    headers: { 'X-AUTH-TOKEN': state.token },
+  }),
 };

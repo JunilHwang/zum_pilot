@@ -2,7 +2,10 @@ package zuminternet.pilot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +40,15 @@ public class UserController {
   public HashMap signUp (@RequestBody HashMap params) {
     HashMap send = new HashMap();
     send.put("success", userService.insert(params));
+    return send;
+  }
+
+  @GetMapping(value="/api/user")
+  public HashMap getUser () {
+    HashMap send = new HashMap();
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    send.put("success", true);
+    send.put("result", auth);
     return send;
   }
 }
