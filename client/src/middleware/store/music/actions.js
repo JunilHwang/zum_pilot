@@ -3,9 +3,9 @@ import { FETCH_MUSIC, FETCH_VIDEO } from './const';
 import { API_URL } from '../const';
 
 export default {
-  [FETCH_MUSIC]: ({ commit }) => {
+  [FETCH_MUSIC]: ({ commit }, category = '실시간') => {
     $http
-      .get(`${API_URL}/music`)
+      .get(`${API_URL}/music?category=${encodeURIComponent(category)}`)
       .then(({ data }) => {
         commit(FETCH_MUSIC, data);
       });

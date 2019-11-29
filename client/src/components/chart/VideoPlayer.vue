@@ -9,6 +9,7 @@
                ref="playerWrap" />
       <VideoControls :playerWrap="$refs.playerWrap" :container="$refs.container" />
     </div>
+
   </section>
 </template>
 
@@ -19,14 +20,12 @@ import { VideoControls } from './index';
 
 export default {
   components: { Youtube, VideoControls },
-  computed: {
-    ...mapState(['music']),
-  },
+  computed: mapState(['music']),
   data() {
     return {
       options: {
         controls: 0,
-        start: 0,
+        autoplay: 1,
       },
     };
   },

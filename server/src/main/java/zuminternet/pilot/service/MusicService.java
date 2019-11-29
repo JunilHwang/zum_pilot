@@ -21,9 +21,9 @@ public class MusicService {
   private final VideoRepository videoRepository;
   private final VideoGroupRepository videoGroupRepository;
 
-  @Cacheable(cacheNames = "MusicCache", key = "'top100'")
-  public List<MusicArticle> getMusic () {
-    return Crawler.getMusicList();
+  @Cacheable(cacheNames = "MusicCache", key = "#category")
+  public List<MusicArticle> getMusic (String category) {
+    return Crawler.getMusicList(category);
   }
 
   @Cacheable(cacheNames = "VideoCache", key="#q")

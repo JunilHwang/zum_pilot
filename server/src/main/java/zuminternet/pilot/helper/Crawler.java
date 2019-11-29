@@ -82,13 +82,28 @@ public class Crawler {
     article.setContent(cleanContent);
     return article;
   }
-  static public List<MusicArticle> getMusicList () {
-    Document doc = getDoc("https://www.melon.com/chart/");
+  static public List<MusicArticle> getMusicList (String category) {
+    String baseURL = "https://www.melon.com";
+    String appendURI = "/chart/";
+    String genreURI = "/genre/song_list.htm?gnrCode=GN";
+    switch (category) {
+      case "일간" : appendURI += "day/"; break;
+      case "발라드" : appendURI = genreURI + "0100";  break;
+      case "댄스" : appendURI = genreURI + "0200";  break;
+      case "힙합" : appendURI = genreURI + "0300";  break;
+      case "R&B/Soul" : appendURI = genreURI + "0400";  break;
+      case "인디" : appendURI = genreURI + "0500";  break;
+      case "POP" : appendURI = genreURI + "0900";  break;
+    }
+    Document doc = getDoc(baseURL + appendURI);
     Elements els = doc.select("tr[class^=\"lst\"]");
+    if (els.size() == 0) {
+      els = doc.select("tbody tr");
+    }
     List<MusicArticle> articles = new ArrayList();
     els.forEach(el -> {
       MusicArticle article = new MusicArticle();
-      article.setImg(el.select("td:nth-child(4) img").attr("src"));
+      article.setImg(el.select("img").eq(0).attr("src"));
       article.setTitle(el.select(".ellipsis.rank01 a").text());
       article.setArtist(el.select(".ellipsis.rank02 > a").text());
       article.setAlbum(el.select(".ellipsis.rank03 a").text());

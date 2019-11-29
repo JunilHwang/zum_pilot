@@ -24,10 +24,10 @@ public class MusicController {
   private final MusicService musicService;
 
   @GetMapping(value="/api/music")
-  public HashMap getMusicList () {
+  public HashMap getMusicList (@RequestParam String category) {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("result", musicService.getMusic());
+    send.put("result", musicService.getMusic(category));
     return send;
   }
 

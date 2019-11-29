@@ -1,4 +1,9 @@
-import { FETCH_MUSIC, FETCH_VIDEO, SELECT_VIDEO } from './const';
+import {
+  FETCH_MUSIC,
+  FETCH_VIDEO,
+  SELECT_VIDEO,
+  INIT_VIDEO,
+} from './const';
 
 export default {
   [FETCH_MUSIC]: (state, { result }) => {
@@ -7,6 +12,10 @@ export default {
   [FETCH_VIDEO]: (state, { selected, result }) => {
     state.selected = selected;
     state.video = result;
+  },
+  [INIT_VIDEO]: (state) => {
+    state.selected = null;
+    state.video = null;
   },
   [SELECT_VIDEO]: (state, payload) => {
     state.selectedVideo = payload;

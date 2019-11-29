@@ -83,6 +83,13 @@
       +*{margin-top:330px;}
     }
   }
+  &__category{@include clear-fix();margin-top:5px;font-size:13px;
+    li{float:left;}
+    li+li{margin-left:5px;}
+    a{display:block;padding:10px;background:#fff;border-radius:3px;
+      &.active{background:$color-main;color:#fff;}
+    }
+  }
   &__article{background:#fff;border-radius:3px;margin-top:5px;
     &-wrap{display:flex;height:100px;position:relative;line-height:1;}
     &:nth-child(1) .chart__rank{color:$color-main;}
