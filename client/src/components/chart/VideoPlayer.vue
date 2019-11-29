@@ -6,9 +6,8 @@
                :player-vars="options"
                width="100%"
                height="260"
-               ref="youtube"
-               @ready="ready" />
-      <VideoControls v-if="showControls" :player="player" />
+               ref="playerWrap" />
+      <VideoControls :playerWrap="$refs.playerWrap" :container="$refs.container" />
     </div>
   </section>
 </template>
@@ -22,9 +21,6 @@ export default {
   components: { Youtube, VideoControls },
   computed: {
     ...mapState(['music']),
-    player() {
-      return this.$refs.youtube.player;
-    },
   },
   data() {
     return {
@@ -32,13 +28,7 @@ export default {
         controls: 0,
         start: 0,
       },
-      showControls: false,
     };
-  },
-  methods: {
-    ready() {
-      this.showControls = true;
-    },
   },
 };
 </script>

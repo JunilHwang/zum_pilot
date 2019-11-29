@@ -1,5 +1,5 @@
 <template>
-  <div class="controls" :class="{ active: controlsActive }">
+  <div class="controls" :class="{ active: controlsActive }" v-if="showControls">
     <div class="controls__progress">
       <div class="bg" />
       <div class="fill"
@@ -35,11 +35,12 @@ export default {
     isPlay() {
       return [1, 3].indexOf(this.state) !== -1;
     },
+    player() {
+      return this.playerWrap.player;
+    },
   },
-  created() {
-    document.removeEventListener('fullscreenchange', this.screenChange);
-    document.addEventListener('fullscreenchange', this.screenChange);
-    this.player.on('stateChange', this.stateChange);
+  mounted() {
+    this.playerWrap.$on('ready', this.ready);
   },
   data() {
     return {
@@ -50,9 +51,16 @@ export default {
       current: 0,
       timer: null,
       controlsActive: true,
+      showControls: false,
     };
   },
   methods: {
+    ready() {
+      this.showControls = true;
+      document.removeEventListener('fullscreenchange', this.screenChange);
+      document.addEventListener('fullscreenchange', this.screenChange);
+      this.player.on('stateChange', this.stateChange);
+    },
     clear() {
       clearTimeout(this.timer);
     },
@@ -80,7 +88,7 @@ export default {
       this.state = await this.player.getPlayerState();
     },
     inFullScreen() {
-      this.$refs.container.requestFullscreen();
+      this.container.requestFullscreen();
     },
     exitFullScreen() {
       document.exitFullscreen();
@@ -103,6 +111,6 @@ export default {
       this.player.seekTo(target.value);
     },
   },
-  props: ['player'],
+  props: ['playerWrap', 'container'],
 };
 </script>
