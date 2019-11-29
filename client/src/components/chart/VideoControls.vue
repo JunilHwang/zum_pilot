@@ -36,11 +36,11 @@ export default {
       return [1, 3].indexOf(this.state) !== -1;
     },
     player() {
-      return this.playerWrap.player;
+      return this.$parent.$refs.playerWrap.player;
     },
   },
-  mounted() {
-    this.playerWrap.$on('ready', this.ready);
+  created() {
+    this.$parent.$refs.playerWrap.$on('ready', this.ready);
   },
   data() {
     return {
@@ -88,7 +88,7 @@ export default {
       this.state = await this.player.getPlayerState();
     },
     inFullScreen() {
-      this.container.requestFullscreen();
+      this.$parent.$refs.container.requestFullscreen();
     },
     exitFullScreen() {
       document.exitFullscreen();
@@ -111,6 +111,5 @@ export default {
       this.player.seekTo(target.value);
     },
   },
-  props: ['playerWrap', 'container'],
 };
 </script>

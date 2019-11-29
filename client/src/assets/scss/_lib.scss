@@ -62,6 +62,11 @@
   @return ($size / $ratio) * 100vw;
 }
 
+/* px ==> percent 단위 변환 */
+@function per($size, $ratio:480px) {
+  @return ($size / $ratio) * 100%;
+}
+
 /* 자주 사용하는 색상 모음 */
 $color-main:#1b52eb;
 $color-blue1:#09F;

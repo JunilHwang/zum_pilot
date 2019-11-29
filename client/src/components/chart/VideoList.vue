@@ -2,7 +2,7 @@
   <div class="video__wrap">
     <Flicking class="panels"
               @select="selectVideo"
-              :options="{ gap: 2, circular: true, hanger: 0, anchor: 0 }">
+              :options="{ gap: 2, circular: true, hanger: 0, anchor: 0, zIndex: 10 }">
       <div v-for="(v, k) in music.video"
            class="panel"
            :key="k">

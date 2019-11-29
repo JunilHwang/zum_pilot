@@ -1,25 +1,24 @@
 <template>
-  <section class="chart__video">
-    <strong v-if="music.selectedVideo === null">음원을 선택해주세요</strong>
-    <div class="video-player" ref="container" v-else>
+  <section class="chart__video" v-if="music.selectedVideo !== null">
+    <div class="video-player" ref="container">
       <Youtube :video-id="music.selectedVideo.videoId"
                :player-vars="options"
                width="100%"
-               height="260"
+               height="100%"
                ref="playerWrap" />
-      <VideoControls :playerWrap="$refs.playerWrap" :container="$refs.container" />
+      <VideoControls />
     </div>
-
+    <VideoList />
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { Youtube } from 'vue-youtube';
-import { VideoControls } from './index';
+import { VideoControls, VideoList } from './index';
 
 export default {
-  components: { Youtube, VideoControls },
+  components: { Youtube, VideoControls, VideoList },
   computed: mapState(['music']),
   data() {
     return {

@@ -30,13 +30,13 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
 
 /* vue transition */
 .slide-down{
-  &-enter{height:0;
-    &-active{transition:height 0.5s;overflow:hidden;}
-    &-to{height:140px;}
+  &-enter{max-height:0;
+    &-active{transition:max-height 0.5s;overflow:hidden;}
+    &-to{max-height:100vw;}
   }
-  &-leave{height:140px;
-    &-active{transition:height 0.5s;overflow:hidden;}
-    &-to{height:0;}
+  &-leave{max-height:100vw;
+    &-active{transition:max-height 0.5s;overflow:hidden;}
+    &-to{max-height:0;}
   }
 }
 .page-up{

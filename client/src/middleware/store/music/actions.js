@@ -7,7 +7,9 @@ export default {
     $http
       .get(`${API_URL}/music?category=${encodeURIComponent(category)}`)
       .then(({ data }) => {
-        commit(FETCH_MUSIC, data);
+        const { result } = data;
+        result.forEach(v => Object.assign(v, { category }));
+        commit(FETCH_MUSIC, result);
       });
   },
   [FETCH_VIDEO]: ({ commit }, params) => {

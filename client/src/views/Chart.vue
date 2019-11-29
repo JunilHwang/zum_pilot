@@ -1,24 +1,32 @@
 <template>
   <main>
-    <VideoPlayer />
+    <header class="chart__category">
+      <ul>
+        <li v-for="(v, k) in categories" :key="k">
+          <a href="#"
+             @click.prevent="fetchMusic(k)"
+             :class="{active: k === selectedCategory}"
+             v-html="v" />
+        </li>
+      </ul>
+    </header>
+    <transition name="slide-down">
+      <VideoPlayer />
+    </transition>
     <section class="chart__wrap">
-      <header>
-        <ul class="chart__category">
-          <li v-for="(v, k) in categories" :key="k">
-            <a href="#"
-               @click.prevent="fetchMusic(k)"
-               :class="{active: k === selected}"
-               v-html="v" />
-          </li>
-        </ul>
-      </header>
-      <ChartArticle v-for="(v, k) in limit" :key="v" v-bind="{ k, ...music.articles[k] }" />
+      <ChartArticle
+        v-for="(v, k) in limit"
+        :key="v"
+        :class="{ active: selectedArticle === k }"
+        v-bind="{ k, ...music.articles[k] }"
+        @select="selectArticle"
+      />
     </section>
   </main>
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_MUSIC, INIT_VIDEO } from '@/middleware/store/music/const';
+import { FETCH_MUSIC, SELECT_VIDEO } from '@/middleware/store/music/const';
 import { ChartArticle, VideoPlayer } from '@/components/chart';
 import { eventBus } from '@/helper';
 
@@ -28,8 +36,9 @@ export default {
   data() {
     return {
       limit: 10,
-      categories: ['실시간', '일간', '발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디'],
-      selected: 0,
+      categories: ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul', '인디'],
+      selectedCategory: 0,
+      selectedArticle: null,
     };
   },
   created() {
@@ -37,15 +46,20 @@ export default {
     eventBus.$on('chartLoad', this.listLoading);
   },
   methods: {
-    fetchMusic(selected) {
-      this.selected = selected;
-      this.$store.dispatch(FETCH_MUSIC, this.categories[selected]);
-      this.$store.commit(INIT_VIDEO);
+    fetchMusic(k) {
+      this.selectedCategory = k;
+      this.$store.dispatch(FETCH_MUSIC, this.categories[k]);
     },
     listLoading() {
       if (this.limit >= 100) return;
       this.limit += 10;
     },
+    selectArticle(k) {
+      this.selectedArticle = k;
+    },
+  },
+  destroyed() {
+    this.$store.commit(SELECT_VIDEO, null);
   },
 };
 </script>

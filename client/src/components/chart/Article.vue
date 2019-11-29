@@ -10,19 +10,14 @@
         <img :src="img" :alt="title">
       </figure>
     </div>
-    <transition name="slide-down">
-      <VideoList v-if="music.selected === k" />
-    </transition>
   </article>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { FETCH_VIDEO } from '@/middleware/store/music/const';
-import { VideoList } from './index';
 
 export default {
-  components: { VideoList },
   computed: mapState(['music']),
   methods: {
     searchVideo() {
@@ -30,6 +25,7 @@ export default {
         selected: this.k,
         q: this.title,
       });
+      this.$emit('select', this.k);
     },
   },
   props: ['k', 'title', 'album', 'artist', 'img'],
