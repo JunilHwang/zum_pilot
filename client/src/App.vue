@@ -2,7 +2,6 @@
   <div id="app" :class="{ sticky: isSticky }">
     <SiteHeader />
     <div class="content-wrap" ref="wrap">
-      <Navigation />
       <router-view class="main-content" />
     </div>
     <a href="#" class="go-top" v-show="isSticky">
@@ -13,11 +12,11 @@
 </template>
 
 <script>
-import { SiteHeader, Navigation, SiteFooter } from '@/components/templates';
+import { SiteHeader, SiteFooter } from '@/components/templates';
 import { eventBus, windowBottomSensor } from '@/helper';
 
 export default {
-  components: { SiteHeader, Navigation, SiteFooter },
+  components: { SiteHeader, SiteFooter },
   computed: {
     path() {
       return this.$route.path;
@@ -38,7 +37,7 @@ export default {
   methods: {
     scrollEvents() {
       const sy = window.scrollY;
-      const ot = this.wrap.offsetTop;
+      const ot = this.wrap.offsetTop - 37;
       this.sticky(sy, ot);
       windowBottomSensor(() => {
         const methodName = {

@@ -1,10 +1,25 @@
 @import 'lib';
 
 /* 사이트 상단 */
-.site-header{height:50px;border-bottom:2px solid $color-main;text-align:center;
-  &__logo{line-height:1;
+.site-header{border-bottom:1px solid #bbb;margin-top:10px;
+  &__logo{text-align:center;line-height:1;margin-bottom:5px;
     a{display:block;}
   }
+  &__nav{transition-property:background;transition-duration:0.3s;text-align:center;
+    ul{@include clear-fix();padding:0 10px;display:inline-block;vertical-align:bottom;}
+    li{float:left;margin:0 5px;}
+    a{display:block;text-align:center;padding:10px 5px;font-size:13px;position:relative;transition:color 0.3s;
+      span{position:relative;z-index:10}
+      &::before{content:"";display:block;height:2px;left:50%;right:50%;bottom:-1px;position:absolute;background:$color-main;transition-property:left, right;transition-duration:0.3s;}
+      &.router-link-exact-active::before{left:0;right:0;}
+    }
+    .sticky &{background:$color-main;position:fixed;left:0;right:0;top:0;z-index:100;
+      a{color:#fff;
+        &::before{bottom:0;background:#fff;}
+      }
+    }
+  }
+  .sticky &+*{margin-top:37px;}
 }
 
 /* 사이트 하단 */
@@ -17,22 +32,6 @@
 /* 사이트 컨텐츠 */
 .content-wrap{padding:10px;background:#ecf5f5;}
 .main-content{
-  &__header{background:#fff;border-radius:3px;margin-bottom:10px;transition-property:margin-left, margin-right, height;transition-duration:0.3s;
-    ul{@include clear-fix();padding:0 10px;}
-    li{float:left;margin:5px;}
-    a{display:block;text-align:center;padding:5px;font-size:13px;position:relative;
-      span{position:relative;z-index:10}
-      &::before{content:"";display:block;height:7px;left:50%;right:50%;bottom:3px;position:absolute;background:#c0ffff;transition:0.3s;}
-      &.router-link-exact-active::before{left:0;right:0;}
-    }
-    .sticky &{position:fixed;left:5px;right:5px;margin-left:-5px;margin-right:-5px;top:0;z-index:2100;border-radius:0;border-bottom:2px solid $color-main;
-      +*{margin-top:47px;}
-      li{margin:5px 10px;}
-      a{padding:10px 0;
-        &::before{bottom:7px;}
-      }
-    }
-  }
   &__panel{width:100%;border-radius:10px;}
 }
 .news{
