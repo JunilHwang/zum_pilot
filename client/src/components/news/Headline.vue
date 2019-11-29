@@ -1,6 +1,6 @@
 <template>
   <article class="news-main">
-    <a @click.prevent="viewDetail">
+    <a href="#" @click.prevent>
       <figure class="news-main__img">
         <img :src="img" :alt="title">
       </figure>
@@ -10,14 +10,7 @@
 </template>
 
 <script>
-import { VIEW_CONTENT } from '@/middleware/store/news/const';
-
 export default {
-  methods: {
-    viewDetail() {
-      this.$store.commit(VIEW_CONTENT, this.link);
-    },
-  },
   props: ['title', 'img', 'link'],
 };
 </script>
