@@ -80,7 +80,9 @@ export default {
         case 1:
           this.controlsActive = false;
           this.timeCheck();
-          console.log('playing');
+          break;
+        case 0:
+          console.log('video end');
           break;
         default:
           this.clear();

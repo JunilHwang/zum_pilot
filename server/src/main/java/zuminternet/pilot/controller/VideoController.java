@@ -23,7 +23,7 @@ public class VideoController {
   @RequestMapping(value="/api/video-view/{idx}", method = RequestMethod.PATCH)
   public HashMap incrementViewCount (@PathVariable long idx) {
     HashMap send = new HashMap();
-    send.put("success", true);
+    send.put("success", videoService.videoView(idx));
     return send;
   }
 

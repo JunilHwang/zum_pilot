@@ -1,7 +1,7 @@
 package zuminternet.pilot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.Video;
@@ -11,6 +11,7 @@ import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,15 @@ public class VideoService {
       result = parent.getVideoList();
     }
     return result;
+  }
+
+  public boolean videoView (long idx) {
+    Video video = videoRepository.findByIdx(idx);
+    boolean check = video != null;
+    if (check) {
+      video.setViewCount(video.getViewCount() + 1);
+      videoRepository.save(video);
+    }
+    return check;
   }
 }

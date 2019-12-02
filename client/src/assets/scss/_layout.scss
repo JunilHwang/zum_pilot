@@ -93,7 +93,7 @@
     }
   }
   &__video{border-radius:3px;background:#f5f5f5;margin-left:0;margin-right:0;transition-property:margin-left, margin-right;transition-duration:0.3s;}
-  &__article{background:#fff;border-radius:3px;margin-top:5px;
+  &__article{background:#fff;border-radius:3px;margin-top:5px;position:relative;transition:background-color 0.3s;
     &-wrap{display:flex;height:100px;position:relative;line-height:1;}
     &:nth-child(1) .chart__rank{color:$color-main;}
     &:nth-child(2) .chart__rank{color:$color-blue1;}
@@ -101,7 +101,10 @@
     @for $i from 1 through 3 {
       &:nth-child(#{$i}) .chart__rank{font-weight:bold;}
     }
-    &.active{color:#FFF;background:$color-main;}
+    &::before{content:"";position:absolute;display:block;left:-10px;right:100%;top:-5px;bottom:-5px;transition-property:right;transition-duration:0.3s;}
+    &.active{color:#FFF;background:transparent;
+      &::before{left:-10px;right:-10px;background:$color-main;}
+    }
   }
   &__rank{width:100px;font-family:Poppins, Verdana, sans-serif;font-size:27px;text-align:center;padding-top:25px;font-weight:100;
     .active &{color:#fff !important;}
@@ -131,6 +134,7 @@
 /* 비디오 컨트롤러 */
 .video-player{position:relative;height:vw(9, 16);
   iframe{position:absolute;left:0;top:0;width:100%;height:100%;}
+  &:hover .controls{opacity:1;}
 }
 .controls{position:absolute;left:0;right:0;bottom:0;height:40px;background:fade-out(#000, 0.3);color:#fff;line-height:40px;padding:0 20px;display:flex;justify-content:space-between;align-items:center;opacity:0;transition:opacity 0.5s;
   &.active{opacity:1;}

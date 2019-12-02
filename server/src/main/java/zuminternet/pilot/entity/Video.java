@@ -26,6 +26,7 @@ public class Video {
 
   @Column(nullable = false, name = "view_count")
   @ColumnDefault("0")
+  @Setter
   private int viewCount;
 
   @Builder
