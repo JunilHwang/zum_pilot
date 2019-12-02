@@ -25,8 +25,10 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_MUSIC, SELECT_VIDEO } from '@/middleware/store/music/const';
-import { ChartArticle, VideoPlayer } from '@/components/chart';
+import { FETCH_MUSIC } from '@/middleware/store/music/const';
+import { SELECT_VIDEO } from '@/middleware/store/video/const';
+import { ChartArticle } from '@/components/chart';
+import { VideoPlayer } from '@/components/video';
 import { eventBus } from '@/helper';
 
 export default {

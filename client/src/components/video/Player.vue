@@ -8,6 +8,7 @@
                ref="playerWrap" />
       <VideoControls />
     </div>
+    <VideoMeta />
     <VideoList />
   </section>
 </template>
@@ -15,10 +16,15 @@
 <script>
 import { mapState } from 'vuex';
 import { Youtube } from 'vue-youtube';
-import { VideoControls, VideoList } from './index';
+import { VideoControls, VideoList, VideoMeta } from './index';
 
 export default {
-  components: { Youtube, VideoControls, VideoList },
+  components: {
+    Youtube,
+    VideoControls,
+    VideoList,
+    VideoMeta,
+  },
   computed: mapState(['video']),
   data() {
     return {

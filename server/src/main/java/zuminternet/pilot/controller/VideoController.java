@@ -27,4 +27,15 @@ public class VideoController {
     return send;
   }
 
+  @GetMapping(value="/api/video-like/{videoIdx}")
+  public HashMap getLike (
+    @PathVariable int videoIdx,
+    @RequestParam(value = "user_idx", required = true) int userIdx
+  ) {
+    HashMap send = new HashMap();
+    send.put("success", true);
+    send.put("result", videoService.getLike(videoIdx, userIdx));
+    return send;
+  }
+
 }

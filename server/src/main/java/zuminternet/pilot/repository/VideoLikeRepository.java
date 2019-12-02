@@ -6,5 +6,5 @@ import zuminternet.pilot.entity.VideoLike;
 
 public interface VideoLikeRepository extends JpaRepository<VideoLike, Long> {
   long countAllByVideoIdx(int videoIdx);
-  long countAllByUserIdx(int userIdx);
+  VideoLike findByVideoIdxAndAndUserIdx(int videoIdx, int userIdx);
 }

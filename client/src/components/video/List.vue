@@ -10,19 +10,7 @@
         <figure class="video__thumbnail">
           <img :src="v.thumbnail" :alt="v.title"  />
         </figure>
-        <ul class="video__meta">
-          <li class="video__title" v-html="previewTitle(v.title, 50)" />
-          <li class="video__meta-bottom">
-            <span class="video__view-count">
-              <FAI icon="eye" />
-              {{ v.viewCount }}
-            </span>
-            <span class="video__like">
-              <FAI icon="thumbs-up" />
-              0
-            </span>
-          </li>
-        </ul>
+        <strong class="video__title" v-html="previewTitle(v.title, 50)" />
       </div>
     </Flicking>
   </div>
@@ -40,7 +28,7 @@ export default {
   methods: {
     previewTitle,
     selectVideo({ index }) {
-      this.$store.commit(SELECT_VIDEO, this.video.videoList[index]);
+      this.$store.dispatch(SELECT_VIDEO, this.video.videoList[index]);
     },
   },
 };
