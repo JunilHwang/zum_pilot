@@ -17,14 +17,13 @@ export default {
       call({ ...cache });
     }
   },
-  [VIEW_VIDEO]: ({ commit, state }, idx) => {
-    const viewCount = state.selectedVideo.viewCount + 1;
+  [VIEW_VIDEO]: ({ commit, state }) => {
+    const { viewCount, idx } = state.selectedVideo;
     $http
-      .patch(`${API_URL}/video-view/${idx}`, { viewCount })
+      .patch(`${API_URL}/video-view/${idx}`)
       .then(({ data }) => {
-        const { success } = data;
-        if (success) {
-          commit(VIEW_VIDEO, viewCount);
+        if (data.success) {
+          commit(VIEW_VIDEO, viewCount + 1);
         }
       });
   },

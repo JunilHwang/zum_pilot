@@ -1,5 +1,6 @@
 package zuminternet.pilot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +19,7 @@ public class VideoGroup {
 
   @Column(nullable = false, name = "search_title") private String searchTitle;
 
-  @OneToMany
-  @JoinColumn(name = "gid")
+  @OneToMany(mappedBy = "videoGroup")
   private List<Video> VideoList = new ArrayList();
 
   @Builder

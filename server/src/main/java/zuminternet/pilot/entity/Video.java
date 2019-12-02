@@ -1,5 +1,6 @@
 package zuminternet.pilot.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -28,6 +29,11 @@ public class Video {
   @ColumnDefault("0")
   @Setter
   private int viewCount;
+
+  @ManyToOne
+  @JoinColumn(name="gid")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private VideoGroup videoGroup;
 
   @Builder
   public Video (String title, String videoId, String thumbnail) {

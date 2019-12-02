@@ -11,6 +11,7 @@ export default {
     state.selectedVideo = payload;
   },
   [VIEW_VIDEO]: ({ selectedVideo }, viewCount) => {
-    Object.assign(selectedVideo, viewCount);
+    Object.assign(selectedVideo, { viewCount });
+    console.log(selectedVideo);
   },
 };

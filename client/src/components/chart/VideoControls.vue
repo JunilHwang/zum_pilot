@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { VIEW_VIDEO } from '@/middleware/store/video/const';
+
 export default {
   computed: {
     isPlay() {
@@ -66,10 +68,10 @@ export default {
     },
     videoInit() {
       this.isMuted = false;
-      this.player.unMute();
       this.current = 0;
       this.duration = 100;
       this.timer = null;
+      this.player.unMute();
     },
     async stateChange({ data }) {
       this.controlsActive = true;
@@ -82,7 +84,7 @@ export default {
           this.timeCheck();
           break;
         case 0:
-          console.log('video end');
+          await this.$store.dispatch(VIEW_VIDEO);
           break;
         default:
           this.clear();
