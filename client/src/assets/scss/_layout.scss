@@ -121,14 +121,24 @@
 }
 
 /* 음원에 대한 비디오 목록 */
-.panels{height:100%;margin-top:2px;}
-.panel{position:relative;width:50%;height:100%;border-radius:10px;}
 .video{
   &__wrap{height:vw(9, 32)}
+  &__panels{height:100%;margin-top:2px;}
+  &__panel{position:relative;width:50%;height:100%;border-radius:10px;}
   &__thumbnail{@include img-wrap(true);width:100%;height:100%;
-    &::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);}
+    &::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);transition:background 0.3s;
+      .active &{background:fade-out(darken($color-blue1, 15%), 0.5)}
+    }
   }
-  &__title{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;letter-spacing:-0.5px;font-size:vw(11px, 375px);}
+  &__meta{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;letter-spacing:-0.5px;font-size:vw(11px, 375px);
+    &-bottom{text-align:right;
+      span{display:inline-block;}
+    }
+  }
+  &__title{font-weight:bold;display:block;margin-bottom:5px;}
+  &__like{margin-left:15px;
+    svg{position:relative;top:-2px;}
+  }
 }
 
 /* 비디오 컨트롤러 */

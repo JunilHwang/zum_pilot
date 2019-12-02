@@ -12,6 +12,5 @@ export default {
   },
   [VIEW_VIDEO]: ({ selectedVideo }, viewCount) => {
     Object.assign(selectedVideo, { viewCount });
-    console.log(selectedVideo);
   },
 };

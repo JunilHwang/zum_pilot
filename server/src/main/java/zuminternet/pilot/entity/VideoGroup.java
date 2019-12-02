@@ -20,6 +20,7 @@ public class VideoGroup {
   @Column(nullable = false, name = "search_title") private String searchTitle;
 
   @OneToMany(mappedBy = "videoGroup")
+  @OrderBy("idx ASC")
   private List<Video> VideoList = new ArrayList();
 
   @Builder

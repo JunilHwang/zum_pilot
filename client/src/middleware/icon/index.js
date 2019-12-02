@@ -9,6 +9,8 @@ import {
   faCompress,
   faVolumeMute,
   faVolumeDown,
+  faThumbsUp,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -21,5 +23,7 @@ library.add(
   faCompress,
   faVolumeMute,
   faVolumeDown,
+  faThumbsUp,
+  faEye,
 );
 Vue.component('FAI', FontAwesomeIcon);
