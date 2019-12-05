@@ -28,28 +28,6 @@ span.middle{display:inline-block;vertical-align:middle;width:0;height:100%;
   }
 }
 
-/* vue transition */
-.slide-down{
-  &-enter{height:0;
-    &-active{transition:height 0.5s;overflow:hidden;}
-    &-to{height:140px;}
-  }
-  &-leave{height:140px;
-    &-active{transition:height 0.5s;overflow:hidden;}
-    &-to{height:0;}
-  }
-}
-.page-up{
-  &-enter{transform:translateY(100%);
-    &-active{transition:transform 0.5s;}
-    &-to{transform:translateY(0);}
-  }
-  &-leave{transform:translateY(0);
-    &-active{transition:transform 0.5s;}
-    &-to{transform:translateY(100%);}
-  }
-}
-
 /* 입력 영역 */
 .legend{font-size:19px;margin-bottom:10px;
   &::before{content:"";display:inline-block;vertical-align:middle;margin-right:5px;width:5px;height:17px;background:$color-main;margin-top:-5px;}

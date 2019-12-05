@@ -47,7 +47,7 @@ class CrawlerTests {
 
   @Test
   public void MusicChart () {
-    List<MusicArticle> articles = Crawler.getMusicList();
+    List<MusicArticle> articles = Crawler.getMusicList("realtime");
     for (MusicArticle v : articles) {
       System.out.println(v);
     }

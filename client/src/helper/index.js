@@ -7,7 +7,7 @@ export const previewTitle = (str, len) => (
 export const windowBottomSensor = (callback) => {
   const { innerHeight, scrollY } = window;
   const { scrollHeight } = document.body;
-  if (scrollHeight - innerHeight - scrollY === 0) {
+  if (scrollHeight - innerHeight - scrollY <= 0) {
     callback();
   }
 };

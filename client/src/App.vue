@@ -2,23 +2,31 @@
   <div id="app" :class="{ sticky: isSticky }">
     <SiteHeader />
     <div class="content-wrap" ref="wrap">
-      <Navigation />
       <router-view class="main-content" />
     </div>
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
     <SiteFooter />
+    <transition name="modal-fade">
+      <Alert v-if="isAlertShow" />
+    </transition>
   </div>
 </template>
 
 <script>
-import { SiteHeader, Navigation, SiteFooter } from '@/components/templates';
+import { mapState } from 'vuex';
+import { SiteHeader, SiteFooter } from '@/components/common';
+import { Alert } from '@/components/modal';
 import { eventBus, windowBottomSensor } from '@/helper';
 
+const components = { SiteHeader, SiteFooter, Alert };
+const isAlertShow = state => state.modal.show === 'alert';
+
 export default {
-  components: { SiteHeader, Navigation, SiteFooter },
+  components,
   computed: {
+    ...mapState({ isAlertShow }),
     path() {
       return this.$route.path;
     },
@@ -38,7 +46,7 @@ export default {
   methods: {
     scrollEvents() {
       const sy = window.scrollY;
-      const ot = this.wrap.offsetTop;
+      const ot = this.wrap.offsetTop - 37;
       this.sticky(sy, ot);
       windowBottomSensor(() => {
         const methodName = {

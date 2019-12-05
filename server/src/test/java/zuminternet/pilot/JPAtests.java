@@ -71,16 +71,7 @@ public class JPAtests {
 
   @Test
   public void countLike () {
-    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(1).build());
-    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(2).build());
-    videoLikeRepository.save(VideoLike.builder().userIdx(1).videoIdx(3).build());
-    videoLikeRepository.save(VideoLike.builder().userIdx(2).videoIdx(1).build());
-    videoLikeRepository.save(VideoLike.builder().userIdx(3).videoIdx(1).build());
-    long cnt1 = videoLikeRepository.countAllByUserIdx(1);
-    long cnt2 = videoLikeRepository.countAllByVideoIdx(1);
-    System.out.println("----");
+    long cnt1 = videoLikeRepository.countAllByVideoIdx(1057);
     System.out.println(cnt1);
-    System.out.println(cnt2);
-    System.out.println("----\n");
   }
 }
