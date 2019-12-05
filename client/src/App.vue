@@ -8,16 +8,25 @@
       <FAI icon="chevron-up" />
     </a>
     <SiteFooter />
+    <transition name="modal-fade">
+      <Alert v-if="isAlertShow" />
+    </transition>
   </div>
 </template>
 
 <script>
-import { SiteHeader, SiteFooter } from '@/components/templates';
+import { mapState } from 'vuex';
+import { SiteHeader, SiteFooter } from '@/components/common';
+import { Alert } from '@/components/modal';
 import { eventBus, windowBottomSensor } from '@/helper';
 
+const components = { SiteHeader, SiteFooter, Alert };
+const isAlertShow = state => state.modal.show === 'alert';
+
 export default {
-  components: { SiteHeader, SiteFooter },
+  components,
   computed: {
+    ...mapState({ isAlertShow }),
     path() {
       return this.$route.path;
     },

@@ -1,0 +1,33 @@
+@mixin isActive {
+  &-enter-active,
+  &-leave-active{@content};
+};
+
+/* vue transition */
+.slide-down{
+  @include isActive{transition:max-height 0.5s;overflow:hidden;}
+  &-enter{max-height:0;
+    &-to{max-height:100vw;}
+  }
+  &-leave{max-height:100vw;
+    &-to{max-height:0;}
+  }
+}
+.page-up{
+  @include isActive{transition:transform 0.5s;}
+  &-enter{transform:translateY(100%);
+    &-to{transform:translateY(0);}
+  }
+  &-leave{transform:translateY(0);
+    &-to{transform:translateY(100%);}
+  }
+}
+.modal-fade{
+  @include isActive{transition:opacity 0.3s;}
+  &-enter{opacity:0;
+    &-to{opacity:1;}
+  }
+  &-leave{opacity:1;
+    &-to{opacity:0;}
+  }
+}

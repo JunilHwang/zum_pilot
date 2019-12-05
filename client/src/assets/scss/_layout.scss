@@ -103,7 +103,7 @@
     }
     &::before{content:"";position:absolute;display:block;left:0;right:100%;top:0;bottom:0;transition-property:right;transition-duration:0.5s;}
     &.active{color:#FFF;transition:color 0.3s;
-      &::before{right:0;background:$color-main;}
+      &::before{right:0;background:$color-blue1;}
     }
   }
   &__rank{width:100px;font-family:Poppins, Verdana, sans-serif;font-size:27px;text-align:center;padding-top:25px;font-weight:100;
@@ -158,3 +158,13 @@
     .fill{background:$color-main;height:4px;position:absolute;left:0;top:0;}
   }
 }
+
+/* 모달 팝업 */
+.modal{position:fixed;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);text-align:center;z-index:110;
+  &__container{background:#fff;padding:20px;position:relative;text-align:left;cursor:default;border-radius:3px;}
+  &__title{background:$color-main;margin:-20px -20px 20px;padding:0 10px;line-height:30px;color:#fff;font-size:15px;border-radius:3px;}
+  &__close{position:absolute;right:0;top:0;height:30px;width:30px;color:#fff;background:fade-out(#000, 0.8);text-align:center;border-radius:3px;}
+}
+
+/* 경고창 */
+.alert{width:300px;}
