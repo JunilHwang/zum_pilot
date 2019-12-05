@@ -31,8 +31,9 @@ public class Video {
   private int viewCount;
 
   @ManyToOne
-  @JoinColumn(name="gid")
+  @JoinColumn(name="group_idx")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @Setter
   private VideoGroup videoGroup;
 
   @Builder

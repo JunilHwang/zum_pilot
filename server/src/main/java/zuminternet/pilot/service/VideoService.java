@@ -32,11 +32,13 @@ public class VideoService {
     VideoGroup parent = groupRepository.findBySearchTitle(q);
     List<Video> result;
     if (parent == null) {
-      parent = VideoGroup.builder().searchTitle(q).build();
+      VideoGroup finalParent = VideoGroup.builder().searchTitle(q).build();
       result = YoutubeSearch.execute(q);
+      groupRepository.save(finalParent);
+      result.forEach(video -> {
+        video.setVideoGroup(finalParent);
+      });
       videoRepository.saveAll(result);
-      parent.getVideoList().addAll(result);
-      groupRepository.save(parent);
     } else {
       result = parent.getVideoList();
     }
