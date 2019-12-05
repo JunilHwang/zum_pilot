@@ -43,20 +43,19 @@ export default {
       });
   },
   [LIKE_VIDEO]: ({ commit, rootState }) => {
-    const { video, user, modal } = rootState;
-    const { selectedVideo } = video;
+    const { selectedVideo } = rootState.video;
+    const { token } = rootState.user;
     const { idx } = selectedVideo || { };
-    const { token } = user;
     const headers = { 'X-AUTH-TOKEN': token };
     $http
       .post(`${API_URL}/video-like`, { idx }, { headers })
       .then(({ data }) => {
         const { success, error, errorMessage } = data;
         if (success === false) {
-          modal.commit(OPEN_MODAL, 'alert');
-          modal.commit(PROPERTY_MODAL, { message: errorMessage });
+          commit(OPEN_MODAL, 'alert');
+          commit(PROPERTY_MODAL, { message: errorMessage });
           if (error === 'tokenError') {
-            user.commit(LOGOUT);
+            commit(LOGOUT);
           }
         } else {
           commit(LIKE_VIDEO);

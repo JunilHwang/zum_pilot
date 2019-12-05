@@ -25,7 +25,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_MUSIC } from '@/middleware/store/music/const';
+import { FETCH_MUSIC, SELECT_MUSIC } from '@/middleware/store/music/const';
 import { SELECT_VIDEO } from '@/middleware/store/video/const';
 import { ChartArticle } from '@/components/chart';
 import { VideoPlayer } from '@/components/video';
@@ -62,6 +62,7 @@ export default {
     },
   },
   destroyed() {
+    this.$store.commit(SELECT_MUSIC, null);
     this.$store.commit(SELECT_VIDEO, null);
   },
 };
