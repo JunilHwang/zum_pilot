@@ -55,4 +55,9 @@ public class UserService implements UserDetailsService {
     }
     return user;
   }
+
+  public int getUserIdx (String userId) {
+    User user = userRepository.findById(userId);
+    return user.getIdx().intValue();
+  }
 }

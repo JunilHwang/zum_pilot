@@ -1,5 +1,12 @@
 import $http from 'axios';
-import { FETCH_VIDEO, VIEW_VIDEO, SELECT_VIDEO } from './const';
+import {
+  FETCH_VIDEO,
+  VIEW_VIDEO,
+  SELECT_VIDEO,
+  LIKE_VIDEO,
+} from './const';
+import { OPEN_MODAL, PROPERTY_MODAL } from '../modal/const';
+import { LOGOUT } from '../user/const';
 import { API_URL } from '../const';
 
 export default {
@@ -32,6 +39,27 @@ export default {
         if (data.success) {
           Object.assign(video, { ...data.result });
           commit(SELECT_VIDEO, video);
+        }
+      });
+  },
+  [LIKE_VIDEO]: ({ commit, rootState }) => {
+    const { video, user, modal } = rootState;
+    const { selectedVideo } = video;
+    const { idx } = selectedVideo || { };
+    const { token } = user;
+    const headers = { 'X-AUTH-TOKEN': token };
+    $http
+      .post(`${API_URL}/video-like`, { idx }, { headers })
+      .then(({ data }) => {
+        const { success, error, errorMessage } = data;
+        if (success === false) {
+          modal.commit(OPEN_MODAL, 'alert');
+          modal.commit(PROPERTY_MODAL, { message: errorMessage });
+          if (error === 'tokenError') {
+            user.commit(LOGOUT);
+          }
+        } else {
+          commit(LIKE_VIDEO);
         }
       });
   },

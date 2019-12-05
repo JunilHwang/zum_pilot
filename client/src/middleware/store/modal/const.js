@@ -1,4 +1,4 @@
-export const MODAL_OPEN = 'modal/open';
-export const MODAL_CLOSE = 'modal/close';
-export const MODAL_PROPERTY = 'modal/property';
+export const OPEN_MODAL = 'modal/open';
+export const CLOSE_MODAL = 'modal/close';
+export const PROPERTY_MODAL = 'modal/property';
 export default { };

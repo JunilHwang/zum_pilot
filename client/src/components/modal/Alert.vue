@@ -17,7 +17,7 @@
 <script>
 import { mapState } from 'vuex';
 import { Wrapper } from './index';
-import { MODAL_CLOSE } from '@/middleware/store/modal/const';
+import { CLOSE_MODAL } from '@/middleware/store/modal/const';
 
 const props = state => state.modal.props;
 
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     close() {
-      this.$store.commit(MODAL_CLOSE);
+      this.$store.commit(CLOSE_MODAL);
     },
   },
 };

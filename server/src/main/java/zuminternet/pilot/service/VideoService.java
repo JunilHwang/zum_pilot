@@ -3,7 +3,6 @@ package zuminternet.pilot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.Video;
@@ -16,7 +15,6 @@ import zuminternet.pilot.repository.VideoRepository;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -65,5 +63,21 @@ public class VideoService {
     result.put("likeCount", likeCount);
     result.put("userLiked", videoLike != null);
     return result;
+  }
+
+  public void postLike (int videoIdx, int userIdx) {
+    VideoLike videoLike = likeRepository.findByVideoIdxAndAndUserIdx(videoIdx, userIdx);
+    boolean result = videoLike == null;
+    if (result) {
+      likeRepository.save(
+        VideoLike
+          .builder()
+          .userIdx(userIdx)
+          .videoIdx(videoIdx)
+          .build()
+      );
+    } else {
+      likeRepository.delete(videoLike);
+    }
   }
 }

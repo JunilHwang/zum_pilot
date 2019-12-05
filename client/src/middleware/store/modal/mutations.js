@@ -1,17 +1,17 @@
 import {
-  MODAL_OPEN,
-  MODAL_CLOSE,
-  MODAL_PROPERTY,
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  PROPERTY_MODAL,
 } from './const';
 
 export default {
-  [MODAL_OPEN]: (state, payload) => {
+  [OPEN_MODAL]: (state, payload) => {
     state.show = payload;
   },
-  [MODAL_CLOSE]: (state) => {
+  [CLOSE_MODAL]: (state) => {
     state.show = false;
   },
-  [MODAL_PROPERTY]: (state, props) => {
+  [PROPERTY_MODAL]: (state, props) => {
     state.props = props;
   },
 };

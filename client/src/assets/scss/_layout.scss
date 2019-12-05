@@ -135,8 +135,9 @@
 .video-meta{margin-bottom:5px;background:#fff;padding:10px;border-radius:0 0 3px 3px;letter-spacing:-0.5px;
   span{display:inline-block;}
   &__bottom{text-align:right;margin-top:5px;color:#aaa;}
-  &__like{margin-left:15px;
+  &__like{margin-left:15px;transition:color 0.3s;
     svg{position:relative;top:-2px;}
+    &.active{color:$color-main;}
   }
 }
 

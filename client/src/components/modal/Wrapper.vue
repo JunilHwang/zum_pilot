@@ -11,12 +11,12 @@
   </div>
 </template>
 <script>
-import { MODAL_CLOSE } from '@/middleware/store/modal/const';
+import { CLOSE_MODAL } from '@/middleware/store/modal/const';
 
 export default {
   methods: {
     close() {
-      this.$store.commit(MODAL_CLOSE);
+      this.$store.commit(CLOSE_MODAL);
     },
   },
 };

@@ -20,20 +20,15 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { MODAL_OPEN, MODAL_PROPERTY } from '@/middleware/store/modal/const';
-
-const video = state => state.video.selectedVideo;
-const user = state => state.user;
-const message = '로그인 후 이용해주세요';
+import { LIKE_VIDEO } from '@/middleware/store/video/const';
 
 export default {
-  computed: mapState({ video, user }),
+  computed: mapState({
+    video: state => state.video.selectedVideo,
+  }),
   methods: {
     incrementLike() {
-      if (this.user.token === null) {
-        this.$store.commit(MODAL_OPEN, 'alert');
-        this.$store.commit(MODAL_PROPERTY, { message });
-      }
+      this.$store.dispatch(LIKE_VIDEO);
     },
   },
 };
