@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { VIEW_VIDEO } from '@/middleware/store/video/const';
+import { VIDEO_VIEW } from '@/middleware/store/mutations-type';
 
 export default {
   computed: {
@@ -84,7 +84,7 @@ export default {
           this.timeCheck();
           break;
         case 0:
-          await this.$store.dispatch(VIEW_VIDEO);
+          await this.$store.dispatch(VIDEO_VIEW);
           break;
         default:
           this.clear();

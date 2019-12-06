@@ -19,7 +19,7 @@
 <script>
 import { Flicking } from '@egjs/vue-flicking';
 import { mapState } from 'vuex';
-import { SELECT_VIDEO } from '@/middleware/store/video/const';
+import { VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { previewTitle } from '@/helper';
 
 export default {
@@ -28,7 +28,7 @@ export default {
   methods: {
     previewTitle,
     selectVideo({ index }) {
-      this.$store.dispatch(SELECT_VIDEO, this.video.videoList[index]);
+      this.$store.dispatch(VIDEO_SELECT, this.video.videoList[index]);
     },
   },
 };

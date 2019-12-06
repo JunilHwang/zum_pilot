@@ -1,4 +1,4 @@
-import { NO_MEMBER } from './const';
+import { NO_MEMBER } from '../const';
 
 export const initState = {
   permission: NO_MEMBER,

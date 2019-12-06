@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import { VIEW_CONTENT } from '@/middleware/store/news/const';
+import { NEWS_CONTENT_VIEW } from '@/middleware/store/mutations-type';
 import { previewTitle } from '@/helper';
 
 export default {
   methods: {
     viewDetail() {
-      this.$store.commit(VIEW_CONTENT, this.link);
+      this.$store.commit(NEWS_CONTENT_VIEW, this.link);
     },
     previewTitle(title, limit) {
       return previewTitle(title, limit);

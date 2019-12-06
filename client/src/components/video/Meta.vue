@@ -20,7 +20,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { LIKE_VIDEO } from '@/middleware/store/video/const';
+import { VIDEO_LIKE } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState({
@@ -28,7 +28,7 @@ export default {
   }),
   methods: {
     incrementLike() {
-      this.$store.dispatch(LIKE_VIDEO);
+      this.$store.dispatch(VIDEO_LIKE);
     },
   },
 };

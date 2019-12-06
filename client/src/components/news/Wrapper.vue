@@ -4,13 +4,13 @@
 
 <script>
 import { NewsHeadline, NewsPopular, NewsArticle } from './index';
-import { VIEW_CONTENT } from '@/middleware/store/news/const';
+import { NEWS_CONTENT_VIEW } from '@/middleware/store/mutations-type';
 
 export default {
   components: { NewsHeadline, NewsPopular, NewsArticle },
   methods: {
     viewDetail() {
-      this.$store.commit(VIEW_CONTENT, this.properties.link);
+      this.$store.commit(NEWS_CONTENT_VIEW, this.properties.link);
     },
   },
   props: ['type', 'properties'],

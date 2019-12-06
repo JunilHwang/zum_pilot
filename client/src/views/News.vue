@@ -35,7 +35,7 @@
 <script>
 import { mapState } from 'vuex';
 import { Flicking } from '@egjs/vue-flicking';
-import { FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES } from '@/middleware/store/news/const';
+import { NEWS_HEADLINE_FETCH, NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
 import { eventBus } from '@/helper';
 
@@ -48,9 +48,9 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch(FETCH_HEADLINE);
-    this.$store.dispatch(FETCH_POPULAR);
-    this.$store.dispatch(FETCH_ARTICLES);
+    this.$store.dispatch(NEWS_HEADLINE_FETCH);
+    this.$store.dispatch(NEWS_POPULAR_FETCH);
+    this.$store.dispatch(NEWS_ARTICLES_FETCH);
     eventBus.$on('newsLoad', this.listLoading);
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
     listLoading() {
       if (this.page >= 5) return;
       this.page += 1;
-      this.$store.dispatch(FETCH_ARTICLES, this.page);
+      this.$store.dispatch(NEWS_ARTICLES_FETCH, this.page);
     },
   },
   mounted() {

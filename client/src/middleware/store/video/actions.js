@@ -1,36 +1,37 @@
 import $http from 'axios';
 import {
-  FETCH_VIDEO,
-  VIEW_VIDEO,
-  SELECT_VIDEO,
-  LIKE_VIDEO,
-} from './const';
-import { OPEN_MODAL, PROPERTY_MODAL } from '../modal/const';
-import { LOGOUT } from '../user/const';
+  VIDEO_FETCH,
+  VIDEO_VIEW,
+  VIDEO_SELECT,
+  VIDEO_LIKE,
+  MODAL_OPEN,
+  MODAL_PROPERTY,
+  USER_LOGOUT,
+} from '../mutations-type';
 import { API_URL } from '../const';
 
 export default {
-  [FETCH_VIDEO]: ({ commit, dispatch }, q) => {
+  [VIDEO_FETCH]: ({ commit, dispatch }, q) => {
     $http
       .get(`${API_URL}/video?q=${q}`)
       .then(({ data }) => {
         if (data.success) {
-          commit(FETCH_VIDEO, { ...data });
-          dispatch(SELECT_VIDEO, data.result[0]);
+          commit(VIDEO_FETCH, { ...data });
+          dispatch(VIDEO_SELECT, data.result[0]);
         }
       });
   },
-  [VIEW_VIDEO]: ({ commit, state }) => {
+  [VIDEO_VIEW]: ({ commit, state }) => {
     const { viewCount, idx } = state.selectedVideo;
     $http
       .patch(`${API_URL}/video-view/${idx}`)
       .then(({ data }) => {
         if (data.success) {
-          commit(VIEW_VIDEO, viewCount + 1);
+          commit(VIDEO_VIEW, viewCount + 1);
         }
       });
   },
-  [SELECT_VIDEO]: ({ commit, rootState }, video) => {
+  [VIDEO_SELECT]: ({ commit, rootState }, video) => {
     const { idx } = video;
     const userIdx = rootState.user.idx || 0;
     $http
@@ -38,11 +39,11 @@ export default {
       .then(({ data }) => {
         if (data.success) {
           Object.assign(video, { ...data.result });
-          commit(SELECT_VIDEO, video);
+          commit(VIDEO_SELECT, video);
         }
       });
   },
-  [LIKE_VIDEO]: ({ commit, rootState }) => {
+  [VIDEO_LIKE]: ({ commit, rootState }) => {
     const { selectedVideo } = rootState.video;
     const { token } = rootState.user;
     const { idx } = selectedVideo || { };
@@ -52,13 +53,13 @@ export default {
       .then(({ data }) => {
         const { success, error, errorMessage } = data;
         if (success === false) {
-          commit(OPEN_MODAL, 'alert');
-          commit(PROPERTY_MODAL, { message: errorMessage });
+          commit(MODAL_OPEN, 'alert');
+          commit(MODAL_PROPERTY, { message: errorMessage });
           if (error === 'tokenError') {
-            commit(LOGOUT);
+            commit(USER_LOGOUT);
           }
         } else {
-          commit(LIKE_VIDEO);
+          commit(VIDEO_LIKE);
         }
       });
   },

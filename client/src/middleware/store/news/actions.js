@@ -1,40 +1,40 @@
 import $http from 'axios';
 import {
-  FETCH_HEADLINE,
-  FETCH_POPULAR,
-  FETCH_ARTICLES,
-  APPEND_ARTICLES,
-  FETCH_CONTENT,
-} from './const';
+  NEWS_HEADLINE_FETCH,
+  NEWS_POPULAR_FETCH,
+  NEWS_ARTICLES_FETCH,
+  NEWS_ARTICLES_APPEND,
+  NEWS_CONTENT_FETCH,
+} from '../mutations-type';
 import { API_URL } from '../const';
 
 export default {
-  [FETCH_HEADLINE]: ({ commit }) => {
+  [NEWS_HEADLINE_FETCH]: ({ commit }) => {
     $http
       .get(`${API_URL}/news/headline`)
       .then(({ data }) => {
-        commit(FETCH_HEADLINE, data);
+        commit(NEWS_HEADLINE_FETCH, data);
       });
   },
-  [FETCH_POPULAR]: ({ commit }) => {
+  [NEWS_POPULAR_FETCH]: ({ commit }) => {
     $http
       .get(`${API_URL}/news/popular`)
       .then(({ data }) => {
-        commit(FETCH_POPULAR, data);
+        commit(NEWS_POPULAR_FETCH, data);
       });
   },
-  [FETCH_ARTICLES]: ({ commit }, page = 1) => {
+  [NEWS_ARTICLES_FETCH]: ({ commit }, page = 1) => {
     $http
       .get(`${API_URL}/news?page=${page}`)
       .then(({ data }) => {
-        commit(page === 1 ? FETCH_ARTICLES : APPEND_ARTICLES, data);
+        commit(page === 1 ? NEWS_ARTICLES_FETCH : NEWS_ARTICLES_APPEND, data);
       });
   },
-  [FETCH_CONTENT]: ({ commit }, url) => {
+  [NEWS_CONTENT_FETCH]: ({ commit }, url) => {
     $http
       .get(`${API_URL}/news_content?url=${encodeURIComponent(url)}`)
       .then(({ data }) => {
-        commit(FETCH_CONTENT, data);
+        commit(NEWS_CONTENT_FETCH, data);
       });
   },
 };

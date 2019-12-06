@@ -5,12 +5,12 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { FETCH_USER } from '@/middleware/store/user/const';
+import { USER_FETCH } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState(['user']),
   async created() {
-    const data = await this.$store.dispatch(FETCH_USER);
+    const data = await this.$store.dispatch(USER_FETCH);
     console.log(data);
   },
 };

@@ -1,25 +1,29 @@
 import {
-  FETCH_HEADLINE, FETCH_POPULAR, FETCH_ARTICLES, APPEND_ARTICLES,
-  FETCH_CONTENT, VIEW_CONTENT,
-} from './const';
+  NEWS_HEADLINE_FETCH,
+  NEWS_POPULAR_FETCH,
+  NEWS_ARTICLES_FETCH,
+  NEWS_ARTICLES_APPEND,
+  NEWS_CONTENT_FETCH,
+  NEWS_CONTENT_VIEW,
+} from '../mutations-type';
 
 export default {
-  [FETCH_HEADLINE]: (state, { result }) => {
+  [NEWS_HEADLINE_FETCH]: (state, { result }) => {
     state.headline = result;
   },
-  [FETCH_POPULAR]: (state, { result }) => {
+  [NEWS_POPULAR_FETCH]: (state, { result }) => {
     state.populars = result;
   },
-  [FETCH_ARTICLES]: (state, { result }) => {
+  [NEWS_ARTICLES_FETCH]: (state, { result }) => {
     state.articles = result;
   },
-  [APPEND_ARTICLES]: (state, { result }) => {
+  [NEWS_ARTICLES_APPEND]: (state, { result }) => {
     state.articles.push(...result);
   },
-  [FETCH_CONTENT]: (state, { result }) => {
+  [NEWS_CONTENT_FETCH]: (state, { result }) => {
     state.article = { ...result };
   },
-  [VIEW_CONTENT]: (state, payload) => {
+  [NEWS_CONTENT_VIEW]: (state, payload) => {
     state.viewState = payload;
   },
 };

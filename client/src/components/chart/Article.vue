@@ -14,15 +14,14 @@
 </template>
 
 <script>
-import { FETCH_VIDEO } from '@/middleware/store/video/const';
-import { SELECT_MUSIC } from '@/middleware/store/music/const';
+import { VIDEO_FETCH, MUSIC_SELECT } from '@/middleware/store/mutations-type';
 
 export default {
   methods: {
     searchVideo() {
       const { title, artist } = this;
-      this.$store.dispatch(FETCH_VIDEO, title);
-      this.$store.commit(SELECT_MUSIC, `${title}/${artist}`);
+      this.$store.dispatch(VIDEO_FETCH, title);
+      this.$store.commit(MUSIC_SELECT, `${title}/${artist}`);
     },
   },
   props: ['k', 'title', 'album', 'artist', 'img'],
