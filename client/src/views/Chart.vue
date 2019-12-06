@@ -11,7 +11,9 @@
       </ul>
     </header>
     <transition name="slide-down">
-      <VideoPlayer />
+      <VideoPlayer class="chart__video">
+        <VideoList />
+      </VideoPlayer>
     </transition>
     <section class="chart__wrap">
       <ChartArticle
@@ -27,11 +29,11 @@
 import { mapState } from 'vuex';
 import { MUSIC_FETCH, MUSIC_SELECT, VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { ChartArticle } from '@/components/chart';
-import { VideoPlayer } from '@/components/video';
+import { VideoPlayer, VideoList } from '@/components/video';
 import { eventBus } from '@/helper';
 
 export default {
-  components: { ChartArticle, VideoPlayer },
+  components: { ChartArticle, VideoPlayer, VideoList },
   computed: mapState(['music']),
   data() {
     return {

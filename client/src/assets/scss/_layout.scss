@@ -130,7 +130,9 @@
       .active &{background:fade-out(darken($color-blue1, 15%), 0.5)}
     }
   }
-  &__title{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;letter-spacing:-0.5px;font-size:vw(11px, 375px);font-weight:normal;}
+}
+.list-meta{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;
+  &__title{letter-spacing:-0.5px;font-size:vw(11px, 375px);font-weight:normal;}
 }
 .video-meta{margin-bottom:5px;background:#fff;padding:10px;border-radius:0 0 3px 3px;letter-spacing:-0.5px;
   span{display:inline-block;}

@@ -4,6 +4,7 @@ import {
   VIDEO_VIEW,
   VIDEO_SELECT,
   VIDEO_LIKE,
+  VIDEO_POPULAR_FETCH,
   MODAL_OPEN,
   MODAL_PROPERTY,
   USER_LOGOUT,
@@ -15,9 +16,10 @@ export default {
     $http
       .get(`${API_URL}/video?q=${q}`)
       .then(({ data }) => {
-        if (data.success) {
-          commit(VIDEO_FETCH, { ...data });
-          dispatch(VIDEO_SELECT, data.result[0]);
+        const { success, result } = data;
+        if (success) {
+          commit(VIDEO_FETCH, result);
+          dispatch(VIDEO_SELECT, result[0]);
         }
       });
   },
@@ -37,8 +39,9 @@ export default {
     $http
       .get(`${API_URL}/video-like/${idx}?user_idx=${userIdx}`)
       .then(({ data }) => {
-        if (data.success) {
-          Object.assign(video, { ...data.result });
+        const { success, result } = data;
+        if (success) {
+          Object.assign(video, { ...result });
           commit(VIDEO_SELECT, video);
         }
       });
@@ -60,6 +63,16 @@ export default {
           }
         } else {
           commit(VIDEO_LIKE);
+        }
+      });
+  },
+  [VIDEO_POPULAR_FETCH]: ({ commit }) => {
+    $http
+      .get(`${API_URL}/video-popular`)
+      .then(({ data }) => {
+        const { success, result } = data;
+        if (success) {
+          commit(VIDEO_FETCH, result);
         }
       });
   },

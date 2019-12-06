@@ -1,20 +1,18 @@
 <template>
-  <ul class="video-meta">
-    <li class="video-meta__title" v-html="video.title" />
-    <li class="video-meta__bottom">
-      <span class="video-meta__view-count">
+  <ul :class="classPrefix">
+    <li :class="metaTitle" v-html="title" />
+    <li :class="metaBottom" v-if="!~[viewCount, likeCount].indexOf(undefined)">
+      <span v-if="viewCount !== undefined" :class="metaViewCount">
         <FAI icon="eye" />
-        {{ video.viewCount }}
+        {{ viewCount }}
       </span>
-      <span
-        class="video-meta__like"
-        :class="{ active: video.userLiked }">
-        <FAI icon="thumbs-up"
-             :class="{ active: video.userLiked }"
-             @click.prevent="incrementLike"
-        />
-        {{ video.likeCount }}
+      <span v-if="likeCount !== undefined" :class="metaLike">
+        <FAI icon="thumbs-up" @click.prevent="incrementLike" />
+        {{ likeCount }}
       </span>
+    </li>
+    <li :class="metaSlot" v-if="$slots.default !== undefined">
+      <slot></slot>
     </li>
   </ul>
 </template>
@@ -22,14 +20,33 @@
 import { mapState } from 'vuex';
 import { VIDEO_LIKE } from '@/middleware/store/mutations-type';
 
+const token = state => state.user.token;
+
 export default {
-  computed: mapState({
-    video: state => state.video.selectedVideo,
-  }),
+  computed: {
+    ...mapState({ token }),
+    metaTitle() {
+      return `${this.classPrefix}__title`;
+    },
+    metaBottom() {
+      return `${this.classPrefix}__bottom`;
+    },
+    metaSlot() {
+      return `${this.classPrefix}__slot`;
+    },
+    metaViewCount() {
+      return `${this.classPrefix}__view-count`;
+    },
+    metaLike() {
+      const { classPrefix, userLiked } = this;
+      return `${classPrefix}__like ${this.token && userLiked ? 'active' : ''}`;
+    },
+  },
   methods: {
     incrementLike() {
       this.$store.dispatch(VIDEO_LIKE);
     },
   },
+  props: ['classPrefix', 'title', 'userLiked', 'viewCount', 'likeCount'],
 };
 </script>

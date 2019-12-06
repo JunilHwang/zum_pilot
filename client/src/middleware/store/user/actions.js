@@ -1,5 +1,10 @@
 import $http from 'axios';
-import { USER_SIGN_IN, USER_SIGN_UP, USER_FETCH } from '../mutations-type';
+import {
+  USER_SIGN_IN,
+  USER_SIGN_UP,
+  USER_AUTH,
+  USER_LOGOUT,
+} from '../mutations-type';
 import { API_URL } from '../const';
 
 export default {
@@ -16,7 +21,15 @@ export default {
       });
   },
   [USER_SIGN_UP]: (context, payload) => $http.post(`${API_URL}/sign-up`, payload),
-  [USER_FETCH]: ({ state }) => $http.get(`${API_URL}/user`, {
-    headers: { 'X-AUTH-TOKEN': state.token },
-  }),
+  [USER_AUTH]: ({ state, commit }) => {
+    const headers = { 'X-AUTH-TOKEN': state.token };
+    $http
+      .get(`${API_URL}/user`, { headers })
+      .then(({ data }) => {
+        const { success, result } = data;
+        if (!success || result.name === 'anonymousUser') {
+          commit(USER_LOGOUT);
+        }
+      });
+  },
 };

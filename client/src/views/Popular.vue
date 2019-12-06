@@ -1,17 +1,21 @@
 <template>
-  <div>
-    Popular
-  </div>
+  <main>
+    <VideoPlayer />
+  </main>
 </template>
 <script>
 import { mapState } from 'vuex';
-import { USER_FETCH } from '@/middleware/store/mutations-type';
+import { VIDEO_POPULAR_FETCH } from '@/middleware/store/mutations-type';
+import { VideoPlayer } from '@/components/video';
+
+const videoList = state => state.video.videoList;
+const components = { VideoPlayer };
 
 export default {
-  computed: mapState(['user']),
-  async created() {
-    const data = await this.$store.dispatch(USER_FETCH);
-    console.log(data);
+  components,
+  computed: mapState({ videoList }),
+  created() {
+    this.$store.dispatch(VIDEO_POPULAR_FETCH);
   },
 };
 </script>

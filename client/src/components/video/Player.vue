@@ -1,5 +1,5 @@
 <template>
-  <section class="chart__video" v-if="video !== null">
+  <section v-if="video !== null">
     <div class="video-player" ref="container">
       <Youtube :video-id="video.videoId"
                :player-vars="options"
@@ -8,25 +8,21 @@
                ref="playerWrap" />
       <VideoControls />
     </div>
-    <VideoMeta />
-    <VideoList />
+    <VideoMeta v-bind="{ classPrefix: 'video-meta', ...video }" />
+    <slot></slot>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { Youtube } from 'vue-youtube';
-import { VideoControls, VideoList, VideoMeta } from './index';
+import { VideoControls, VideoMeta } from './index';
 
 const video = state => state.video.selectedVideo;
+const components = { Youtube, VideoControls, VideoMeta };
 
 export default {
-  components: {
-    Youtube,
-    VideoControls,
-    VideoList,
-    VideoMeta,
-  },
+  components,
   computed: mapState({ video }),
   data() {
     return {

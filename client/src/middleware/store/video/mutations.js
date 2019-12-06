@@ -6,7 +6,7 @@ import {
 } from '../mutations-type';
 
 export default {
-  [VIDEO_FETCH]: (state, { result: videoList }) => {
+  [VIDEO_FETCH]: (state, videoList) => {
     state.videoList = videoList;
   },
   [VIDEO_SELECT]: (state, payload) => {
