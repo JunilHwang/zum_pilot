@@ -5,11 +5,10 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import zuminternet.pilot.entity.*;
 import zuminternet.pilot.projection.VideoPopular;
-import zuminternet.pilot.entity.Video;
-import zuminternet.pilot.entity.VideoGroup;
-import zuminternet.pilot.entity.VideoLike;
 import zuminternet.pilot.helper.YoutubeSearch;
+import zuminternet.pilot.repository.VideoBookmarkRepository;
 import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoLikeRepository;
 import zuminternet.pilot.repository.VideoRepository;
@@ -26,6 +25,7 @@ public class VideoService {
   private final VideoGroupRepository groupRepository;
   private final CacheManager cacheManager;
   private final VideoLikeRepository likeRepository;
+  private final VideoBookmarkRepository bookmarkRepository;
 
   @Cacheable(cacheNames = "VideoCache", key="#q")
   public List<Video> getVideo (String q) {
@@ -89,5 +89,15 @@ public class VideoService {
             .filter(video -> video.getPopularPoint() > 0)
             .sorted((a, b) -> a.getPopularPoint() < b.getPopularPoint() ? 1 : -1)
             .collect(Collectors.toList());
+  }
+
+  public void setBookmark (User user, long videoIdx) {
+    bookmarkRepository.save(
+      VideoBookmark
+        .builder()
+        .user(user)
+        .video(videoRepository.findByIdx(videoIdx))
+        .build()
+    );
   }
 }

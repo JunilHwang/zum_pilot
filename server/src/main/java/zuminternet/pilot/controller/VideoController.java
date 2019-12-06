@@ -77,4 +77,11 @@ public class VideoController {
     send.put("result", videoService.getPopular());
     return send;
   }
+
+  @PostMapping(value="/api/video-bookmark", consumes = { "application/json" })
+  public HashMap bookmark (@RequestBody HashMap params) {
+    HashMap send = new HashMap();
+    send.put("success", true);
+    return send;
+  }
 }
