@@ -36,7 +36,8 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { SIGN_IN, NO_MEMBER } from '@/middleware/store/user/const';
+import { NO_MEMBER } from '@/middleware/store/const';
+import { USER_SIGN_IN } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState(['user']),
@@ -46,7 +47,7 @@ export default {
   methods: {
     async loginCheck() {
       const { id, pw } = this;
-      await this.$store.dispatch(SIGN_IN, { id, pw });
+      await this.$store.dispatch(USER_SIGN_IN, { id, pw });
     },
   },
   mounted() {

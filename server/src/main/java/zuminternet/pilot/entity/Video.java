@@ -30,7 +30,7 @@ public class Video {
   @Setter
   private int viewCount;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="group_idx")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Setter

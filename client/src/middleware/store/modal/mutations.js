@@ -1,17 +1,17 @@
 import {
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  PROPERTY_MODAL,
-} from './const';
+  MODAL_OPEN,
+  MODAL_CLOSE,
+  MODAL_PROPERTY,
+} from '../mutations-type';
 
 export default {
-  [OPEN_MODAL]: (state, payload) => {
+  [MODAL_OPEN]: (state, payload) => {
     state.show = payload;
   },
-  [CLOSE_MODAL]: (state) => {
+  [MODAL_CLOSE]: (state) => {
     state.show = false;
   },
-  [PROPERTY_MODAL]: (state, props) => {
+  [MODAL_PROPERTY]: (state, props) => {
     state.props = props;
   },
 };

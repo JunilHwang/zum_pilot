@@ -5,6 +5,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import zuminternet.pilot.projection.VideoPopular;
 import zuminternet.pilot.entity.Video;
 import zuminternet.pilot.entity.VideoGroup;
 import zuminternet.pilot.entity.VideoLike;
@@ -15,6 +16,7 @@ import zuminternet.pilot.repository.VideoRepository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +81,13 @@ public class VideoService {
     } else {
       likeRepository.delete(videoLike);
     }
+  }
+
+  public List<VideoPopular> getPopular () {
+    return videoRepository.findAllByPopular()
+            .stream()
+            .filter(video -> video.getPopularPoint() > 0)
+            .sorted((a, b) -> a.getPopularPoint() < b.getPopularPoint() ? 1 : -1)
+            .collect(Collectors.toList());
   }
 }

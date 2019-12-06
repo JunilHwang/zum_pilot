@@ -10,7 +10,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { FETCH_CONTENT, VIEW_CONTENT } from '@/middleware/store/news/const';
+import { NEWS_CONTENT_FETCH, NEWS_CONTENT_VIEW } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState(['news']),
@@ -20,12 +20,12 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch(FETCH_CONTENT, this.news.viewState);
+    this.$store.dispatch(NEWS_CONTENT_FETCH, this.news.viewState);
     this.loaded = true;
   },
   methods: {
     close() {
-      this.$store.commit(VIEW_CONTENT, false);
+      this.$store.commit(NEWS_CONTENT_VIEW, false);
     },
     removeEnter(content) {
       const reg1 = /\s*(<br>|&nbsp;)\s*/g;

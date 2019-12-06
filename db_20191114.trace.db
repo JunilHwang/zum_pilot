@@ -1258,3 +1258,6 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-12-06 11:15:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT V.*, COUNT(VL.USER_IDX) * 2 AS LIKE[*] FROM   VIDEO V LEFT JOIN   VIDEO_LIKE VL ON V.IDX = VL.VIDEO_IDX GROUP BY V.IDX "; expected "identifier"; SQL statement:
+SELECT v.*, count(vl.USER_IDX) * 2 as like FROM   video v left JOIN   video_like vl ON v.idx = vl.video_idx group by v.idx [42001-199]

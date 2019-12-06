@@ -45,7 +45,7 @@
   </main>
 </template>
 <script>
-import { SIGN_UP } from '@/middleware/store/user/const';
+import { USER_SIGN_UP } from '@/middleware/store/mutations-type';
 
 export default {
   data() {
@@ -64,7 +64,7 @@ export default {
     },
     async signUp() {
       const { id, pw, name } = this;
-      const { data } = await this.$store.dispatch(SIGN_UP, { id, pw, name });
+      const { data } = await this.$store.dispatch(USER_SIGN_UP, { id, pw, name });
       if (data.success) {
         alert('회원가입이 완료되었습니다.');
         this.$router.push('/sign-in');

@@ -5,10 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import zuminternet.pilot.entity.User;
+import zuminternet.pilot.entity.Video;
 import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,6 +67,14 @@ public class VideoController {
       send.put("errorMessage", "알 수 없는 에러가 발생했습니다");
     }
     send.put("success", success);
+    return send;
+  }
+
+  @GetMapping(value="/api/video-popular")
+  public HashMap getPopular () {
+    HashMap send = new HashMap();
+    send.put("success", true);
+    send.put("result", videoService.getPopular());
     return send;
   }
 }

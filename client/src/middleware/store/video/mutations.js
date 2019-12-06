@@ -1,21 +1,21 @@
 import {
-  FETCH_VIDEO,
-  SELECT_VIDEO,
-  VIEW_VIDEO,
-  LIKE_VIDEO,
-} from './const';
+  VIDEO_FETCH,
+  VIDEO_SELECT,
+  VIDEO_VIEW,
+  VIDEO_LIKE,
+} from '../mutations-type';
 
 export default {
-  [FETCH_VIDEO]: (state, { result: videoList }) => {
+  [VIDEO_FETCH]: (state, videoList) => {
     state.videoList = videoList;
   },
-  [SELECT_VIDEO]: (state, payload) => {
+  [VIDEO_SELECT]: (state, payload) => {
     state.selectedVideo = payload;
   },
-  [VIEW_VIDEO]: ({ selectedVideo }, viewCount) => {
+  [VIDEO_VIEW]: ({ selectedVideo }, viewCount) => {
     Object.assign(selectedVideo, { viewCount });
   },
-  [LIKE_VIDEO]: (state) => {
+  [VIDEO_LIKE]: (state) => {
     const { selectedVideo } = state;
     const { userLiked, likeCount } = selectedVideo;
     state.selectedVideo = {

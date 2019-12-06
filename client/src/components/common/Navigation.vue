@@ -18,12 +18,8 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import {
-  PUBLIC,
-  NO_MEMBER,
-  IS_MEMBER,
-  LOGOUT,
-} from '@/middleware/store/user/const';
+import { PUBLIC, NO_MEMBER, IS_MEMBER } from '@/middleware/store/const';
+import { USER_LOGOUT } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState(['user']),
@@ -44,7 +40,7 @@ export default {
       return [PUBLIC, this.user.permission].indexOf(permission) !== -1;
     },
     logout() {
-      this.$store.commit(LOGOUT);
+      this.$store.commit(USER_LOGOUT);
     },
   },
 };

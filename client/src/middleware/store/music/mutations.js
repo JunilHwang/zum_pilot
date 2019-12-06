@@ -1,10 +1,10 @@
-import { FETCH_MUSIC, SELECT_MUSIC } from './const';
+import { MUSIC_FETCH, MUSIC_SELECT } from '../mutations-type';
 
 export default {
-  [FETCH_MUSIC]: (state, payload) => {
+  [MUSIC_FETCH]: (state, payload) => {
     state.articles = payload;
   },
-  [SELECT_MUSIC]: (state, payload) => {
+  [MUSIC_SELECT]: (state, payload) => {
     state.selectedMusic = payload;
   },
 };

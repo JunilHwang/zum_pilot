@@ -1,4 +1,4 @@
 export default {
-  videoList: null,
+  videoList: [],
   selectedVideo: null,
 };

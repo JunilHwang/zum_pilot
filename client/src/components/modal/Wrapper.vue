@@ -11,12 +11,12 @@
   </div>
 </template>
 <script>
-import { CLOSE_MODAL } from '@/middleware/store/modal/const';
+import { MODAL_CLOSE } from '@/middleware/store/mutations-type';
 
 export default {
   methods: {
     close() {
-      this.$store.commit(CLOSE_MODAL);
+      this.$store.commit(MODAL_CLOSE);
     },
   },
 };
