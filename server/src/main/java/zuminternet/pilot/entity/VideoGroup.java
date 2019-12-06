@@ -19,7 +19,7 @@ public class VideoGroup {
 
   @Column(nullable = false, name = "search_title") private String searchTitle;
 
-  @OneToMany(mappedBy = "videoGroup")
+  @OneToMany(mappedBy = "videoGroup", fetch = FetchType.LAZY)
   @OrderBy("idx ASC")
   private List<Video> VideoList = new ArrayList();
 

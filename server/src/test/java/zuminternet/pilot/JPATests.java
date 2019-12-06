@@ -1,5 +1,6 @@
 package zuminternet.pilot;
 
+import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,20 +12,18 @@ import zuminternet.pilot.entity.VideoLike;
 import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoLikeRepository;
 import zuminternet.pilot.repository.VideoRepository;
+import zuminternet.pilot.service.VideoService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class JPAtests {
-  @Autowired
-  VideoRepository videoRepository;
+public class JPATests {
 
-  @Autowired
-  VideoGroupRepository videoGroupRepository;
-
-  @Autowired
-  VideoLikeRepository videoLikeRepository;
+  @Autowired VideoRepository videoRepository;
+  @Autowired VideoGroupRepository videoGroupRepository;
+  @Autowired VideoLikeRepository videoLikeRepository;
+  @Autowired VideoService videoService;
 
   @Test
   public void videoTest () {
@@ -73,5 +72,12 @@ public class JPAtests {
   public void countLike () {
     long cnt1 = videoLikeRepository.countAllByVideoIdx(1057);
     System.out.println(cnt1);
+  }
+
+  @Test
+  public void getPopularVideo () {
+    List<Video> result = videoRepository.findAll();
+    System.out.println(result);
+    System.out.println(result.size());
   }
 }
