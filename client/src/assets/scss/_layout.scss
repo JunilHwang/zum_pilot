@@ -163,7 +163,31 @@
 }
 
 /* 인기영상 */
-.video-article{}
+.video-article{background:#fff;border-radius:3px;display:flex;border-radius:3px;position:relative;transition:background 0.3s;
+  +.video-article{margin-top:10px;}
+  $size:180px;
+  &__thumbnail{@include img-wrap();width:$size;height:calc((10 / 16) * #{$size});
+    img{border-radius:3px;}
+  }
+  &__meta{width:calc(100% - #{$size});}
+  &.active{background:$color-main;}
+}
+.popular-meta{padding:10px;font-size:vw(13px, 480px);transition:color 0.3s;
+  .active &{color:#fff;}
+  &__title{margin-bottom:10px;}
+  &__bottom{color:#aaa;display:flex;align-items:center;position:absolute;right:10px;bottom:10px;line-height:20px;transition:color 0.3s;
+    span{margin-left:5px;border:1px solid #bebebe;padding:0 5px;border-radius:3px;transition:border-color 0.3s;}
+    .active &{color:#fff;
+      span{border-color:#fff;}
+    }
+  }
+  &__like{transition:color 0.3s;
+    svg{position:relative;top:-2px;}
+  }
+  &__point{font-size:11px;border-color:$color-blue1 !important;color:$color-blue1;transition-property:color, border-color;transition-duration:0.3s;
+    .active &{border-color:#fff !important;color:#fff;}
+  }
+}
 
 /* 모달 팝업 */
 .modal{position:fixed;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);text-align:center;z-index:110;

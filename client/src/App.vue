@@ -27,12 +27,7 @@ export default {
   components,
   computed: {
     ...mapState({ isAlertShow }),
-    path() {
-      return this.$route.path;
-    },
-    wrap() {
-      return this.$refs.wrap;
-    },
+    path() { return this.$route.path; },
   },
   data() {
     return {
@@ -46,27 +41,24 @@ export default {
   methods: {
     scrollEvents() {
       const sy = window.scrollY;
-      const ot = this.wrap.offsetTop - 37;
+      const ot = this.$refs.wrap.offsetTop - 37;
       this.sticky(sy, ot);
-      windowBottomSensor(() => {
-        const methodName = {
-          '/': 'newsLoad',
-          '/news': 'newsLoad',
-          '/chart': 'chartLoad',
-        }[this.path];
-        eventBus.$emit(methodName);
-      });
+      const methodName = {
+        '/': 'newsLoad',
+        '/news': 'newsLoad',
+        '/chart': 'chartLoad',
+      }[this.path];
+      if (methodName !== undefined) {
+        windowBottomSensor(() => {
+          eventBus.$emit(methodName);
+        });
+      }
     },
     sticky(sy, ot) {
-      switch (true) {
-        case sy > ot && !this.isSticky:
-          this.isSticky = true;
-          break;
-        case sy <= ot && this.isSticky:
-          this.isSticky = false;
-          break;
-        default:
-          break;
+      if (sy > ot && !this.isSticky) {
+        this.isSticky = true;
+      } else if (sy <= ot && this.isSticky) {
+        this.isSticky = false;
       }
     },
   },

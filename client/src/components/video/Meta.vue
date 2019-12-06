@@ -1,7 +1,7 @@
 <template>
   <ul :class="classPrefix">
     <li :class="metaTitle" v-html="title" />
-    <li :class="metaBottom" v-if="!~[viewCount, likeCount].indexOf(undefined)">
+    <li :class="metaBottom">
       <span v-if="viewCount !== undefined" :class="metaViewCount">
         <FAI icon="eye" />
         {{ viewCount }}
@@ -10,8 +10,6 @@
         <FAI icon="thumbs-up" @click.prevent="incrementLike" />
         {{ likeCount }}
       </span>
-    </li>
-    <li :class="metaSlot" v-if="$slots.default !== undefined">
       <slot></slot>
     </li>
   </ul>
@@ -30,9 +28,6 @@ export default {
     },
     metaBottom() {
       return `${this.classPrefix}__bottom`;
-    },
-    metaSlot() {
-      return `${this.classPrefix}__slot`;
     },
     metaViewCount() {
       return `${this.classPrefix}__view-count`;

@@ -1,11 +1,13 @@
 <template>
-  <article>
-    <figure>
+  <article class="video-article" @click="selectVideo">
+    <figure class="video-article__thumbnail">
       <img :src="thumbnail" :alt="title" />
     </figure>
-    <VideoMeta classPrefix="popular-meta" v-bind="{ title, viewCount, likeCount }">
-      <strong v-html="popularPoint" />
-    </VideoMeta>
+    <div class="video-article__meta">
+      <VideoMeta classPrefix="popular-meta" v-bind="{ title, viewCount, likeCount }">
+        <span class="popular-meta__point" v-html="`인기도 ${popularPoint}`" />
+      </VideoMeta>
+    </div>
   </article>
 </template>
 <script>
@@ -15,6 +17,11 @@ const components = { VideoMeta };
 
 export default {
   components,
-  props: ['idx', 'thumbnail', 'videoId', 'title', 'viewCount', 'likeCount', 'popularPoint'],
+  methods: {
+    selectVideo(event) {
+      this.$emit('select', event);
+    },
+  },
+  props: ['idx', 'thumbnail', 'title', 'viewCount', 'likeCount', 'popularPoint'],
 };
 </script>
