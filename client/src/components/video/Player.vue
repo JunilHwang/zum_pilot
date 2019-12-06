@@ -8,7 +8,7 @@
                ref="playerWrap" />
       <VideoControls />
     </div>
-    <VideoMeta v-bind="{ classPrefix: 'video-meta', ...video }" />
+    <VideoMeta classPrefix="video-meta" v-bind="video" />
     <slot></slot>
   </section>
 </template>

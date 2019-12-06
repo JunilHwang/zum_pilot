@@ -162,6 +162,9 @@
   }
 }
 
+/* 인기영상 */
+.video-article{}
+
 /* 모달 팝업 */
 .modal{position:fixed;left:0;right:0;top:0;bottom:0;background:fade-out(#000, 0.5);text-align:center;z-index:110;
   &__container{background:#fff;padding:20px;position:relative;text-align:left;cursor:default;border-radius:3px;}
