@@ -1,10 +1,5 @@
 import $http from 'axios';
-import {
-  USER_SIGN_IN,
-  USER_SIGN_UP,
-  USER_AUTH,
-  USER_LOGOUT,
-} from '../mutations-type';
+import { USER_SIGN_IN, USER_SIGN_UP, USER_AUTH, USER_LOGOUT, MODAL_ALERT } from '../mutations-type';
 import { API_URL } from '../const';
 
 export default {
@@ -13,11 +8,10 @@ export default {
       .post(`${API_URL}/sign-in`, payload)
       .then(({ data }) => {
         if (data.success === false) {
-          alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+          commit(MODAL_ALERT, '아이디 또는 비밀번호가 일치하지 않습니다.');
           return;
         }
         commit(USER_SIGN_IN, data);
-        alert('로그인 되었습니다.');
       });
   },
   [USER_SIGN_UP]: (context, payload) => $http.post(`${API_URL}/sign-up`, payload),

@@ -2,23 +2,31 @@
   <ul :class="classPrefix">
     <li :class="metaTitle" v-html="title" />
     <li :class="metaBottom">
-      <span v-if="bookmarkHide"
-            :class="metaBookmark"
-            @click="bookmarking">
+      <span
+        v-if="bookmarkHide"
+        :class="metaBookmark"
+        @click="bookmarking"
+      >
         <FAI icon="star" />
       </span>
-      <span v-if="viewCount !== undefined"
-            :class="metaViewCount">
-        <FAI icon="eye" />
-        {{ viewCount }}
+      <span
+        v-if="viewCount !== undefined"
+        :class="metaViewCount"
+      >
+        <FAI icon="eye" /> {{ viewCount }}
       </span>
-      <span v-if="likeCount !== undefined"
-            :class="metaLike"
-            @click.prevent="incrementLike">
-        <FAI icon="thumbs-up" />
-        {{ likeCount }}
+      <span
+        v-if="likeCount !== undefined"
+        :class="metaLike"
+        @click.prevent="incrementLike"
+      >
+        <FAI icon="thumbs-up" /> {{ likeCount }}
       </span>
-      <slot></slot>
+      <span
+        v-if="popularPoint !== undefined"
+        class="popular-meta__point"
+        v-html="`인기도 ${popularPoint}`"
+      />
     </li>
   </ul>
 </template>
@@ -63,6 +71,6 @@ export default {
       this.$store.dispatch(VIDEO_BOOKMARK, this.idx);
     },
   },
-  props: ['classPrefix', 'idx', 'title', 'userLiked', 'viewCount', 'likeCount', 'hide'],
+  props: ['classPrefix', 'idx', 'title', 'userLiked', 'viewCount', 'likeCount', 'hide', 'popularPoint'],
 };
 </script>

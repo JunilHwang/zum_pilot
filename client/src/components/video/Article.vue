@@ -6,10 +6,8 @@
     <div class="video-article__meta">
       <VideoMeta
         classPrefix="popular-meta"
-        v-bind="{ idx, title, viewCount, likeCount }"
-        :hide="['bookmark']">
-        <span class="popular-meta__point" v-html="`인기도 ${popularPoint}`" />
-      </VideoMeta>
+        v-bind="{ idx, title, viewCount, likeCount, popularPoint }"
+        :hide="['bookmark']" />
     </div>
   </article>
 </template>

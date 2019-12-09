@@ -6,7 +6,6 @@ import {
   VIDEO_LIKE,
   VIDEO_POPULAR_FETCH,
   VIDEO_BOOKMARK,
-  VIDEO_FETCH_BOOKMARK,
   USER_VIDEO_BOOKMARK,
 } from '../mutations-type';
 import { API_URL } from '../const';
@@ -77,18 +76,6 @@ export default {
         const { result } = data;
         responseProxyWithAuth(commit, data, () => {
           commit(USER_VIDEO_BOOKMARK, result);
-        });
-      });
-  },
-  [VIDEO_FETCH_BOOKMARK]: ({ commit, rootState }) => {
-    const { token } = rootState.user;
-    const headers = { 'X-AUTH-TOKEN': token };
-    $http
-      .get(`${API_URL}/video-bookmark`, { headers })
-      .then(({ data }) => {
-        const { result } = data;
-        responseProxyWithAuth(commit, data, () => {
-          commit(VIDEO_FETCH, result);
         });
       });
   },

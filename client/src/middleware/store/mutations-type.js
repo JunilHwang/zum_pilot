@@ -4,7 +4,6 @@ export const VIDEO_VIEW = 'video/view';
 export const VIDEO_LIKE = 'video/like';
 export const VIDEO_POPULAR_FETCH = 'video/popularFetch';
 export const VIDEO_BOOKMARK = 'video/bookmark';
-export const VIDEO_FETCH_BOOKMARK = 'video/fetchBookmark';
 
 export const USER_SIGN_IN = 'user/signIn';
 export const USER_SIGN_UP = 'user/signUp';
@@ -25,5 +24,6 @@ export const MUSIC_SELECT = 'music/select';
 export const MODAL_OPEN = 'modal/open';
 export const MODAL_CLOSE = 'modal/close';
 export const MODAL_PROPERTY = 'modal/property';
+export const MODAL_ALERT = 'modal/alert';
 
 export default { };

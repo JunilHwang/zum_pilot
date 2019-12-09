@@ -179,6 +179,7 @@
     img{border-radius:3px;}
   }
   &__meta{width:calc(100% - #{$size});}
+  &__none{background:#fff;border-radius:3px;padding:30px 10px;text-align:center;font-size:21px;}
   &.active{background:$color-main;}
 }
 .popular-meta{padding:10px;font-size:vw(13px, 480px);transition:color 0.3s;
