@@ -5,10 +5,8 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import zuminternet.pilot.entity.*;
 import zuminternet.pilot.projection.VideoPopular;
-import zuminternet.pilot.entity.Video;
-import zuminternet.pilot.entity.VideoGroup;
-import zuminternet.pilot.entity.VideoLike;
 import zuminternet.pilot.helper.YoutubeSearch;
 import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoLikeRepository;
@@ -28,7 +26,7 @@ public class VideoService {
   private final VideoLikeRepository likeRepository;
 
   @Cacheable(cacheNames = "VideoCache", key="#q")
-  public List<Video> getVideo (String q) {
+  public List<Video> getList (String q) {
     VideoGroup parent = groupRepository.findBySearchTitle(q);
     List<Video> result;
     if (parent == null) {
@@ -43,6 +41,11 @@ public class VideoService {
       result = parent.getVideoList();
     }
     return result;
+  }
+
+  @Cacheable(cacheNames = "VideoCache", key="#idx")
+  public Video get (long idx) {
+    return videoRepository.findByIdx(idx);
   }
 
   public boolean videoView (long idx) {

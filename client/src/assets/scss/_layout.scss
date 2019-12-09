@@ -131,13 +131,22 @@
     }
   }
 }
+%bookmark{transition:color 0.3s;
+  svg{position:relative;top:-1px;}
+  &.active{color:$color-yellow}
+}
 .list-meta{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;
   &__title{letter-spacing:-0.5px;font-size:vw(11px, 375px);font-weight:normal;}
+  &__bookmark{@extend %bookmark;position:absolute;right:5px;bottom:5px;transition:color 0.3s;
+    svg{position:relative;top:-1px;}
+    &.active{color:$color-yellow}
+  }
 }
-.video-meta{margin-bottom:5px;background:#fff;padding:10px;border-radius:0 0 3px 3px;letter-spacing:-0.5px;
-  span{display:inline-block;}
+.video-meta{margin-bottom:5px;background:#fff;padding:10px;border-radius:0 0 3px 3px;letter-spacing:-0.5px;position:relative;
+  span{margin-left:15px;display:inline-block;vertical-align:bottom;}
   &__bottom{text-align:right;margin-top:5px;color:#aaa;}
-  &__like{margin-left:15px;transition:color 0.3s;
+  &__bookmark{@extend %bookmark;transition:color 0.3s;}
+  &__like{transition:color 0.3s;
     svg{position:relative;top:-2px;}
     &.active{color:$color-main;}
   }
@@ -170,6 +179,7 @@
     img{border-radius:3px;}
   }
   &__meta{width:calc(100% - #{$size});}
+  &__none{background:#fff;border-radius:3px;padding:30px 10px;text-align:center;font-size:21px;}
   &.active{background:$color-main;}
 }
 .popular-meta{padding:10px;font-size:vw(13px, 480px);transition:color 0.3s;
@@ -187,6 +197,7 @@
   &__point{font-size:11px;border-color:$color-blue1 !important;color:$color-blue1;transition-property:color, border-color;transition-duration:0.3s;
     .active &{border-color:#fff !important;color:#fff;}
   }
+  &__bookmark{@extend %bookmark;}
 }
 
 /* 모달 팝업 */

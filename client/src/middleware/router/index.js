@@ -6,6 +6,7 @@ import {
   Login,
   Join,
   Popular,
+  Bookmark,
 } from '@/views';
 
 Vue.use(VueRouter);
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/popular',
     component: Popular,
+  },
+  {
+    path: '/bookmark',
+    component: Bookmark,
   },
 ];
 const router = new VueRouter({

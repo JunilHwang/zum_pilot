@@ -1,5 +1,5 @@
 import { IS_MEMBER } from '../const';
-import { USER_SIGN_IN, USER_LOGOUT } from '../mutations-type';
+import { USER_SIGN_IN, USER_LOGOUT, USER_VIDEO_BOOKMARK } from '../mutations-type';
 import { initState } from './state';
 
 export default {
@@ -11,5 +11,8 @@ export default {
   [USER_LOGOUT]: (state) => {
     sessionStorage.removeItem('user');
     Object.assign(state, { ...initState });
+  },
+  [USER_VIDEO_BOOKMARK]: (state, payload) => {
+    state.bookmark = payload;
   },
 };

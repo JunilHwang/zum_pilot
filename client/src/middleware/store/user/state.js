@@ -6,6 +6,7 @@ export const initState = {
   id: null,
   name: null,
   token: null,
+  bookmark: [],
 };
 
 const storageState = JSON.parse(sessionStorage.getItem('user')) || { };

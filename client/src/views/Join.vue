@@ -45,7 +45,7 @@
   </main>
 </template>
 <script>
-import { USER_SIGN_UP } from '@/middleware/store/mutations-type';
+import { USER_SIGN_UP, MODAL_ALERT } from '@/middleware/store/mutations-type';
 
 export default {
   data() {
@@ -66,11 +66,10 @@ export default {
       const { id, pw, name } = this;
       const { data } = await this.$store.dispatch(USER_SIGN_UP, { id, pw, name });
       if (data.success) {
-        alert('회원가입이 완료되었습니다.');
-        this.$router.push('/sign-in');
+        this.$store.commit(MODAL_ALERT, '회원가입이 완료되었습니다.');
+        await this.$router.push('/sign-in');
       } else {
-        alert('이미 중복된 아이디가 있습니다.');
-        this.idFocus();
+        this.$store.commit(MODAL_ALERT, '이미 중복된 아이디가 있습니다.');
       }
     },
   },

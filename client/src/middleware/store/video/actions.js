@@ -5,11 +5,11 @@ import {
   VIDEO_SELECT,
   VIDEO_LIKE,
   VIDEO_POPULAR_FETCH,
-  MODAL_OPEN,
-  MODAL_PROPERTY,
-  USER_LOGOUT,
+  VIDEO_BOOKMARK,
+  USER_VIDEO_BOOKMARK,
 } from '../mutations-type';
 import { API_URL } from '../const';
+import { responseProxyWithAuth } from '@/helper';
 
 export default {
   [VIDEO_FETCH]: ({ commit, dispatch }, q) => {
@@ -46,24 +46,15 @@ export default {
         }
       });
   },
-  [VIDEO_LIKE]: ({ commit, rootState }) => {
-    const { selectedVideo } = rootState.video;
+  [VIDEO_LIKE]: ({ commit, rootState }, idx) => {
     const { token } = rootState.user;
-    const { idx } = selectedVideo || { };
     const headers = { 'X-AUTH-TOKEN': token };
     $http
       .post(`${API_URL}/video-like`, { idx }, { headers })
       .then(({ data }) => {
-        const { success, error, errorMessage } = data;
-        if (success === false) {
-          commit(MODAL_OPEN, 'alert');
-          commit(MODAL_PROPERTY, { message: errorMessage });
-          if (error === 'tokenError') {
-            commit(USER_LOGOUT);
-          }
-        } else {
-          commit(VIDEO_LIKE);
-        }
+        responseProxyWithAuth(commit, data, () => {
+          commit(VIDEO_LIKE, idx);
+        });
       });
   },
   [VIDEO_POPULAR_FETCH]: ({ commit }) => {
@@ -74,6 +65,18 @@ export default {
         if (success) {
           commit(VIDEO_FETCH, result);
         }
+      });
+  },
+  [VIDEO_BOOKMARK]: ({ commit, rootState }, idx) => {
+    const { token } = rootState.user;
+    const headers = { 'X-AUTH-TOKEN': token };
+    $http
+      .post(`${API_URL}/video-bookmark`, { idx }, { headers })
+      .then(({ data }) => {
+        const { result } = data;
+        responseProxyWithAuth(commit, data, () => {
+          commit(USER_VIDEO_BOOKMARK, result);
+        });
       });
   },
 };

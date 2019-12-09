@@ -12,6 +12,7 @@ import zuminternet.pilot.entity.VideoLike;
 import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoLikeRepository;
 import zuminternet.pilot.repository.VideoRepository;
+import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class JPATests {
   @Autowired VideoGroupRepository videoGroupRepository;
   @Autowired VideoLikeRepository videoLikeRepository;
   @Autowired VideoService videoService;
+  @Autowired UserService userService;
 
   @Test
   public void videoTest () {
@@ -53,6 +55,7 @@ public class JPATests {
                        .thumbnail("thumbnail")
                        .title("title")
                        .build();
+    videoRepository.save(video);
     System.out.println(video);
   }
 

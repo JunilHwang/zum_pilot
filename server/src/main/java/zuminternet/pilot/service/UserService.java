@@ -8,29 +8,45 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.User;
+import zuminternet.pilot.entity.Video;
 import zuminternet.pilot.repository.UserRepository;
+import zuminternet.pilot.repository.VideoRepository;
+
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
   private final UserRepository userRepository;
+  private final VideoRepository videoRepository;
   private final PasswordEncoder passwordEncoder;
 
   public User fetch (HashMap params) {
     String id = params.get("id").toString(),
            pw = params.get("pw").toString();
+    return this.fetch(id, pw);
+  }
+  public User fetch (String id, String pw) {
     User user = userRepository.findById(id);
-    boolean confirmPassword = passwordEncoder.matches(pw, user.getPw());
-    return confirmPassword ? user : null;
+    boolean confirm = false;
+    if (user != null) {
+      confirm = passwordEncoder.matches(pw, user.getPw());
+    }
+    return confirm ? user : null;
   }
 
   public boolean insert (HashMap params) {
     String id = params.get("id").toString();
-    String pw = passwordEncoder.encode(params.get("pw").toString());
+    String pw = params.get("pw").toString();
     String name = params.get("name").toString();
+    return this.insert(id, pw, name);
+  }
+
+  public boolean insert (String id, String pw, String name) {
+    String encodedPw = passwordEncoder.encode(pw);
     long count = userRepository.countAllById(id);
     if (count > 0) {
       return false;
@@ -39,7 +55,7 @@ public class UserService implements UserDetailsService {
       User
         .builder()
         .id(id)
-        .pw(pw)
+        .pw(encodedPw)
         .name(name)
         .roles(Collections.singletonList("ROLE_USER"))
         .build()
@@ -56,8 +72,23 @@ public class UserService implements UserDetailsService {
     return user;
   }
 
-  public int getUserIdx (String userId) {
-    User user = userRepository.findById(userId);
-    return user.getIdx().intValue();
+  public User get (String userId) {
+    return userRepository.findById(userId);
+  }
+
+  public List<Video> setBookmark(String userId, long videoIdx) {
+    User user = this.get(userId);
+    Video video = videoRepository.findByIdx(videoIdx);
+    if (user.getBookmark().contains(video)) {
+      user.getBookmark().remove(video);
+    } else {
+      user.getBookmark().add(video);
+    }
+    userRepository.save(user);
+    return user.getBookmark();
+  }
+
+  public List<Video> getBookmark(String userId) {
+    return this.get(userId).getBookmark();
   }
 }

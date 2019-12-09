@@ -12,6 +12,7 @@
         </figure>
         <VideoMeta
           classPrefix="list-meta"
+          :idx="v.idx"
           :title="previewTitle(v.title, 50)"
         />
       </div>

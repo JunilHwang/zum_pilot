@@ -4,9 +4,10 @@
       <img :src="thumbnail" :alt="title" />
     </figure>
     <div class="video-article__meta">
-      <VideoMeta classPrefix="popular-meta" v-bind="{ title, viewCount, likeCount }">
-        <span class="popular-meta__point" v-html="`인기도 ${popularPoint}`" />
-      </VideoMeta>
+      <VideoMeta
+        classPrefix="popular-meta"
+        v-bind="{ idx, title, viewCount, likeCount, popularPoint }"
+        :hide="['bookmark']" />
     </div>
   </article>
 </template>

@@ -37,7 +37,7 @@
 <script>
 import { mapState } from 'vuex';
 import { NO_MEMBER } from '@/middleware/store/const';
-import { USER_SIGN_IN } from '@/middleware/store/mutations-type';
+import { USER_SIGN_IN, MODAL_ALERT } from '@/middleware/store/mutations-type';
 
 export default {
   computed: mapState(['user']),
@@ -52,7 +52,7 @@ export default {
   },
   mounted() {
     if (this.user.permission !== NO_MEMBER) {
-      alert('비회원만 접근 가능합니다.');
+      this.$store.commit(MODAL_ALERT, '비회원만 접근 가능합니다.');
       this.$router.go(-1);
     }
     this.$refs.id.focus();
