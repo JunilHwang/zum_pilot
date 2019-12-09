@@ -53,7 +53,7 @@ export default {
       .post(`${API_URL}/video-like`, { idx }, { headers })
       .then(({ data }) => {
         responseProxyWithAuth(commit, data, () => {
-          commit(VIDEO_LIKE, idx);
+          commit(VIDEO_LIKE);
         });
       });
   },

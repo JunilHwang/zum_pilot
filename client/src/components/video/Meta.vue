@@ -36,10 +36,11 @@ import { VIDEO_LIKE, VIDEO_BOOKMARK } from '@/middleware/store/mutations-type';
 
 const token = state => state.user.token;
 const bookmark = state => state.user.bookmark;
+const selectedVideoIdx = state => state.video.selectedVideo.idx;
 
 export default {
   computed: {
-    ...mapState({ token, bookmark }),
+    ...mapState({ token, bookmark, selectedVideoIdx }),
     metaTitle() {
       return `${this.classPrefix}__title`;
     },
@@ -65,7 +66,9 @@ export default {
   },
   methods: {
     incrementLike() {
-      this.$store.dispatch(VIDEO_LIKE, this.idx);
+      if (this.idx === this.selectedVideoIdx) {
+        this.$store.dispatch(VIDEO_LIKE, this.idx);
+      }
     },
     bookmarking() {
       this.$store.dispatch(VIDEO_BOOKMARK, this.idx);
