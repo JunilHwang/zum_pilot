@@ -47,7 +47,7 @@ public class UserController {
     HashMap send = new HashMap();
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     send.put("success", true);
-    send.put("result", auth);
+    send.put("result", auth.getName());
     return send;
   }
 }

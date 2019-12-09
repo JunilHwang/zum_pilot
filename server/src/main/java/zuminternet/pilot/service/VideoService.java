@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import zuminternet.pilot.entity.*;
 import zuminternet.pilot.projection.VideoPopular;
 import zuminternet.pilot.helper.YoutubeSearch;
-import zuminternet.pilot.repository.VideoBookmarkRepository;
 import zuminternet.pilot.repository.VideoGroupRepository;
 import zuminternet.pilot.repository.VideoLikeRepository;
 import zuminternet.pilot.repository.VideoRepository;
@@ -25,10 +24,9 @@ public class VideoService {
   private final VideoGroupRepository groupRepository;
   private final CacheManager cacheManager;
   private final VideoLikeRepository likeRepository;
-  private final VideoBookmarkRepository bookmarkRepository;
 
   @Cacheable(cacheNames = "VideoCache", key="#q")
-  public List<Video> getVideo (String q) {
+  public List<Video> getList (String q) {
     VideoGroup parent = groupRepository.findBySearchTitle(q);
     List<Video> result;
     if (parent == null) {
@@ -43,6 +41,11 @@ public class VideoService {
       result = parent.getVideoList();
     }
     return result;
+  }
+
+  @Cacheable(cacheNames = "VideoCache", key="#idx")
+  public Video get (long idx) {
+    return videoRepository.findByIdx(idx);
   }
 
   public boolean videoView (long idx) {
@@ -89,15 +92,5 @@ public class VideoService {
             .filter(video -> video.getPopularPoint() > 0)
             .sorted((a, b) -> a.getPopularPoint() < b.getPopularPoint() ? 1 : -1)
             .collect(Collectors.toList());
-  }
-
-  public void setBookmark (User user, long videoIdx) {
-    bookmarkRepository.save(
-      VideoBookmark
-        .builder()
-        .user(user)
-        .video(videoRepository.findByIdx(videoIdx))
-        .build()
-    );
   }
 }

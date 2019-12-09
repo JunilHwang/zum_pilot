@@ -24,7 +24,7 @@ public class VideoController {
   public HashMap getVideoList (@RequestParam(required = true) String q) {
     HashMap send = new HashMap();
     send.put("success", true);
-    send.put("result", videoService.getVideo(q));
+    send.put("result", videoService.getList(q));
     return send;
   }
 
@@ -58,8 +58,10 @@ public class VideoController {
         send.put("error", "Token Error");
         send.put("errorMessage", "로그인 후 이용해주세요");
       } else {
-        int userIdx = userService.getUserIdx(userId);
-        videoService.postLike(videoIdx, userIdx);
+        videoService.postLike(
+          videoIdx,
+          userService.get(userId).getIdx().intValue()
+        );
         success = true;
       }
     } catch (Exception e) {
@@ -80,8 +82,24 @@ public class VideoController {
 
   @PostMapping(value="/api/video-bookmark", consumes = { "application/json" })
   public HashMap bookmark (@RequestBody HashMap params) {
+    int videoIdx = Integer.valueOf(params.get("idx").toString());
     HashMap send = new HashMap();
-    send.put("success", true);
+    boolean success = false;
+    try {
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      String userId = auth.getName();
+      if (userId == "anonymousUser") {
+        send.put("error", "Token Error");
+        send.put("errorMessage", "로그인 후 이용해주세요");
+      } else {
+        success = true;
+        send.put("result", userService.setBookmark(userId, videoIdx));
+      }
+    } catch (Exception e) {
+      send.put("error", "Server Error");
+      send.put("errorMessage", "알 수 없는 에러가 발생했습니다");
+    }
+    send.put("success", success);
     return send;
   }
 }

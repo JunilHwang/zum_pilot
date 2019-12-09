@@ -33,6 +33,10 @@ public class User implements UserDetails {
   @Column(nullable = false, unique = true, length = 255)
   private String name;
 
+
+  @OneToMany
+  protected List<Video> bookmark;
+
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default

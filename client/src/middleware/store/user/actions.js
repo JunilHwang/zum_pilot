@@ -27,7 +27,7 @@ export default {
       .get(`${API_URL}/user`, { headers })
       .then(({ data }) => {
         const { success, result } = data;
-        if (!success || result.name === 'anonymousUser') {
+        if (!success || result === 'anonymousUser') {
           commit(USER_LOGOUT);
         }
       });

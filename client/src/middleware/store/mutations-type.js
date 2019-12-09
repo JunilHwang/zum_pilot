@@ -3,11 +3,13 @@ export const VIDEO_SELECT = 'video/select';
 export const VIDEO_VIEW = 'video/view';
 export const VIDEO_LIKE = 'video/like';
 export const VIDEO_POPULAR_FETCH = 'video/popularFetch';
+export const VIDEO_BOOKMARK = 'video/bookmark';
 
 export const USER_SIGN_IN = 'user/signIn';
 export const USER_SIGN_UP = 'user/signUp';
 export const USER_LOGOUT = 'user/logout';
 export const USER_AUTH = 'user/auth';
+export const USER_VIDEO_BOOKMARK = 'user/videoBookmark';
 
 export const NEWS_HEADLINE_FETCH = 'news/fetchHeadline';
 export const NEWS_POPULAR_FETCH = 'news/fetchPopular';

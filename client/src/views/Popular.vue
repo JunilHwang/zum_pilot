@@ -5,12 +5,8 @@
     </transition>
     <VideoArticle
       v-for="(video, k) in videoList"
-      :title="video.title"
-      :thumbnail="video.thumbnail"
-      :viewCount="video.viewCount"
-      :likeCount="video.likeCount"
-      :popularPoint="video.popularPoint"
       :key="k"
+      v-bind="video"
       :class="{ active: selectedVideo && selectedVideo.idx === video.idx }"
       @select="selectVideo(video)"
     />
