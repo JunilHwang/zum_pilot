@@ -4,6 +4,7 @@ export const VIDEO_VIEW = 'video/view';
 export const VIDEO_LIKE = 'video/like';
 export const VIDEO_POPULAR_FETCH = 'video/popularFetch';
 export const VIDEO_BOOKMARK = 'video/bookmark';
+export const VIDEO_FETCH_BOOKMARK = 'video/fetchBookmark';
 
 export const USER_SIGN_IN = 'user/signIn';
 export const USER_SIGN_UP = 'user/signUp';

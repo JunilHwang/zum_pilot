@@ -31,6 +31,7 @@ export default {
         { title: '인기영상', url: '/popular', permission: PUBLIC },
         { title: '로그인', url: '/sign-in', permission: NO_MEMBER },
         { title: '회원가입', url: '/sign-up', permission: NO_MEMBER },
+        { title: '즐겨찾기', url: '/bookmark', permission: IS_MEMBER },
       ],
       IS_MEMBER,
     };

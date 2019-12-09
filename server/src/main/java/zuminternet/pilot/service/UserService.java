@@ -87,4 +87,8 @@ public class UserService implements UserDetailsService {
     userRepository.save(user);
     return user.getBookmark();
   }
+
+  public List<Video> getBookmark(String userId) {
+    return this.get(userId).getBookmark();
+  }
 }

@@ -15,13 +15,15 @@ export default {
   [VIDEO_VIEW]: ({ selectedVideo }, viewCount) => {
     Object.assign(selectedVideo, { viewCount });
   },
-  [VIDEO_LIKE]: (state) => {
-    const { selectedVideo } = state;
-    const { userLiked, likeCount } = selectedVideo;
-    state.selectedVideo = {
-      ...selectedVideo,
-      userLiked: !userLiked,
-      likeCount: likeCount + (!userLiked ? 1 : -1),
-    };
+  [VIDEO_LIKE]: (state, idx) => {
+    const { videoList } = state;
+    const key = videoList.findIndex(v => v.idx === idx);
+    const target = videoList[key];
+    const { userLiked, likeCount } = target;
+    target.userLiked = !userLiked;
+    target.likeCount = likeCount + (!userLiked ? 1 : -1);
+    if (target.idx === state.selectedVideo.idx) {
+      state.selectedVideo = target;
+    }
   },
 };

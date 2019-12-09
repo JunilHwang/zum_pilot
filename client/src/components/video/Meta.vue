@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     incrementLike() {
-      this.$store.dispatch(VIDEO_LIKE);
+      this.$store.dispatch(VIDEO_LIKE, this.idx);
     },
     bookmarking() {
       this.$store.dispatch(VIDEO_BOOKMARK, this.idx);
