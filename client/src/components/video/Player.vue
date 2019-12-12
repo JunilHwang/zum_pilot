@@ -8,7 +8,7 @@
                ref="playerWrap" />
       <VideoControls />
     </div>
-    <VideoMeta classPrefix="video-meta" v-bind="video" />
+    <VideoMeta classPrefix="video-meta" v-bind="video" :hide="['popular']" />
     <slot></slot>
   </section>
 </template>

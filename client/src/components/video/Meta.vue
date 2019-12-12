@@ -23,7 +23,7 @@
         <FAI icon="thumbs-up" /> {{ likeCount }}
       </span>
       <span
-        v-if="popularPoint !== undefined"
+        v-if="popularPoint !== undefined && popularPointHide"
         class="popular-meta__point"
         v-html="`인기도 ${popularPoint}`"
       />
@@ -62,6 +62,10 @@ export default {
     bookmarkHide() {
       const hide = this.hide || [];
       return hide.indexOf('bookmark') === -1;
+    },
+    popularPointHide() {
+      const hide = this.hide || [];
+      return hide.indexOf('popular') === -1;
     },
   },
   methods: {
