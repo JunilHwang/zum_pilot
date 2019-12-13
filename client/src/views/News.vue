@@ -28,7 +28,7 @@
 <script>
 import { mapState } from 'vuex';
 import { Flicking } from '@egjs/vue-flicking';
-import { NEWS_HEADLINE_FETCH, NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
+import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
 import { eventBus } from '@/helper';
 
@@ -36,9 +36,7 @@ export default {
   components: { NewsWrapper, NewsDetail, Flicking },
   computed: mapState(['news']),
   data() {
-    return {
-      page: 1,
-    };
+    return { page: 1 };
   },
   created() {
     this.$store.dispatch(NEWS_POPULAR_FETCH);
