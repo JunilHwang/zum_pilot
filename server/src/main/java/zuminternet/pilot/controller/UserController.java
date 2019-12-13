@@ -14,8 +14,6 @@ import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.domain.response.SingleResult;
 import zuminternet.pilot.service.ResponseService;
 import zuminternet.pilot.service.UserService;
-
-import java.util.HashMap;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -27,16 +25,16 @@ public class UserController {
   private final ResponseService responseService;
 
   @PostMapping(value="/api/sign-in", consumes = { "application/json" })
-  public SingleResult<User> signIn (@RequestBody HashMap params) throws UserNotFoundException {
+  public SingleResult<User> signIn (@RequestBody User params) throws UserNotFoundException {
     User user = userService.fetch(params);
-    Optional.ofNullable(user).orElseThrow(UserNotFoundException::new);
+    Optional.of(user).orElseThrow(UserNotFoundException::new);
     user.setToken(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()));
     return responseService.singleResult(user);
   }
 
   @PostMapping(value="/api/sign-up", consumes = { "application/json" })
-  public CommonResult signUp (@RequestBody HashMap params) {
-    User user = userService.fetch(params.get("id").toString());
+  public CommonResult signUp (@RequestBody User params) {
+    User user = userService.fetch(params.getId());
     if (user == null) {
       userService.insert(params);
       return responseService.successResult();

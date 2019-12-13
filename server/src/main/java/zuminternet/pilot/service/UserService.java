@@ -12,7 +12,6 @@ import zuminternet.pilot.domain.dao.repository.UserRepository;
 import zuminternet.pilot.domain.dao.repository.VideoRepository;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,9 +22,9 @@ public class UserService implements UserDetailsService {
   private final VideoRepository videoRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public User fetch (HashMap params) {
-    String id = params.get("id").toString(),
-           pw = params.get("pw").toString();
+  public User fetch (User params) {
+    String id = params.getId(),
+           pw = params.getPw();
     return this.fetch(id, pw);
   }
 
@@ -42,10 +41,10 @@ public class UserService implements UserDetailsService {
     return userRepository.findById(id);
   }
 
-  public boolean insert (HashMap params) {
-    String id = params.get("id").toString();
-    String pw = params.get("pw").toString();
-    String name = params.get("name").toString();
+  public boolean insert (User params) {
+    String id = params.getId();
+    String pw = params.getPw();
+    String name = params.getName();
     return this.insert(id, pw, name);
   }
 

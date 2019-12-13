@@ -45,9 +45,9 @@ public class VideoController {
   }
 
   @PostMapping(value="/api/video-like", consumes = { "application/json" })
-  public CommonResult postLike (@RequestBody HashMap params) throws AuthException {
+  public CommonResult postLike (@RequestBody Video params) throws AuthException {
     String userId = jwtTokenProvider.authorization();
-    int videoIdx = Integer.valueOf(params.get("idx").toString());
+    int videoIdx = params.getIdx().intValue();
     videoService.postLike(videoIdx, userService.get(userId).getIdx().intValue());
     return responseService.successResult();
   }
@@ -58,9 +58,9 @@ public class VideoController {
   }
 
   @PostMapping(value="/api/video-bookmark", consumes = { "application/json" })
-  public ListResult<Video> bookmarking (@RequestBody HashMap params) {
+  public ListResult<Video> bookmarking (@RequestBody Video params) {
     String userId = jwtTokenProvider.authorization();
-    int videoIdx = Integer.valueOf(params.get("idx").toString());
+    int videoIdx = params.getIdx().intValue();
     userService.setBookmark(userId, videoIdx);
     return responseService.listResult(userService.getBookmark(userId));
   }
