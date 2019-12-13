@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       limit: 10,
-      categories: ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul', '인디'],
+      categories: ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'],
       selectedCategory: 0,
     };
   },
