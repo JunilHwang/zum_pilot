@@ -7,6 +7,7 @@ import zuminternet.pilot.domain.dao.entity.Video;
 import zuminternet.pilot.domain.dto.VideoPopular;
 import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.domain.response.ListResult;
+import zuminternet.pilot.domain.response.SingleResult;
 import zuminternet.pilot.helper.ResponseGenerator;
 import zuminternet.pilot.service.ResponseService;
 import zuminternet.pilot.service.UserService;
@@ -39,9 +40,8 @@ public class VideoController {
   }
 
   @GetMapping(value="/api/video-like/{videoIdx}")
-  public CommonResult getLike (@PathVariable int videoIdx, @RequestParam(value = "user_idx", required = true) int userIdx) {
-    videoService.getLike(videoIdx, userIdx);
-    return responseService.successResult();
+  public SingleResult<HashMap> getLike (@PathVariable int videoIdx, @RequestParam(value = "user_idx", required = true) int userIdx) {
+    return responseService.singleResult(videoService.getLike(videoIdx, userIdx));
   }
 
   @PostMapping(value="/api/video-like", consumes = { "application/json" })

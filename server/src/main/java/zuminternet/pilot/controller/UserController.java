@@ -36,7 +36,8 @@ public class UserController {
 
   @PostMapping(value="/api/sign-up", consumes = { "application/json" })
   public CommonResult signUp (@RequestBody HashMap params) {
-    if (userService.fetch(params.get("string").toString()) == null) {
+    User user = userService.fetch(params.get("id").toString());
+    if (user == null) {
       userService.insert(params);
       return responseService.successResult();
     }

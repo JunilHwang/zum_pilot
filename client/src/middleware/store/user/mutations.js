@@ -3,9 +3,9 @@ import { USER_SIGN_IN, USER_LOGOUT, USER_VIDEO_BOOKMARK } from '../mutations-typ
 import { initState } from './state';
 
 export default {
-  [USER_SIGN_IN]: (state, { result, token }) => {
+  [USER_SIGN_IN]: (state, { result }) => {
     const permission = IS_MEMBER;
-    Object.assign(state, { permission, ...result, token });
+    Object.assign(state, { permission, ...result });
     sessionStorage.setItem('user', JSON.stringify(state));
   },
   [USER_LOGOUT]: (state) => {
