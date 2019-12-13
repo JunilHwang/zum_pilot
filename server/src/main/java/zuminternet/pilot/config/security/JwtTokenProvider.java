@@ -31,41 +31,41 @@ public class JwtTokenProvider {
     secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
   }
   // 토큰 생성
-    public String createToken(String userPk, List<String> roles) {
-        Claims claims = Jwts.claims().setSubject(userPk);
-        claims.put("roles", roles);
-        Date now = new Date();
-        return Jwts.builder()
-                .setClaims(claims) // 데이터
-                .setIssuedAt(now) // 토큰 발행일자
-                .setExpiration(new Date(now.getTime() + tokenValidMS)) // set Expire Time
-                .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
-                .compact();
-    }
+  public String createToken(String userPk, List<String> roles) {
+      Claims claims = Jwts.claims().setSubject(userPk);
+      claims.put("roles", roles);
+      Date now = new Date();
+      return Jwts.builder()
+              .setClaims(claims) // 데이터
+              .setIssuedAt(now) // 토큰 발행일자
+              .setExpiration(new Date(now.getTime() + tokenValidMS)) // set Expire Time
+              .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
+              .compact();
+  }
 
-    // Jwt 토큰으로 인증 정보를 조회
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userService.loadUserByUsername(this.getUserPk(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
+  // Jwt 토큰으로 인증 정보를 조회
+  public Authentication getAuthentication(String token) {
+      UserDetails userDetails = userService.loadUserByUsername(this.getUserPk(token));
+      return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+  }
 
-    // Jwt 토큰에서 회원 구별 정보 추출
-    public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
+  // Jwt 토큰에서 회원 구별 정보 추출
+  public String getUserPk(String token) {
+      return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+  }
 
-    // Request의 Header에서 token 파싱 : "X-AUTH-TOKEN: jwt토큰"
-    public String resolveToken(HttpServletRequest req) {
-        return req.getHeader("X-AUTH-TOKEN");
-    }
+  // Request의 Header에서 token 파싱 : "X-AUTH-TOKEN: jwt토큰"
+  public String resolveToken(HttpServletRequest req) {
+      return req.getHeader("X-AUTH-TOKEN");
+  }
 
-    // Jwt 토큰의 유효성 + 만료일자 확인
-    public boolean validateToken(String token) {
-      try {
-        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-        return !claims.getBody().getExpiration().before(new Date());
-      } catch (Exception e) {
-        return false;
-      }
+  // Jwt 토큰의 유효성 + 만료일자 확인
+  public boolean validateToken(String token) {
+    try {
+      Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+      return !claims.getBody().getExpiration().before(new Date());
+    } catch (Exception e) {
+      return false;
     }
+  }
 }

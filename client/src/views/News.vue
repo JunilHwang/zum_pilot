@@ -6,13 +6,6 @@
         :options="{ gap: 5, hanger: 0, anchor: 0, zIndex: 10 }"
         @select="viewDetail"
       >
-        <div class="news__panel">
-          <NewsWrapper
-            v-if="news.headline !== null"
-            type="NewsHeadline"
-            :properties="news.headline"
-          />
-        </div>
         <div class="news__panel" v-for="(props, k) in news.populars" :key="k">
           <NewsWrapper
             type="NewsHeadline"
@@ -48,7 +41,6 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch(NEWS_HEADLINE_FETCH);
     this.$store.dispatch(NEWS_POPULAR_FETCH);
     this.$store.dispatch(NEWS_ARTICLES_FETCH);
     eventBus.$on('newsLoad', this.listLoading);
