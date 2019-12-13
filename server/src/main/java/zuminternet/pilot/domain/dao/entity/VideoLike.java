@@ -1,4 +1,4 @@
-package zuminternet.pilot.entity;
+package zuminternet.pilot.domain.entity;
 
 import lombok.*;
 

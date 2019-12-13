@@ -1,8 +1,9 @@
 package zuminternet.pilot.domain;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Builder
 public class NewsArticle {
   private String img;
   private String title;
