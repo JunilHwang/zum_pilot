@@ -1,17 +1,15 @@
 package zuminternet.pilot;
 
-import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import zuminternet.pilot.entity.User;
-import zuminternet.pilot.entity.Video;
-import zuminternet.pilot.entity.VideoGroup;
-import zuminternet.pilot.entity.VideoLike;
-import zuminternet.pilot.repository.VideoGroupRepository;
-import zuminternet.pilot.repository.VideoLikeRepository;
-import zuminternet.pilot.repository.VideoRepository;
+import zuminternet.pilot.domain.dao.entity.User;
+import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dao.entity.VideoGroup;
+import zuminternet.pilot.domain.dao.entity.VideoLike;
+import zuminternet.pilot.domain.dao.repository.VideoGroupRepository;
+import zuminternet.pilot.domain.dao.repository.VideoLikeRepository;
+import zuminternet.pilot.domain.dao.repository.VideoRepository;
 import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 

@@ -1,9 +1,9 @@
-package zuminternet.pilot.repository;
+package zuminternet.pilot.domain.dao.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import zuminternet.pilot.domain.dto.VideoPopular;
-import zuminternet.pilot.domain.entity.Video;
+import zuminternet.pilot.domain.dao.entity.Video;
 
 import java.util.List;
 

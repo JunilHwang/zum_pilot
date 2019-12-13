@@ -1,15 +1,15 @@
 package zuminternet.pilot.advice.exception;
 
-public class UserNotFoundException extends RuntimeException {
-  public UserNotFoundException (String msg, Throwable t) {
+public class AuthException extends RuntimeException {
+  public AuthException(String msg, Throwable t) {
     super(msg, t);
   }
 
-  public UserNotFoundException (String msg) {
+  public AuthException(String msg) {
     super(msg);
   }
 
-  public UserNotFoundException () {
+  public AuthException() {
     super();
   }
 }

@@ -1,16 +1,15 @@
 package zuminternet.pilot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import zuminternet.pilot.entity.User;
-import zuminternet.pilot.entity.Video;
-import zuminternet.pilot.repository.UserRepository;
-import zuminternet.pilot.repository.VideoRepository;
+import zuminternet.pilot.domain.dao.entity.User;
+import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dao.repository.UserRepository;
+import zuminternet.pilot.domain.dao.repository.VideoRepository;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,6 +28,7 @@ public class UserService implements UserDetailsService {
            pw = params.get("pw").toString();
     return this.fetch(id, pw);
   }
+
   public User fetch (String id, String pw) {
     User user = userRepository.findById(id);
     boolean confirm = false;
@@ -36,6 +36,10 @@ public class UserService implements UserDetailsService {
       confirm = passwordEncoder.matches(pw, user.getPw());
     }
     return confirm ? user : null;
+  }
+
+  public User fetch (String id) {
+    return userRepository.findById(id);
   }
 
   public boolean insert (HashMap params) {
@@ -76,7 +80,7 @@ public class UserService implements UserDetailsService {
     return userRepository.findById(userId);
   }
 
-  public List<Video> setBookmark(String userId, long videoIdx) {
+  public void setBookmark(String userId, long videoIdx) {
     User user = this.get(userId);
     Video video = videoRepository.findByIdx(videoIdx);
     if (user.getBookmark().contains(video)) {
@@ -85,7 +89,6 @@ public class UserService implements UserDetailsService {
       user.getBookmark().add(video);
     }
     userRepository.save(user);
-    return user.getBookmark();
   }
 
   public List<Video> getBookmark(String userId) {

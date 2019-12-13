@@ -1,4 +1,4 @@
-package zuminternet.pilot.projection;
+package zuminternet.pilot.domain.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 

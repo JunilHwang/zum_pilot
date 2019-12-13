@@ -24,8 +24,6 @@ spring:
   cache:
     ehcache:
       config: classpath:ehcache.xml
-  jwt:
-    secret: zum.pilot@junil#@!
 
 
 logging:

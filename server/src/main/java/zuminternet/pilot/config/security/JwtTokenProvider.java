@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import zuminternet.pilot.advice.exception.AuthException;
 import zuminternet.pilot.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -17,11 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
-  @Value("spring.jwt.secret")
+  @Value("${jwt.secret}")
   private String secretKey;
   private long tokenValidMS = 1000L * 60 * 60;
   private final UserService userService;
@@ -67,5 +70,14 @@ public class JwtTokenProvider {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  public String authorization () throws AuthException {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String userId = auth.getName();
+    if (userId.equals("anonymousUser")) {
+       throw new AuthException();
+    }
+    return userId;
   }
 }

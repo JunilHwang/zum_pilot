@@ -1,4 +1,4 @@
-package zuminternet.pilot.domain.entity;
+package zuminternet.pilot.domain.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -33,7 +33,6 @@ public class User implements UserDetails {
   @Column(nullable = false, unique = true, length = 255)
   private String name;
 
-
   @OneToMany
   protected List<Video> bookmark;
 
@@ -41,6 +40,10 @@ public class User implements UserDetails {
   @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default
   private List<String> roles = new ArrayList();
+
+  @Transient
+  @Setter
+  private String token;
 
   @Override
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

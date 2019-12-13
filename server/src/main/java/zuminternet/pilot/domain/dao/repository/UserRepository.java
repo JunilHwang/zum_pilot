@@ -1,7 +1,7 @@
-package zuminternet.pilot.repository;
+package zuminternet.pilot.domain.dao.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import zuminternet.pilot.domain.entity.User;
+import zuminternet.pilot.domain.dao.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
   User findByIdAndPw(String id, String pw);

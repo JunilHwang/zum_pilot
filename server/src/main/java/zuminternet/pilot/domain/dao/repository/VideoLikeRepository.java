@@ -1,7 +1,7 @@
-package zuminternet.pilot.repository;
+package zuminternet.pilot.domain.dao.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import zuminternet.pilot.domain.entity.VideoLike;
+import zuminternet.pilot.domain.dao.entity.VideoLike;
 
 public interface VideoLikeRepository extends JpaRepository<VideoLike, Long> {
   long countAllByVideoIdx(int videoIdx);

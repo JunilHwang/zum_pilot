@@ -1,4 +1,4 @@
-package zuminternet.pilot.helper;
+package zuminternet.pilot.helper.crawler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,10 +6,8 @@ import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import zuminternet.pilot.domain.MusicArticle;
-import zuminternet.pilot.domain.NewsArticle;
+import zuminternet.pilot.domain.dto.NewsArticle;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class NewsCrawler extends Crawler {
   @Value("${url.billboard}")
   private String billboardURL;
 
-  public List<NewsArticle> getNewsList (int page) {
+  public List<NewsArticle> getList (int page) {
     Document doc = getDoc(sbsURL + "/news/ssports_list.jsp?code_category=SS04&pageNo=" + page);
     Elements els = doc.select(".list_news").select("li");
     List<NewsArticle> articles = new ArrayList();
@@ -63,7 +61,7 @@ public class NewsCrawler extends Crawler {
     return articles;
   }
 
-  public NewsArticle getNewsContent (String url) {
+  public NewsArticle getContent (String url) {
     Document doc = getDoc(url);
     Boolean bool = url.indexOf(sbsURL) != -1;
     Elements el = doc.select(bool ? "#etv_news_content" : ".text");

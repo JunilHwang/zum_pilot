@@ -5,12 +5,14 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import zuminternet.pilot.entity.*;
-import zuminternet.pilot.projection.VideoPopular;
+import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dao.entity.VideoGroup;
+import zuminternet.pilot.domain.dao.entity.VideoLike;
+import zuminternet.pilot.domain.dto.VideoPopular;
 import zuminternet.pilot.helper.YoutubeSearch;
-import zuminternet.pilot.repository.VideoGroupRepository;
-import zuminternet.pilot.repository.VideoLikeRepository;
-import zuminternet.pilot.repository.VideoRepository;
+import zuminternet.pilot.domain.dao.repository.VideoGroupRepository;
+import zuminternet.pilot.domain.dao.repository.VideoLikeRepository;
+import zuminternet.pilot.domain.dao.repository.VideoRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ public class VideoService {
   private final VideoGroupRepository groupRepository;
   private final CacheManager cacheManager;
   private final VideoLikeRepository likeRepository;
+  private final YoutubeSearch youtubeSearch;
 
   @Cacheable(cacheNames = "VideoCache", key="#q")
   public List<Video> getList (String q) {
@@ -31,7 +34,7 @@ public class VideoService {
     List<Video> result;
     if (parent == null) {
       VideoGroup finalParent = VideoGroup.builder().searchTitle(q).build();
-      result = YoutubeSearch.execute(q);
+      result = youtubeSearch.execute(q);
       groupRepository.save(finalParent);
       result.forEach(video -> {
         video.setVideoGroup(finalParent);

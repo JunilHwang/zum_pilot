@@ -2,11 +2,19 @@ package zuminternet.pilot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import zuminternet.pilot.config.security.JwtTokenProvider;
+import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dto.VideoPopular;
+import zuminternet.pilot.domain.response.CommonResult;
+import zuminternet.pilot.domain.response.ListResult;
 import zuminternet.pilot.helper.ResponseGenerator;
+import zuminternet.pilot.service.ResponseService;
 import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
+import javax.security.auth.message.AuthException;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,73 +22,52 @@ public class VideoController {
 
   private final VideoService videoService;
   private final UserService userService;
+  private final ResponseService responseService;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @GetMapping(value="/api/video")
-  public HashMap getVideoList (@RequestParam(required = true) String q) {
-    HashMap send = new HashMap();
-    send.put("success", true);
-    send.put("result", videoService.getList(q));
-    return send;
+  public ListResult<Video> getVideoList (@RequestParam(required = true) String q) {
+    return responseService.listResult(videoService.getList(q));
   }
 
   @RequestMapping(value="/api/video-view/{idx}", method = RequestMethod.PATCH)
-  public HashMap incrementViewCount (@PathVariable long idx) {
-    HashMap send = new HashMap();
-    send.put("success", videoService.videoView(idx));
-    return send;
+  public CommonResult incrementViewCount (@PathVariable long idx) {
+    if (videoService.videoView(idx)) {
+      return responseService.successResult();
+    }
+    return responseService.defaultFail();
   }
 
   @GetMapping(value="/api/video-like/{videoIdx}")
-  public HashMap getLike (
-    @PathVariable int videoIdx,
-    @RequestParam(value = "user_idx", required = true) int userIdx
-  ) {
-    HashMap send = new HashMap();
-    send.put("success", true);
-    send.put("result", videoService.getLike(videoIdx, userIdx));
-    return send;
+  public CommonResult getLike (@PathVariable int videoIdx, @RequestParam(value = "user_idx", required = true) int userIdx) {
+    videoService.getLike(videoIdx, userIdx);
+    return responseService.successResult();
   }
 
   @PostMapping(value="/api/video-like", consumes = { "application/json" })
-  public HashMap postLike (@RequestBody HashMap params) {
+  public CommonResult postLike (@RequestBody HashMap params) throws AuthException {
+    String userId = jwtTokenProvider.authorization();
     int videoIdx = Integer.valueOf(params.get("idx").toString());
-    HashMap send = ResponseGenerator.withAuth();
-    if ((boolean)send.get("success")) {
-      String userId = send.get("userId").toString();
-      videoService.postLike(
-        videoIdx,
-        userService.get(userId).getIdx().intValue()
-      );
-    }
-    return send;
+    videoService.postLike(videoIdx, userService.get(userId).getIdx().intValue());
+    return responseService.successResult();
   }
 
   @GetMapping(value="/api/video-popular")
-  public HashMap getPopular () {
-    HashMap send = new HashMap();
-    send.put("success", true);
-    send.put("result", videoService.getPopular());
-    return send;
+  public ListResult<VideoPopular> getPopular () {
+    return responseService.listResult(videoService.getPopular());
   }
 
   @PostMapping(value="/api/video-bookmark", consumes = { "application/json" })
-  public HashMap bookmarking (@RequestBody HashMap params) {
+  public ListResult<Video> bookmarking (@RequestBody HashMap params) {
+    String userId = jwtTokenProvider.authorization();
     int videoIdx = Integer.valueOf(params.get("idx").toString());
-    HashMap send = ResponseGenerator.withAuth();
-    if ((boolean)send.get("success")) {
-      String userId = send.get("userId").toString();
-      send.put("result", userService.setBookmark(userId, videoIdx));
-    }
-    return send;
+    userService.setBookmark(userId, videoIdx);
+    return responseService.listResult(userService.getBookmark(userId));
   }
 
   @GetMapping(value="/api/video-bookmark")
-  public HashMap getBookmark () {
-    HashMap send = ResponseGenerator.withAuth();
-    if ((boolean)send.get("success")) {
-      String userId = send.get("userId").toString();
-      send.put("result", userService.getBookmark(userId));
-    }
-    return send;
+  public ListResult<Video> getBookmark () {
+    String userId = jwtTokenProvider.authorization();
+    return responseService.listResult(userService.getBookmark(userId));
   }
 }

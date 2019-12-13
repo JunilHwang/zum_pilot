@@ -1,4 +1,10 @@
 package zuminternet.pilot.domain.response;
 
-public class SingleResult {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class SingleResult<T> extends CommonResult {
+  private T result;
 }

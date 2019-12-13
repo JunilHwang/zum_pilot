@@ -1,4 +1,4 @@
-package zuminternet.pilot.domain;
+package zuminternet.pilot.domain.dto;
 
 import lombok.Builder;
 import lombok.Data;
