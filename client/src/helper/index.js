@@ -15,10 +15,11 @@ export const windowBottomSensor = (callback) => {
 
 export const eventBus = new Vue();
 
-export const responseProxyWithAuth = (commit, { success, errorMessage, error }, callback) => {
+
+export const responseProxyWithAuth = (commit, { success, msg, code }, callback) => {
   if (success === false) {
-    commit(MODAL_ALERT, errorMessage);
-    if (error === 'tokenError') {
+    commit(MODAL_ALERT, msg);
+    if (code === -1) {
       commit(USER_LOGOUT);
     }
   } else {
