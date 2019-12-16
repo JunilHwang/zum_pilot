@@ -27,7 +27,7 @@ public class UserController {
   @PostMapping(value="/api/sign-in", consumes = { "application/json" })
   public SingleResult<User> signIn (@RequestBody User params) throws UserNotFoundException {
     User user = userService.fetch(params);
-    Optional.of(user).orElseThrow(UserNotFoundException::new);
+    Optional.ofNullable(user).orElseThrow(UserNotFoundException::new);
     user.setToken(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()));
     return responseService.singleResult(user);
   }
