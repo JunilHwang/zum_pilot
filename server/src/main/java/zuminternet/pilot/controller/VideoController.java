@@ -5,17 +5,16 @@ import org.springframework.web.bind.annotation.*;
 import zuminternet.pilot.config.security.JwtTokenProvider;
 import zuminternet.pilot.domain.dao.entity.Video;
 import zuminternet.pilot.domain.dto.VideoPopular;
+import zuminternet.pilot.domain.response.CommonResponse;
 import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.domain.response.ListResult;
 import zuminternet.pilot.domain.response.SingleResult;
-import zuminternet.pilot.helper.ResponseGenerator;
 import zuminternet.pilot.service.ResponseService;
 import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
 import javax.security.auth.message.AuthException;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +35,7 @@ public class VideoController {
     if (videoService.videoView(idx)) {
       return responseService.successResult();
     }
-    return responseService.defaultFail();
+    return responseService.failResult(CommonResponse.FAIL);
   }
 
   @GetMapping(value="/api/video-like/{videoIdx}")

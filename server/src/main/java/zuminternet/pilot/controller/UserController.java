@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import zuminternet.pilot.advice.exception.UserNotFoundException;
 import zuminternet.pilot.config.security.JwtTokenProvider;
 import zuminternet.pilot.domain.dao.entity.User;
+import zuminternet.pilot.domain.response.CommonResponse;
 import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.domain.response.SingleResult;
 import zuminternet.pilot.service.ResponseService;
@@ -39,7 +40,7 @@ public class UserController {
       userService.insert(params);
       return responseService.successResult();
     }
-    return responseService.signUpFail();
+    return responseService.failResult(CommonResponse.SIGN_UP_FAIL);
   }
 
   @GetMapping(value="/api/user")
