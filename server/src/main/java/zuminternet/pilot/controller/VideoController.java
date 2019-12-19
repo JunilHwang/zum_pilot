@@ -33,7 +33,7 @@ public class VideoController {
   @RequestMapping(value="/api/video-view/{idx}", method = RequestMethod.PATCH)
   public CommonResult incrementViewCount (@PathVariable long idx) {
     if (videoService.videoView(idx)) {
-      return responseService.successResult();
+      return responseService.commonResult();
     }
     return responseService.failResult(CommonResponse.FAIL);
   }
@@ -48,7 +48,7 @@ public class VideoController {
     String userId = jwtTokenProvider.authorization();
     int videoIdx = params.getIdx().intValue();
     videoService.postLike(videoIdx, userService.get(userId).getIdx().intValue());
-    return responseService.successResult();
+    return responseService.commonResult();
   }
 
   @GetMapping(value="/api/video-popular")

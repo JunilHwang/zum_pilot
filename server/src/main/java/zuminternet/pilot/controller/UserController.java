@@ -38,7 +38,7 @@ public class UserController {
     User user = userService.fetch(params.getId());
     if (user == null) {
       userService.insert(params);
-      return responseService.successResult();
+      return responseService.commonResult();
     }
     return responseService.failResult(CommonResponse.SIGN_UP_FAIL);
   }
