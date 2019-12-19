@@ -1,56 +1,70 @@
 <template>
-  <main class="chart">
-    <section class="chart__video">
-      <strong>비디오 영역입니다.</strong>
-    </section>
+  <main>
+    <header class="chart__category">
+      <ul>
+        <li v-for="(v, k) in categories" :key="k">
+          <a href="#"
+             @click.prevent="fetchMusic(k)"
+             :class="{active: k === selectedCategory}"
+             v-html="v" />
+        </li>
+      </ul>
+    </header>
+    <transition name="slide-down">
+      <VideoPlayer class="chart__video">
+        <VideoList />
+      </VideoPlayer>
+    </transition>
     <section class="chart__wrap">
-      <article class="chart__article" v-for="(v, k) in list" :key="k">
-        <strong class="chart__rank" v-html="k + 1" />
-        <dl class="chart__info">
-          <dt v-html="v" />
-          <dd>Artist {{k}}</dd>
-        </dl>
-        <figure class="chart__thumbnail">
-          <img :src="'https://source.unsplash.com/random/100x'+(100+Math.random()*10)" alt="music title">
-        </figure>
-      </article>
+      <ChartArticle
+        v-for="(v, k) in limit"
+        :key="v"
+        :class="{ active: isActive(k) }"
+        v-bind="{ k, ...music.articles[k] }"
+      />
     </section>
   </main>
 </template>
 <script>
+import { mapState } from 'vuex';
+import { MUSIC_FETCH, MUSIC_SELECT, VIDEO_SELECT } from '@/middleware/store/mutations-type';
+import { ChartArticle } from '@/components/chart';
+import { VideoPlayer, VideoList } from '@/components/video';
+import { eventBus } from '@/helper';
+
 export default {
+  components: { ChartArticle, VideoPlayer, VideoList },
+  computed: mapState(['music']),
   data() {
     return {
-      initList: [
-        'Lorem ipsum dolor.',
-        'At, excepturi, fuga?',
-        'Est, obcaecati ratione.',
-        'Accusamus, aperiam, optio!',
-        'Natus, provident quae!',
-        'At eaque, tenetur.',
-        'Cupiditate totam, unde!',
-        'Adipisci laboriosam, rerum.',
-        'Blanditiis, cum incidunt?',
-        'Dolore, ipsam porro.',
-      ],
-      list: [],
+      limit: 10,
+      categories: ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'],
+      selectedCategory: 0,
     };
   },
   created() {
-    this.list.push(...this.initList);
-    window.addEventListener('scroll', this.listLoading);
+    this.fetchMusic(0);
+    eventBus.$on('chartLoad', this.listLoading);
   },
   methods: {
-    listLoading() {
-      const { innerHeight, scrollY } = window;
-      const { scrollHeight } = document.body;
-      if (scrollHeight - innerHeight - scrollY === 0) {
-        this.list.push(...this.initList);
-        if (this.list.length >= 100) {
-          window.removeEventListener('scroll', this.listLoading);
-        }
-      }
+    fetchMusic(k) {
+      this.selectedCategory = k;
+      this.$store.dispatch(MUSIC_FETCH, this.categories[k]);
     },
+    listLoading() {
+      if (this.limit >= 100) return;
+      this.limit += 10;
+    },
+    isActive(k) {
+      const { articles, selectedMusic } = this.music;
+      if (selectedMusic === null) return false;
+      const { title, artist } = articles[k];
+      return selectedMusic === `${title}/${artist}`;
+    },
+  },
+  destroyed() {
+    this.$store.commit(MUSIC_SELECT, null);
+    this.$store.commit(VIDEO_SELECT, null);
   },
 };
 </script>

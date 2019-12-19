@@ -1,62 +1,63 @@
 <template>
   <div id="app" :class="{ sticky: isSticky }">
     <SiteHeader />
-    <div class="content-wrap">
-      <nav class="main-content__header" ref="nav">
-        <ul>
-          <li v-for="(v, k) in menu" :key="k">
-            <router-link :to="v.url">
-              <span v-html="v.title" />
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-      <transition :name="$store.state.routerTransition">
-        <router-view />
-      </transition>
+    <div class="content-wrap" ref="wrap">
+      <router-view class="main-content" />
     </div>
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
     <SiteFooter />
+    <transition name="modal-fade">
+      <Alert v-if="isAlertShow" />
+    </transition>
   </div>
 </template>
 
 <script>
-import SiteHeader from '@/components/templates/SiteHeader.vue';
-import SiteFooter from '@/components/templates/SiteFooter.vue';
+import { mapState } from 'vuex';
+import { SiteHeader, SiteFooter } from '@/components/common';
+import { Alert } from '@/components/modal';
+import { eventBus, windowBottomSensor } from '@/helper';
+
+const components = { SiteHeader, SiteFooter, Alert };
+const isAlertShow = state => state.modal.show === 'alert';
 
 export default {
-  components: {
-    SiteHeader,
-    SiteFooter,
+  components,
+  computed: {
+    ...mapState({ isAlertShow }),
+    path() { return this.$route.path; },
   },
   data() {
     return {
-      menu: [
-        { title: '뉴스', url: '/' },
-        { title: '음원차트', url: '/chart' },
-        { title: '인기영상', url: '/popular' },
-      ],
       isSticky: false,
-      menuOffestTop: 0,
     };
   },
   mounted() {
-    this.menuOffestTop = this.$refs.nav.offsetTop;
     window.removeEventListener('scroll', this.scrollEvents);
     window.addEventListener('scroll', this.scrollEvents);
   },
   methods: {
     scrollEvents() {
-      const { scrollY } = window;
-      const ot = this.menuOffestTop;
-      this.sticky(scrollY, ot);
+      const sy = window.scrollY;
+      const ot = this.$refs.wrap.offsetTop - 37;
+      this.sticky(sy, ot);
+      const methodName = {
+        '/': 'newsLoad',
+        '/news': 'newsLoad',
+        '/chart': 'chartLoad',
+      }[this.path];
+      if (methodName !== undefined) {
+        windowBottomSensor(() => {
+          eventBus.$emit(methodName);
+        });
+      }
     },
-    sticky(scrollY, ot) {
-      if (scrollY > ot && !this.isSticky) {
+    sticky(sy, ot) {
+      if (sy > ot && !this.isSticky) {
         this.isSticky = true;
-      } else if (scrollY <= ot && this.isSticky) {
+      } else if (sy <= ot && this.isSticky) {
         this.isSticky = false;
       }
     },

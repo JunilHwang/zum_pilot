@@ -1,9 +1,12 @@
 @import 'lib';
 body,html,div,p,ul,ol,li,h1,h2,h3,h4,h5,h6,section,article,figure,img,dl,dt,dd{margin:0;padding:0;}
-body{font-size:15px;font-family:$font;font-weight:400;}
+body{font-size:15px;font-family:$font;font-weight:400;overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
 input,select,textarea,button{font-family:inherit;font-size:15px;}
 input,select,textarea,button,img{vertical-align:middle;}
 input,textarea{border:1px solid #ddd;background:#fff;}
+button{border:none;background:none;}
 ul,li{list-style:none;}
 img{max-width:100%;}
+iframe{display:block;vertical-align:bottom;}
+fieldset{border:none;}

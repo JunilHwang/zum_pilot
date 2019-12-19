@@ -1,0 +1,99 @@
+package zuminternet.pilot.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dao.entity.VideoGroup;
+import zuminternet.pilot.domain.dao.entity.VideoLike;
+import zuminternet.pilot.domain.dto.VideoPopular;
+import zuminternet.pilot.helper.YoutubeSearch;
+import zuminternet.pilot.domain.dao.repository.VideoGroupRepository;
+import zuminternet.pilot.domain.dao.repository.VideoLikeRepository;
+import zuminternet.pilot.domain.dao.repository.VideoRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class VideoService {
+
+  private final VideoRepository videoRepository;
+  private final VideoGroupRepository groupRepository;
+  private final CacheManager cacheManager;
+  private final VideoLikeRepository likeRepository;
+  private final YoutubeSearch youtubeSearch;
+
+  @Cacheable(cacheNames = "VideoCache", key="#q")
+  public List<Video> getList (String q) {
+    VideoGroup parent = groupRepository.findBySearchTitle(q);
+    List<Video> result;
+    if (parent == null) {
+      VideoGroup finalParent = VideoGroup.builder().searchTitle(q).build();
+      result = youtubeSearch.execute(q);
+      groupRepository.save(finalParent);
+      result.forEach(video -> {
+        video.setVideoGroup(finalParent);
+      });
+      videoRepository.saveAll(result);
+    } else {
+      result = parent.getVideoList();
+    }
+    return result;
+  }
+
+  @Cacheable(cacheNames = "VideoCache", key="#idx")
+  public Video get (long idx) {
+    return videoRepository.findByIdx(idx);
+  }
+
+  public boolean videoView (long idx) {
+    Video video = videoRepository.findByIdx(idx);
+    boolean check = video != null;
+    if (check) {
+      video.setViewCount(video.getViewCount() + 1);
+      videoRepository.save(video);
+      String q = video.getVideoGroup().getSearchTitle();
+      Cache cache = cacheManager.getCache("VideoCache");
+      cache.evict(q);
+    }
+    return check;
+  }
+
+  public HashMap getLike (int videoIdx, int userIdx) {
+    long likeCount = likeRepository.countAllByVideoIdx(videoIdx);
+    VideoLike videoLike = likeRepository.findByVideoIdxAndAndUserIdx(videoIdx, userIdx);
+    HashMap result = new HashMap();
+    result.put("likeCount", likeCount);
+    result.put("userLiked", videoLike != null);
+    return result;
+  }
+
+  public void postLike (int videoIdx, int userIdx) {
+    VideoLike videoLike = likeRepository.findByVideoIdxAndAndUserIdx(videoIdx, userIdx);
+    boolean result = videoLike == null;
+    if (result) {
+      likeRepository.save(
+        VideoLike
+          .builder()
+          .userIdx(userIdx)
+          .videoIdx(videoIdx)
+          .build()
+      );
+    } else {
+      likeRepository.delete(videoLike);
+    }
+  }
+
+  public List<VideoPopular> getPopular () {
+    return videoRepository.findAllByPopular()
+            .stream()
+            .filter(video -> video.getPopularPoint() > 0)
+            .sorted((a, b) -> a.getPopularPoint() < b.getPopularPoint() ? 1 : -1)
+            .collect(Collectors.toList());
+  }
+}

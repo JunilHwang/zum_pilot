@@ -1,17 +1,13 @@
 package zuminternet.pilot.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
-@RestController
+@Controller
 public class HomeController {
 
-  @GetMapping("/")
-  public HashMap home () {
-    HashMap sendData = new HashMap();
-    sendData.put("success", true);
-    return sendData;
+  @GetMapping(value={"/", "/chart", "/popular", "/sign-in", "/sign-up", "/bookmark"})
+  public String home () {
+    return "index";
   }
 }

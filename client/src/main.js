@@ -1,16 +1,15 @@
 import Vue from 'vue';
+import { router, store } from './middleware';
 import App from './App.vue';
-import router from './router';
-import store from './store';
-import helper from './helper';
-
-require('./icon');
+import { USER_AUTH } from '@/middleware/store/mutations-type';
 
 Vue.config.productionTip = false;
-Vue.prototype.helper = helper;
 
 new Vue({
   router,
   store,
   render: h => h(App),
+  mounted() {
+    store.dispatch(USER_AUTH);
+  },
 }).$mount('#app');
