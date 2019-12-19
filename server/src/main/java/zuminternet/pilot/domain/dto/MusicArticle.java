@@ -12,5 +12,4 @@ public class MusicArticle {
   private String artist;
   private String album;
   private String img;
-  private List videoList;
 }

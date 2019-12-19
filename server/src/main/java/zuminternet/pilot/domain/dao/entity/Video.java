@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @ToString
+@Builder
 @Table(name = "video")
 public class Video {
   @Id
@@ -35,11 +36,4 @@ public class Video {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Setter
   private VideoGroup videoGroup;
-
-  @Builder
-  public Video (String title, String videoId, String thumbnail) {
-    this.title = title;
-    this.videoId = videoId;
-    this.thumbnail = thumbnail;
-  }
 }

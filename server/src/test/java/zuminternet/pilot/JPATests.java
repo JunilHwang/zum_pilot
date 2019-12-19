@@ -27,7 +27,7 @@ public class JPATests {
 
   @Test
   public void videoTest () {
-    Video video = new Video("title", "video_id", "thumbnail");
+    Video video = Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build();
     videoRepository.save(video);
     System.out.println(videoRepository.findById(Long.valueOf(1)));
   }
@@ -36,10 +36,10 @@ public class JPATests {
   public void videoGroupTest () {
     String q = "황준일";
     List<Video> videoList = new ArrayList();
-    videoList.add(new Video("title", "video_id", "thumbnail"));
-    videoList.add(new Video("title", "video_id", "thumbnail"));
-    videoList.add(new Video("title", "video_id", "thumbnail"));
-    VideoGroup parent = new VideoGroup(q);
+    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
+    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
+    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
+    VideoGroup parent = VideoGroup.builder().searchTitle(q).build();
     videoGroupRepository.save(parent);
     videoRepository.saveAll(videoList);
     parent.getVideoList().addAll(videoList);

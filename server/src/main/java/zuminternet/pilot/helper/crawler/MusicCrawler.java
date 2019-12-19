@@ -20,7 +20,7 @@ public class MusicCrawler extends Crawler { // Crawler Class를 Extends함 --> g
 
   /**
    * 멜론에서 음원 차트 데이터를 가져옴
-   * @param category: 일간|발라드|댄스|히합|R&B/Soule|POP 등의 카테고리 데이터
+   * @param category: 실시간|일간|발라드|댄스|히합|R&B/Soule|POP 등의 카테고리 데이터
    * @return 음원 차트를 Music Article에 mapping해서 List로 반환
    */
   public List<MusicArticle> getList (String category) {

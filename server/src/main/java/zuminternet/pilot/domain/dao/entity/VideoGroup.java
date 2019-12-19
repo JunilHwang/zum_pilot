@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @ToString
+@Builder
 @Table(name="video_group")
 public class VideoGroup {
   @Id
@@ -21,9 +22,4 @@ public class VideoGroup {
   @OneToMany(mappedBy = "videoGroup", fetch = FetchType.LAZY)
   @OrderBy("idx ASC")
   private List<Video> VideoList = new ArrayList();
-
-  @Builder
-  public VideoGroup(String searchTitle) {
-    this.searchTitle = searchTitle;
-  }
 }

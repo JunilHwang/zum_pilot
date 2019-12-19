@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @ToString
+@Builder
 @Table(name="video_like")
 public class VideoLike {
   @Id
@@ -19,10 +20,4 @@ public class VideoLike {
 
   @Column(nullable = false, name="user_idx")
   private int userIdx;
-
-  @Builder
-  public VideoLike(int videoIdx, int userIdx) {
-    this.videoIdx = videoIdx;
-    this.userIdx = userIdx;
-  }
 }
