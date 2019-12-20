@@ -10,6 +10,9 @@
       :class="{ active: selectedVideo && selectedVideo.idx === video.idx }"
       @select="selectVideo(video)"
     />
+    <div v-if="videoList.length === 0" class="video-article__none">
+      인기 영상이 존재하지 않습니다.
+    </div>
   </main>
 </template>
 <script>

@@ -1,9 +1,6 @@
 package zuminternet.pilot.domain.dao.entity;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +24,7 @@ public class Video {
   @Column(nullable = false)
   private String thumbnail;
 
-  @Column(nullable = false)
+  @Column(nullable = false, name = "search_title")
   private String searchTitle;
 
   @Column(nullable = false, name = "view_count")

@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import zuminternet.pilot.domain.dao.entity.User;
 import zuminternet.pilot.domain.dao.entity.Video;
-import zuminternet.pilot.domain.dao.entity.VideoGroup;
 import zuminternet.pilot.domain.dao.entity.VideoLike;
-import zuminternet.pilot.domain.dao.repository.VideoGroupRepository;
 import zuminternet.pilot.domain.dao.repository.VideoLikeRepository;
 import zuminternet.pilot.domain.dao.repository.VideoRepository;
 import zuminternet.pilot.service.UserService;
@@ -20,7 +18,6 @@ import java.util.List;
 public class JPATests {
 
   @Autowired VideoRepository videoRepository;
-  @Autowired VideoGroupRepository videoGroupRepository;
   @Autowired VideoLikeRepository videoLikeRepository;
   @Autowired VideoService videoService;
   @Autowired UserService userService;
@@ -30,20 +27,6 @@ public class JPATests {
     Video video = Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build();
     videoRepository.save(video);
     System.out.println(videoRepository.findById(Long.valueOf(1)));
-  }
-
-  @Test
-  public void videoGroupTest () {
-    String q = "황준일";
-    List<Video> videoList = new ArrayList();
-    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
-    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
-    videoList.add(Video.builder().title("title").videoId("video_id").thumbnail("thumbnail").build());
-    VideoGroup parent = VideoGroup.builder().searchTitle(q).build();
-    videoGroupRepository.save(parent);
-    videoRepository.saveAll(videoList);
-    parent.getVideoList().addAll(videoList);
-    System.out.println(videoList);
   }
 
   @Test

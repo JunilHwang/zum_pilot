@@ -36,10 +36,10 @@ public class YoutubeSearch {
 
   /**
    * Youtube Search 후 결과 값을 Video Entity로 반환한다.
-   * @param q: Youtube Search 검색어. 제목+가수 형태의 값이 넘어온다.
+   * @param searchQuery: Youtube Search 검색어. 제목+가수 형태의 값이 넘어온다.
    * @return 검색 결과를 Video에 맵핑하여 반환
    */
-  public Video execute (String q) {
+  public Video execute (String searchQuery) {
     /*
      API Reference: https://developers.google.com/youtube/v3/docs/search/list?hl=ko
      Sample Source: https://developers.google.com/youtube/v3/code_samples/java?hl=ko#search_by_keyword
@@ -60,7 +60,7 @@ public class YoutubeSearch {
         .setKey(API_KEY)
 
         // 검색어. 제목+가수 형태의 문자열을 넘김
-        .setQ(q)
+        .setQ(searchQuery)
 
         // 기본값: chnnel,playlist,video. 현재 필요한 것은 video
         .setType("video")
@@ -83,6 +83,7 @@ public class YoutubeSearch {
               .title(snippet.getTitle())
               .videoId(v.getId().getVideoId())
               .thumbnail(snippet.getThumbnails().getDefault().getUrl())
+              .searchTitle(searchQuery)
               .build()
           );
         });

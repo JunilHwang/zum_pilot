@@ -12,14 +12,11 @@ import { API_URL } from '../const';
 import { responseValid } from '@/helper';
 
 export default {
-  [VIDEO_FETCH]: ({ commit, dispatch }, q) => {
+  [VIDEO_FETCH]: ({ dispatch }, q) => {
     $http
       .get(`${API_URL}/video?q=${q}`)
       .then(({ data }) => {
-        responseValid(data, (result) => {
-          commit(VIDEO_FETCH, result);
-          dispatch(VIDEO_SELECT, result[0]);
-        });
+        responseValid(data, result => dispatch(VIDEO_SELECT, result));
       });
   },
   [VIDEO_VIEW]: ({ commit, state }) => {

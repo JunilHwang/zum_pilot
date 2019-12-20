@@ -1,9 +1,4 @@
-import {
-  VIDEO_FETCH,
-  VIDEO_SELECT,
-  VIDEO_VIEW,
-  VIDEO_LIKE,
-} from '../mutations-type';
+import { VIDEO_FETCH, VIDEO_SELECT, VIDEO_VIEW, VIDEO_LIKE } from '../mutations-type';
 
 export default {
   [VIDEO_FETCH]: (state, videoList) => {
