@@ -21,21 +21,39 @@ public class NewsController {
   private final NewsService newsService;
   private final ResponseService responseService;
 
+  /**
+   * SBS K-POP 뉴스 목록 반환
+   * @param page
+   * @return
+   */
   @GetMapping(value="/api/news")
   public ListResult<NewsArticle> getNews (@RequestParam(value = "page", defaultValue = "1") int page) {
     return responseService.listResult(newsService.getList(page));
   }
 
+  /**
+   * SBS 연예 헤드라인 반환
+   * @return
+   */
   @GetMapping(value="/api/news/headline")
   public SingleResult<NewsArticle> getHeadline () {
     return responseService.singleResult(newsService.getHeadline());
   }
 
+  /**
+   * Billboard K-POP NEWS 반환
+   * @return
+   */
   @GetMapping(value="/api/news/popular")
   public ListResult<NewsArticle> getPopular () {
     return responseService.listResult(newsService.getPopular());
   }
 
+  /**
+   * News의 Content 반환
+   * @param url
+   * @return
+   */
   @GetMapping(value="/api/news_content")
   public SingleResult<NewsArticle> getNewsContent (@RequestParam(value="url") String url) {
     return responseService.singleResult(newsService.getContent(url));

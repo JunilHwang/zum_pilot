@@ -25,6 +25,11 @@ public class UserController {
   private final JwtTokenProvider jwtTokenProvider;
   private final ResponseService responseService;
 
+  /**
+   * JWT 기반 Login 처리
+   * @param params : { id, pw }
+   * @return
+   */
   @PostMapping(value="/api/sign-in", consumes = { "application/json" })
   public SingleResult<User> signIn (@RequestBody User params) {
     User user = userService.fetch(params);
@@ -32,12 +37,21 @@ public class UserController {
     return responseService.singleResult(user);
   }
 
+  /**
+   * 회원가입
+   * @param params : { id, pw, name }
+   * @return
+   */
   @PostMapping(value="/api/sign-up", consumes = { "application/json" })
   public CommonResult signUp (@RequestBody User params) {
     userService.insert(params);
     return responseService.commonResult();
   }
 
+  /**
+   * Token 인증
+   * @return
+   */
   @GetMapping(value="/api/user")
   public SingleResult<String> getUser () {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();

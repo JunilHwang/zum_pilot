@@ -20,8 +20,16 @@ public class MusicController {
   private final MusicService musicService;
   private final ResponseService responseService;
 
+  /**
+   * 음원 크롤링 정보 가져오기
+   * @param category : 실시간|일간|발라드|댄스|히합|R&B/Soule|POP
+   * @return
+   * @throws Exception
+   */
   @GetMapping(value="/api/music")
   public ListResult<MusicArticle> getMusicList (@RequestParam String category) throws Exception {
-    return responseService.listResult(musicService.getMusic(category));
+    return responseService.listResult(
+      Optional.ofNullable(musicService.getMusic(category)).orElseThrow(Exception::new)
+    );
   }
 }

@@ -36,14 +36,12 @@ public class VideoService {
   @Cacheable(cacheNames = "VideoCache", key="#q")
   public Video getBySearch (String q) throws VideoNotFoundException {
     // 일단 DB에 video가 있는지 탐색
-    Video video = videoRepository.findBySearchTitle(q);
-
-    // DB에 없다면 Youtube Search
-    if (video == null) {
-      // Youtube Search Error시 Exception 처리. 에러가 없다면 가져온 정보를 DB에 저장
-      video = Optional.ofNullable(youtubeSearch.execute(q)).orElseThrow(VideoNotFoundException::new);
-      videoRepository.save(video);
-    }
+    Video video = Optional.ofNullable(videoRepository.findBySearchTitle(q)).orElseGet(() -> {
+      // DB에 없다면 Youtube Search
+      Video v = Optional.ofNullable(youtubeSearch.execute(q)).orElseThrow(VideoNotFoundException::new);
+      videoRepository.save(v);
+      return v;
+    });
 
     // 탐색해온 Video 정보 반환
     return video;
