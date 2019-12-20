@@ -49,8 +49,8 @@ public class User implements UserDetails {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-  }
 
+  }
   @Override
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public String getPassword() {

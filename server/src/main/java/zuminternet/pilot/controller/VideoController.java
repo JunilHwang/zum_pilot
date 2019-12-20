@@ -13,8 +13,6 @@ import zuminternet.pilot.service.ResponseService;
 import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
-import javax.security.auth.message.AuthException;
-
 @RestController
 @RequiredArgsConstructor
 public class VideoController {
