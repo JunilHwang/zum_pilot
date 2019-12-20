@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import zuminternet.pilot.config.security.JwtTokenProvider;
 import zuminternet.pilot.domain.dao.entity.Video;
+import zuminternet.pilot.domain.dto.LikeCount;
 import zuminternet.pilot.domain.dto.VideoPopular;
-import zuminternet.pilot.domain.response.CommonResponse;
 import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.domain.response.ListResult;
 import zuminternet.pilot.domain.response.SingleResult;
@@ -14,7 +14,6 @@ import zuminternet.pilot.service.UserService;
 import zuminternet.pilot.service.VideoService;
 
 import javax.security.auth.message.AuthException;
-import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,21 +25,19 @@ public class VideoController {
   private final JwtTokenProvider jwtTokenProvider;
 
   @GetMapping(value="/api/video")
-  public ListResult<Video> getVideoList (@RequestParam(required = true) String q) {
-    return responseService.listResult(videoService.getList(q));
+  public SingleResult<Video> getVideo (@RequestParam(required = true) String q) {
+    return responseService.singleResult(videoService.getBySearch(q));
   }
 
   @RequestMapping(value="/api/video-view/{idx}", method = RequestMethod.PATCH)
   public CommonResult incrementViewCount (@PathVariable long idx) {
-    if (videoService.videoView(idx)) {
-      return responseService.commonResult();
-    }
-    return responseService.failResult(CommonResponse.FAIL);
+    videoService.videoView(idx);
+    return responseService.commonResult();
   }
 
   @GetMapping(value="/api/video-like/{videoIdx}")
-  public SingleResult<HashMap> getLike (@PathVariable int videoIdx, @RequestParam(value = "user_idx", required = true) int userIdx) {
-    return responseService.singleResult(videoService.getLike(videoIdx, userIdx));
+  public SingleResult<LikeCount> getLikeCount (@PathVariable int videoIdx, @RequestParam(value = "user_idx", required = true) int userIdx) {
+    return responseService.singleResult(videoService.getLikeCount(videoIdx, userIdx));
   }
 
   @PostMapping(value="/api/video-like", consumes = { "application/json" })

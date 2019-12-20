@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import zuminternet.pilot.advice.exception.AuthException;
-import zuminternet.pilot.advice.exception.SignUpException;
-import zuminternet.pilot.advice.exception.UserIdNotFoundException;
-import zuminternet.pilot.advice.exception.UserNotFoundException;
+import zuminternet.pilot.advice.exception.*;
 import zuminternet.pilot.domain.response.CommonResponse;
 import zuminternet.pilot.domain.response.CommonResult;
 import zuminternet.pilot.service.ResponseService;
@@ -48,5 +45,11 @@ public class ExceptionAdvice {
   @ResponseStatus(HttpStatus.OK)
   protected CommonResult userIdNotFoundException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.USER_FAIL);
+  }
+
+  @ExceptionHandler(VideoNotFoundException.class)
+  @ResponseStatus(HttpStatus.OK)
+  protected CommonResult videoNotFoundException(HttpServletRequest request, Exception e) {
+    return responseService.failResult(CommonResponse.VIDEO_FAIL);
   }
 }

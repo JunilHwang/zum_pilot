@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface VideoRepository extends JpaRepository<Video, Long> {
   Video findByIdx(Long idx);
+  Video findBySearchTitle(String searchTitle);
 
   @Query(
     value = "SELECT v.*, count(vl.USER_IDX) as like_count " +

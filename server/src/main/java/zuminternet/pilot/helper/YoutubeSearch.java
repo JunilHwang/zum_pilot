@@ -35,11 +35,11 @@ public class YoutubeSearch {
   private JsonFactory JSON_FACTORY = new JacksonFactory();
 
   /**
-   * Youtube Search 후 결과 값을 Video Entity List 형태로 반환한다.
+   * Youtube Search 후 결과 값을 Video Entity로 반환한다.
    * @param q: Youtube Search 검색어. 제목+가수 형태의 값이 넘어온다.
-   * @return 검색 결과를 Video List 형태로 반환
+   * @return 검색 결과를 Video에 맵핑하여 반환
    */
-  public List<Video> execute (String q) {
+  public Video execute (String q) {
     /*
      API Reference: https://developers.google.com/youtube/v3/docs/search/list?hl=ko
      Sample Source: https://developers.google.com/youtube/v3/code_samples/java?hl=ko#search_by_keyword
@@ -74,6 +74,8 @@ public class YoutubeSearch {
         // Search 실행 후 결과를 Video List에 Mapping
         .execute()
         .getItems()
+
+        // 한 개의 비디오에 대해 실행된다.
         .forEach(v -> {
           SearchResultSnippet snippet = v.getSnippet();
           result.add(
@@ -84,10 +86,13 @@ public class YoutubeSearch {
               .build()
           );
         });
+
+      // 맵핑된 비디오를 반환
+      return result.get(0);
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    return result;
+    return null;
   }
 }

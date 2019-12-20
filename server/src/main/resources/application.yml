@@ -17,6 +17,6 @@ youtube:
   api_key:
     zum: AIzaSyB9-VhCcc2neB2aYgVxJPZLtkb_jmfNo1o
     myself: AIzaSyAivIxmsxd4b1FA_C67gYKph56F4RseQeY
-  number_of_return: 10
+  number_of_return: 1
 
 

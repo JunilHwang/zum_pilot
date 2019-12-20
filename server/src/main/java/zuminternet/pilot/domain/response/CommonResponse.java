@@ -6,7 +6,8 @@ public enum CommonResponse {
   AUTH_FAIL(-1, "로그인 후 이용해주세요."),
   SIGN_IN_FAIL(-2, "아이디 또는 비밀번호가 일치하지 않습니다."),
   SIGN_UP_FAIL(-3, "이미 중복된 아이디가 있습니다."),
-  USER_FAIL(-4, "해당 유저를 찾을 수 없습니다.");
+  USER_FAIL(-4, "해당 유저를 찾을 수 없습니다."),
+  VIDEO_FAIL(-5, "존재하지 않는 비디오입니다.");
 
   int code;
   String msg;
