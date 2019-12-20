@@ -1,11 +1,11 @@
 package zuminternet.pilot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import zuminternet.pilot.advice.exception.SignUpException;
+import zuminternet.pilot.advice.exception.UserIdNotFoundException;
 import zuminternet.pilot.domain.dao.entity.User;
 import zuminternet.pilot.domain.dao.entity.Video;
 import zuminternet.pilot.domain.dao.repository.UserRepository;
@@ -13,6 +13,7 @@ import zuminternet.pilot.domain.dao.repository.VideoRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,75 +23,97 @@ public class UserService implements UserDetailsService {
   private final VideoRepository videoRepository;
   private final PasswordEncoder passwordEncoder;
 
+  /**
+   * Parameter에서 id와 pw를 추출 fetch를 실행한다.
+   * @param params : { id, pw }
+   * @return id, pw와 일치하는 user 데이터를 가져옴
+   */
   public User fetch (User params) {
-    String id = params.getId(),
-           pw = params.getPw();
-    return this.fetch(id, pw);
+    return fetch(params.getId(), params.getPw());
   }
 
+  /**
+   * 먼저 id를 기준으로 db에서 데이터를 가져온 후, pw 검사
+   * @param id
+   * @param pw
+   * @return id, pw와 일치하는 user 데이터를 가져옴
+   */
   public User fetch (String id, String pw) {
-    User user = userRepository.findById(id);
+    User user = get(id); // id를 기준으로 user 정보를 가져옴
     boolean confirm = false;
-    if (user != null) {
-      confirm = passwordEncoder.matches(pw, user.getPw());
+    if (user != null) { // user가 null이 아닐 때만 check
+      confirm = passwordEncoder.matches(pw, user.getPw()); // password check
     }
-    return confirm ? user : null;
+    return confirm ? user : null; // id 혹은 pw가 일치하지 않을 땐 null, 일치하면 user 정보를 반환한다.
   }
 
-  public User fetch (String id) {
-    return userRepository.findById(id);
+  /**
+   * Parameter에서 id, pw, name을 추출하여 insert 실행
+   * @param params : { id, pw, name }
+   */
+  public void insert (User params) {
+    insert(params.getId(), params.getPw(), params.getName());
   }
 
-  public boolean insert (User params) {
-    String id = params.getId();
-    String pw = params.getPw();
-    String name = params.getName();
-    return this.insert(id, pw, name);
-  }
-
-  public boolean insert (String id, String pw, String name) {
+  /**
+   * DB에 일치하는 유저 정보가 없으면 유저 정보 삽입
+   * @param id
+   * @param pw
+   * @param name
+   * @throws SignUpException : 회원 가입 실패 처리
+   */
+  public void insert (String id, String pw, String name) throws SignUpException {
+    // 비밀번호 암호화
     String encodedPw = passwordEncoder.encode(pw);
-    long count = userRepository.countAllById(id);
-    if (count > 0) {
-      return false;
-    }
+
+    // 이미 가입 된 회원이라면 Exception을 통해 Fail response 반환
+    if (get(id) != null) throw new SignUpException();
+
+    // 가입 된 회원이 아니라면 DB에 등록
     userRepository.save(
-      User
-        .builder()
+      User.builder()
         .id(id)
         .pw(encodedPw)
         .name(name)
         .roles(Collections.singletonList("ROLE_USER"))
         .build()
     );
-    return true;
   }
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findById(username);
-    if (user == null) {
-      throw new UsernameNotFoundException(username);
-    }
-    return user;
-  }
-
+  /**
+   * 유저 정보를 가져오는 데, null 이여도 상관 없음
+   * @param userId
+   * @return
+   */
   public User get (String userId) {
     return userRepository.findById(userId);
   }
 
-  public void setBookmark(String userId, long videoIdx) {
-    User user = this.get(userId);
-    Video video = videoRepository.findByIdx(videoIdx);
-    if (user.getBookmark().contains(video)) {
-      user.getBookmark().remove(video);
-    } else {
-      user.getBookmark().add(video);
-    }
-    userRepository.save(user);
+  /**
+   * 유저 정보가 Null 이면 Exception 처리, 아니면 유저 정보 반환
+   * @param userId : User의 login ID
+   * @return
+   * @throws UserIdNotFoundException : 유저 정보 탐색에 대한 실패 처리
+   */
+  @Override
+  public User loadUserByUsername(String userId) throws UserIdNotFoundException {
+    return Optional.ofNullable(get(userId)).orElseThrow(UserIdNotFoundException::new);
   }
 
-  public List<Video> getBookmark(String userId) {
-    return this.get(userId).getBookmark();
+  /**
+   * 즐겨찾기 토글 처리
+   * @param userId : 유저 아이디
+   * @param videoIdx : 즐겨찾기 토글의 target video
+   */
+  public void setBookmark(String userId, long videoIdx) {
+    User user = get(userId); // userId로 부터 회원 정보를 가져옴
+    Video video = videoRepository.findByIdx(videoIdx); // videoIdx로부터 Video 정보를 가져옴
+    List<Video> bookmark = user.getBookmark(); // user가 가지고 있는 bookmark video를 가져옴
+    if (bookmark.contains(video)) { // bookmark에 video가 포함되어 있다면
+      bookmark.remove(video); // 북마크 해제
+    } else {
+      bookmark.add(video); // 포함이 안 되어 있다면 북마크
+    }
+    userRepository.save(user); // 현재 상태 저장
   }
 }

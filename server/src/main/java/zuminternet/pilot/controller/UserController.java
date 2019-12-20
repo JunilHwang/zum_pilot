@@ -35,12 +35,8 @@ public class UserController {
 
   @PostMapping(value="/api/sign-up", consumes = { "application/json" })
   public CommonResult signUp (@RequestBody User params) {
-    User user = userService.fetch(params.getId());
-    if (user == null) {
-      userService.insert(params);
-      return responseService.commonResult();
-    }
-    return responseService.failResult(CommonResponse.SIGN_UP_FAIL);
+    userService.insert(params);
+    return responseService.commonResult();
   }
 
   @GetMapping(value="/api/user")

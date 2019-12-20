@@ -61,12 +61,12 @@ public class VideoController {
     String userId = jwtTokenProvider.authorization();
     int videoIdx = params.getIdx().intValue();
     userService.setBookmark(userId, videoIdx);
-    return responseService.listResult(userService.getBookmark(userId));
+    return responseService.listResult(userService.get(userId).getBookmark());
   }
 
   @GetMapping(value="/api/video-bookmark")
   public ListResult<Video> getBookmark () {
     String userId = jwtTokenProvider.authorization();
-    return responseService.listResult(userService.getBookmark(userId));
+    return responseService.listResult(userService.get(userId).getBookmark());
   }
 }

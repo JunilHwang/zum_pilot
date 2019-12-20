@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import zuminternet.pilot.advice.exception.AuthException;
+import zuminternet.pilot.advice.exception.SignUpException;
+import zuminternet.pilot.advice.exception.UserIdNotFoundException;
 import zuminternet.pilot.advice.exception.UserNotFoundException;
 import zuminternet.pilot.domain.response.CommonResponse;
 import zuminternet.pilot.domain.response.CommonResult;
@@ -30,9 +32,21 @@ public class ExceptionAdvice {
     return responseService.failResult(CommonResponse.SIGN_IN_FAIL);
   }
 
+  @ExceptionHandler(SignUpException.class)
+  @ResponseStatus(HttpStatus.OK)
+  protected CommonResult signUpException(HttpServletRequest request, Exception e) {
+    return responseService.failResult(CommonResponse.SIGN_UP_FAIL);
+  }
+
   @ExceptionHandler(AuthException.class)
   @ResponseStatus(HttpStatus.OK)
   protected CommonResult authException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.AUTH_FAIL);
+  }
+
+  @ExceptionHandler(UserIdNotFoundException.class)
+  @ResponseStatus(HttpStatus.OK)
+  protected CommonResult userIdNotFoundException(HttpServletRequest request, Exception e) {
+    return responseService.failResult(CommonResponse.USER_FAIL);
   }
 }
