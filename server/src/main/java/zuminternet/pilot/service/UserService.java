@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.advice.exception.SignUpException;
 import zuminternet.pilot.advice.exception.UserIdNotFoundException;
+import zuminternet.pilot.advice.exception.UserNotFoundException;
 import zuminternet.pilot.domain.dao.entity.User;
 import zuminternet.pilot.domain.dao.entity.Video;
 import zuminternet.pilot.domain.dao.repository.UserRepository;
@@ -38,13 +39,14 @@ public class UserService implements UserDetailsService {
    * @param pw
    * @return id, pw와 일치하는 user 데이터를 가져옴
    */
-  public User fetch (String id, String pw) {
-    User user = get(id); // id를 기준으로 user 정보를 가져옴
-    boolean confirm = false;
-    if (user != null) { // user가 null이 아닐 때만 check
-      confirm = passwordEncoder.matches(pw, user.getPw()); // password check
+  public User fetch (String id, String pw) throws UserNotFoundException {
+    User user = loadUserByUsername(id); // id를 기준으로 user 정보를 가져옴
+
+    // 비밀번호가 일치하지 않으면 Exception 발생
+    if (passwordEncoder.matches(pw, user.getPw())) {
+      throw new UserNotFoundException();
     }
-    return confirm ? user : null; // id 혹은 pw가 일치하지 않을 땐 null, 일치하면 user 정보를 반환한다.
+    return user;
   }
 
   /**
