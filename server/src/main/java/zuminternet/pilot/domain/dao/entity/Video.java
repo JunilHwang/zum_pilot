@@ -6,11 +6,12 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter
 @ToString
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "video")
 public class Video {
   @Id

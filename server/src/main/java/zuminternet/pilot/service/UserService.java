@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
     User user = loadUserByUsername(id); // id를 기준으로 user 정보를 가져옴
 
     // 비밀번호가 일치하지 않으면 Exception 발생
-    if (passwordEncoder.matches(pw, user.getPw())) {
+    if (!passwordEncoder.matches(pw, user.getPw())) {
       throw new UserNotFoundException();
     }
     return user;
@@ -72,14 +72,18 @@ public class UserService implements UserDetailsService {
     if (get(id) != null) throw new SignUpException();
 
     // 가입 된 회원이 아니라면 DB에 등록
-    userRepository.save(
-      User.builder()
-        .id(id)
-        .pw(encodedPw)
-        .name(name)
-        .roles(Collections.singletonList("ROLE_USER"))
-        .build()
-    );
+    try {
+      userRepository.save(
+        User.builder()
+          .id(id)
+          .pw(encodedPw)
+          .name(name)
+          .roles(Collections.singletonList("ROLE_USER"))
+          .build()
+      );
+    } catch (Exception e) {
+      throw new SignUpException();
+    }
   }
 
   /**

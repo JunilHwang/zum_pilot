@@ -30,7 +30,7 @@ public class User implements UserDetails {
   @Column(nullable = false, unique = true, length = 255)
   private String pw;
 
-  @Column(nullable = false, unique = true, length = 255)
+  @Column(nullable = false, length = 255)
   private String name;
 
   @ManyToMany

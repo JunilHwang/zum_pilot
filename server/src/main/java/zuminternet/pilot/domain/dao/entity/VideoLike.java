@@ -4,11 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter
 @ToString
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name="video_like")
 public class VideoLike {
   @Id

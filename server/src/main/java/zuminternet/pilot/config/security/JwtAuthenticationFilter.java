@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
    * @throws ServletException
    */
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     // request의 header에 포함된 Token 정보를 가져온다.
     String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
@@ -39,9 +39,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     if (token != null && jwtTokenProvider.validateToken(token)) {
       // token에서 값을 추출하여
       Authentication auth = jwtTokenProvider.getAuthentication(token);
-
       // context에 저장한다.
       SecurityContextHolder.getContext().setAuthentication(auth);
     }
+
+    chain.doFilter(request, response);
   }
 }
