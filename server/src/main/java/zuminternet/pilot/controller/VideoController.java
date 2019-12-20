@@ -41,7 +41,7 @@ public class VideoController {
   }
 
   @PostMapping(value="/api/video-like", consumes = { "application/json" })
-  public CommonResult postLike (@RequestBody Video params) throws AuthException {
+  public CommonResult postLike (@RequestBody Video params) {
     String userId = jwtTokenProvider.authorization();
     int videoIdx = params.getIdx().intValue();
     videoService.postLike(videoIdx, userService.get(userId).getIdx().intValue());
