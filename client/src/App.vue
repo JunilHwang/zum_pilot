@@ -30,9 +30,7 @@ export default {
     path() { return this.$route.path; },
   },
   data() {
-    return {
-      isSticky: false,
-    };
+    return { isSticky: false };
   },
   mounted() {
     window.removeEventListener('scroll', this.scrollEvents);

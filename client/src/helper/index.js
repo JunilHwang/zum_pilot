@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { MODAL_ALERT, USER_LOGOUT } from '@/middleware/store/mutations-type';
 
 export const previewTitle = (str, len) => (
   str.length < len ? str : `${str.substring(0, len)}...`
@@ -15,16 +14,6 @@ export const windowBottomSensor = (callback) => {
 
 export const eventBus = new Vue();
 
+export { default as responseValid } from './responseValid';
 
-export const responseProxyWithAuth = (commit, { success, msg, code }, callback) => {
-  if (success === false) {
-    commit(MODAL_ALERT, msg);
-    if (code === -1) {
-      commit(USER_LOGOUT);
-    }
-  } else {
-    callback();
-  }
-};
-
-export default { previewTitle, windowBottomSensor };
+export default { };
