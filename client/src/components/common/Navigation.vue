@@ -38,9 +38,7 @@ export default class Navigation extends Vue {
   ];
 
   // 로그아웃
-  logout() {
-    this.$store.commit(USER_LOGOUT);
-  }
+  logout() { this.$store.commit(USER_LOGOUT); }
 
   // 권한 검사
   permCheck(permission) {
