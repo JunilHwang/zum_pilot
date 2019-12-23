@@ -15,26 +15,28 @@
   </Wrapper>
 </template>
 <script>
-import { mapState } from 'vuex';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { State } from 'vuex-class';
 import { Wrapper } from './index';
 import { MODAL_CLOSE } from '@/middleware/store/mutations-type';
 
-const props = state => state.modal.props;
+const components = { Wrapper };
 
-export default {
-  components: { Wrapper },
-  computed: mapState({ props }),
+@Component({ components })
+export default class Alert extends Vue {
+  @State(state => state.modal.props) props;
+
+  // ESC 감지 -> Alert 창 닫기
   created() {
     window.addEventListener('keydown', ({ keyCode }) => {
       if (keyCode === 27) {
         this.close();
       }
     });
-  },
-  methods: {
-    close() {
-      this.$store.commit(MODAL_CLOSE);
-    },
-  },
-};
+  }
+
+  // 창 닫기 method
+  close() { this.$store.commit(MODAL_CLOSE); }
+}
 </script>
