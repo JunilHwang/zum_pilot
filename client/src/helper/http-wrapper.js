@@ -2,9 +2,9 @@ import $http from 'axios';
 import { API_URL } from '@/middleware/store/const';
 import responseValid from '@/helper/responseValid';
 
-export const $get = (url, headers = {}) => new Promise((resolve) => {
+export const $get = (url, config = {}) => new Promise((resolve) => {
   $http
-    .get(`${API_URL}${url}`, headers)
+    .get(`${API_URL}${url}`, config)
     .then(({ data }) => responseValid(data, result => resolve(result)));
 });
 
