@@ -8,15 +8,15 @@ export const $get = (url, headers = {}) => new Promise((resolve) => {
     .then(({ data }) => responseValid(data, result => resolve(result)));
 });
 
-export const $post = (url, params, headers = {}) => new Promise((resolve) => {
+export const $post = (url, params, config = {}) => new Promise((resolve) => {
   $http
-    .post(`${API_URL}${url}`, params, headers)
+    .post(`${API_URL}${url}`, params, config)
     .then(({ data }) => responseValid(data, result => resolve(result)));
 });
 
-export const $patch = (url, params, headers = {}) => new Promise((resolve) => {
+export const $patch = (url, params, config = {}) => new Promise((resolve) => {
   $http
-    .patch(`${API_URL}${url}`, params, headers)
+    .patch(`${API_URL}${url}`, params, config)
     .then(({ data }) => responseValid(data, result => resolve(result)));
 });
 
