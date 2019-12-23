@@ -17,32 +17,33 @@
   </nav>
 </template>
 <script>
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import { mapState } from 'vuex';
 import { PUBLIC, NO_MEMBER, IS_MEMBER } from '@/middleware/store/const';
 import { USER_LOGOUT } from '@/middleware/store/mutations-type';
 
-export default {
-  computed: mapState(['user']),
-  data() {
-    return {
-      menu: [
-        { title: '뉴스', url: '/', permission: PUBLIC },
-        { title: '음원차트', url: '/chart', permission: PUBLIC },
-        { title: '인기영상', url: '/popular', permission: PUBLIC },
-        { title: '로그인', url: '/sign-in', permission: NO_MEMBER },
-        { title: '회원가입', url: '/sign-up', permission: NO_MEMBER },
-        { title: '즐겨찾기', url: '/bookmark', permission: IS_MEMBER },
-      ],
-      IS_MEMBER,
-    };
-  },
-  methods: {
-    permCheck(permission) {
-      return [PUBLIC, this.user.permission].indexOf(permission) !== -1;
-    },
-    logout() {
-      this.$store.commit(USER_LOGOUT);
-    },
-  },
-};
+const computed = mapState({ user: state => state.user });
+
+@Component({ computed })
+export default class Navigation extends Vue {
+  IS_MEMBER = IS_MEMBER;
+
+  menu = [
+    { title: '뉴스', url: '/', permission: PUBLIC },
+    { title: '음원차트', url: '/chart', permission: PUBLIC },
+    { title: '인기영상', url: '/popular', permission: PUBLIC },
+    { title: '로그인', url: '/sign-in', permission: NO_MEMBER },
+    { title: '회원가입', url: '/sign-up', permission: NO_MEMBER },
+    { title: '즐겨찾기', url: '/bookmark', permission: IS_MEMBER },
+  ];
+
+  permCheck(permission) {
+    return [PUBLIC, this.user.permission].indexOf(permission) !== -1;
+  }
+
+  logout() {
+    this.$store.commit(USER_LOGOUT);
+  }
+}
 </script>
