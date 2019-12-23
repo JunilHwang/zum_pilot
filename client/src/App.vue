@@ -28,9 +28,7 @@ const components = { SiteHeader, SiteFooter, Alert, Navigation };
 
 @Component({ components })
 export default class App extends Vue {
-  @State(state => state.modal.show === 'alert')
-  isAlertShow;
-
+  @State(state => state.modal.show === 'alert') isAlertShow;
   isSticky = false; // Header sticky 여부
 
   /**

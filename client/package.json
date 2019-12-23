@@ -62,7 +62,8 @@
           "multiline": true,
           "minProperties": 6
         }
-      ]
+      ],
+      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
     },
     "parserOptions": {
       "parser": "babel-eslint",

@@ -26,11 +26,8 @@ const components = { VideoPlayer, VideoArticle };
 
 @Component({ components })
 export default class Popular extends Vue {
-  @State(state => state.video.selectedVideo)
-  selectedVideo;
-
-  @State(state => state.video.videoList)
-  videoList;
+  @State(state => state.video.selectedVideo) selectedVideo;
+  @State(state => state.video.videoList) videoList;
 
   /**
    * 인기 영상을 가져옴

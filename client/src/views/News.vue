@@ -39,7 +39,6 @@ const components = { NewsWrapper, NewsDetail, Flicking };
 @Component({ components })
 export default class News extends Vue {
   @State news;
-
   page = 1; // infinity load 횟수
 
   /**

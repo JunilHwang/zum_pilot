@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <form action="" class="fields" @submit.prevent="loginCheck">
+  <main v-once>
+    <form action="" class="fields" @submit.prevent="loginValid">
       <fieldset>
         <legend class="legend">로그인</legend>
         <ul>
@@ -35,32 +35,45 @@
   </main>
 </template>
 <script>
-import { mapState } from 'vuex';
+import Vue from 'vue';
+import { State } from 'vuex-class';
+import Component from 'vue-class-component';
+import { Watch } from 'vue-property-decorator';
 import { NO_MEMBER } from '@/middleware/store/const';
 import { USER_SIGN_IN, MODAL_ALERT } from '@/middleware/store/mutations-type';
 
-export default {
-  computed: mapState(['user']),
-  data() {
-    return { id: '', pw: '' };
-  },
-  methods: {
-    async loginCheck() {
-      const { id, pw } = this;
-      await this.$store.dispatch(USER_SIGN_IN, { id, pw });
-    },
-  },
+@Component
+export default class Login extends Vue {
+  @State user;
+  id = '';
+  pw = '';
+
+  /**
+   * user.permission이 변경되면(=로그인 됨) main 페이지로 이동
+   */
+  @Watch('user.permission')
+  onUserPermission() {
+    this.$router.push('/');
+  }
+
+  /**
+   * 사용자 입력 정보(id, pw)에 대한 login validation
+   * @returns {Promise<void>}
+   */
+  async loginValid() {
+    const { id, pw } = this;
+    await this.$store.dispatch(USER_SIGN_IN, { id, pw });
+  }
+
+  /**
+   * login 상태에서는 접근할 수 없음
+   */
   mounted() {
     if (this.user.permission !== NO_MEMBER) {
       this.$store.commit(MODAL_ALERT, '비회원만 접근 가능합니다.');
       this.$router.go(-1);
     }
     this.$refs.id.focus();
-  },
-  watch: {
-    'user.permission': function () {
-      this.$router.push('/');
-    },
-  },
-};
+  }
+}
 </script>
