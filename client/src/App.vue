@@ -60,8 +60,8 @@ export default class App extends Vue {
 
   /**
    * Header의 Sticky 여부 결정
-   * @param sy : window의 scroll Y 값
-   * @param ot : contnet의 offset top 값
+   * @param sy -> number scroll Y 값
+   * @param ot -> contnet의 offset top 값
    */
   sticky(sy, ot) {
     if (sy > ot && !this.isSticky) {

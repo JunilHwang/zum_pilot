@@ -26,6 +26,7 @@ const components = { VideoPlayer, VideoArticle };
 
 @Component({ components })
 export default class Popular extends Vue {
+  // state에서 변수 할당
   @State(state => state.video.selectedVideo) selectedVideo;
   @State(state => state.video.videoList) videoList;
   created() { this.$store.dispatch(VIDEO_POPULAR_FETCH); }

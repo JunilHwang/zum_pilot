@@ -48,24 +48,19 @@ export default class Login extends Vue {
   id = '';
   pw = '';
 
-  /**
-   * user.permission이 변경되면(=로그인 됨) main 페이지로 이동
-   */
+  // permission이 변경되면(=로그인 됨) main 페이지로 이동
   @Watch('user.permission')
   onUserPermission() { this.$router.push('/'); }
 
-  /**
-   * 사용자 입력 정보(id, pw)에 대한 login validation
-   */
+  // 사용자 입력 정보(id, pw)에 대한 login validation
   loginValid() {
     const { id, pw } = this;
     this.$store.dispatch(USER_SIGN_IN, { id, pw });
   }
 
-  /**
-   * login 상태에서는 접근할 수 없음
-   */
+  // login 상태에서는 접근할 수 없음
   mounted() {
+    console.log('test');
     if (this.user.permission !== NO_MEMBER) {
       this.$store.commit(MODAL_ALERT, '비회원만 접근 가능합니다.');
       this.$router.go(-1);
