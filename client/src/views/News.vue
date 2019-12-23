@@ -28,17 +28,18 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { mapState } from 'vuex';
+import { State } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
 import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
 import { eventBus } from '@/helper';
 
 const components = { NewsWrapper, NewsDetail, Flicking };
-const computed = mapState({ news: state => state.news });
 
-@Component({ components, computed })
+@Component({ components })
 export default class News extends Vue {
+  @State news;
+
   page = 1; // infinity load 횟수
 
   /**

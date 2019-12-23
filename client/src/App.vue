@@ -19,16 +19,18 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { mapState } from 'vuex';
+import { State } from 'vuex-class';
 import { SiteHeader, SiteFooter, Navigation } from '@/components/common';
 import { Alert } from '@/components/modal';
 import { eventBus, windowBottomSensor } from '@/helper';
 
 const components = { SiteHeader, SiteFooter, Alert, Navigation };
-const computed = mapState({ isAlertShow: state => state.modal.show === 'alert' });
 
-@Component({ components, computed })
+@Component({ components })
 export default class App extends Vue {
+  @State(state => state.modal.show === 'alert')
+  isAlertShow;
+
   isSticky = false; // Header sticky 여부
 
   /**

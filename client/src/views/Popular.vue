@@ -16,27 +16,42 @@
   </main>
 </template>
 <script>
-import { mapState } from 'vuex';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { State } from 'vuex-class';
 import { VIDEO_POPULAR_FETCH, VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { VideoPlayer, VideoArticle } from '@/components/video';
 
-const videoList = state => state.video.videoList;
-const selectedVideo = state => state.video.selectedVideo;
 const components = { VideoPlayer, VideoArticle };
 
-export default {
-  components,
-  computed: mapState({ videoList, selectedVideo }),
+@Component({ components })
+export default class Popular extends Vue {
+  @State(state => state.video.selectedVideo)
+  selectedVideo;
+
+  @State(state => state.video.videoList)
+  videoList;
+
+  /**
+   * 인기 영상을 가져옴
+   */
   created() {
     this.$store.dispatch(VIDEO_POPULAR_FETCH);
-  },
-  methods: {
-    selectVideo(video) {
-      this.$store.dispatch(VIDEO_SELECT, video);
-    },
-  },
+  }
+
+  /**
+   * 비디오 리스트 초기화
+   */
   destroyed() {
     this.$store.commit(VIDEO_SELECT, null);
-  },
-};
+  }
+
+  /**
+   * 비디오 선택
+   * @param video
+   */
+  selectVideo(video) {
+    this.$store.dispatch(VIDEO_SELECT, video);
+  }
+}
 </script>
