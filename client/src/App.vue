@@ -9,7 +9,7 @@
     <a href="#" class="go-top" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
-    <SiteFooter v-once />
+    <SiteFooter />
     <transition name="modal-fade">
       <Alert v-if="isAlertShow" />
     </transition>
@@ -25,40 +25,51 @@ import { Alert } from '@/components/modal';
 import { eventBus, windowBottomSensor } from '@/helper';
 
 const components = { SiteHeader, SiteFooter, Alert, Navigation };
-const isAlertShow = state => state.modal.show === 'alert';
+const computed = mapState({ isAlertShow: state => state.modal.show === 'alert' });
 
-@Component({
-  components,
-  computed: mapState({ isAlertShow }),
-})
+@Component({ components, computed })
 export default class App extends Vue {
-  isSticky = false;
+  isSticky = false; // Header sticky 여부
 
+  /**
+   * Scroll Event 등록
+   */
   mounted() {
     window.removeEventListener('scroll', this.scrollEvents);
     window.addEventListener('scroll', this.scrollEvents);
   }
 
+  /**
+   * Computed : route path
+   * @returns {*}
+   */
   get path() {
     return this.$route.path;
   }
 
+  /**
+   * Scroll Event들을 등록한다.
+   * Sticky, Infinity loading 등
+   */
   scrollEvents() {
-    const sy = window.scrollY;
-    const ot = this.$refs.wrap.offsetTop - 37;
-    this.sticky(sy, ot);
-    const methodName = {
-      '/': 'newsLoad',
-      '/news': 'newsLoad',
-      '/chart': 'chartLoad',
-    }[this.path];
+    const sy = window.scrollY; // scroll y축 위치
+    const ot = this.$refs.wrap.offsetTop - 37; // Content의 offset
+    this.sticky(sy, ot); // sticky 여부 결정
+
+    // infinity loading method 결정
+    const methodName = { '/': 'newsLoad', '/news': 'newsLoad', '/chart': 'chartLoad' }[this.path];
+
+    // 하단 감지 후 infinity loading method 실행
     if (methodName !== undefined) {
-      windowBottomSensor(() => {
-        eventBus.$emit(methodName);
-      });
+      windowBottomSensor(() => eventBus.$emit(methodName));
     }
   }
 
+  /**
+   * Header의 Sticky 여부 결정
+   * @param sy : window의 scroll Y 값
+   * @param ot : contnet의 offset top 값
+   */
   sticky(sy, ot) {
     if (sy > ot && !this.isSticky) {
       this.isSticky = true;
