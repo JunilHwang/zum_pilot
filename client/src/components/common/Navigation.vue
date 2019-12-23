@@ -28,7 +28,6 @@ const computed = mapState({ user: state => state.user });
 @Component({ computed })
 export default class Navigation extends Vue {
   IS_MEMBER = IS_MEMBER;
-
   menu = [
     { title: '뉴스', url: '/', permission: PUBLIC },
     { title: '음원차트', url: '/chart', permission: PUBLIC },
@@ -38,12 +37,14 @@ export default class Navigation extends Vue {
     { title: '즐겨찾기', url: '/bookmark', permission: IS_MEMBER },
   ];
 
-  permCheck(permission) {
-    return [PUBLIC, this.user.permission].indexOf(permission) !== -1;
-  }
-
+  // 로그아웃
   logout() {
     this.$store.commit(USER_LOGOUT);
+  }
+
+  // 권한 검사
+  permCheck(permission) {
+    return [PUBLIC, this.user.permission].indexOf(permission) !== -1;
   }
 }
 </script>

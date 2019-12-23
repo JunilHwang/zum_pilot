@@ -8,18 +8,18 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import { NEWS_CONTENT_VIEW } from '@/middleware/store/mutations-type';
 import { previewTitle } from '@/helper';
 
-export default {
-  methods: {
-    viewDetail() {
-      this.$store.commit(NEWS_CONTENT_VIEW, this.link);
-    },
-    previewTitle(title, limit) {
-      return previewTitle(title, limit);
-    },
-  },
-  props: ['title', 'img', 'link'],
-};
+@Component
+export default class Popular extends Vue {
+  @Prop() title;
+  @Prop() img;
+  @Prop() link;
+  previewTitle = previewTitle;
+  viewDetail() { this.$store.commit(NEWS_CONTENT_VIEW, this.link); }
+}
 </script>
