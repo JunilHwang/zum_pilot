@@ -6,5 +6,5 @@ import lombok.*;
 @Builder
 public class LikeCount {
   private long likeCount;
-  private boolean videoLike;
+  private boolean userLiked;
 }

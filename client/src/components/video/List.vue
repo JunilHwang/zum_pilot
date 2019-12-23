@@ -21,24 +21,28 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { State } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
-import { mapState } from 'vuex';
 import { VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { previewTitle } from '@/helper';
 import { VideoMeta } from './index';
 
-const videoList = state => state.video.videoList;
-const selectedVideo = state => state.video.selectedVideo;
 const components = { Flicking, VideoMeta };
 
-export default {
-  components,
-  computed: mapState({ videoList, selectedVideo }),
-  methods: {
-    previewTitle,
-    selectVideo({ index }) {
-      this.$store.dispatch(VIDEO_SELECT, this.videoList[index]);
-    },
-  },
-};
+@Component({ components })
+export default class List extends Vue {
+  // State 변수 지정
+  @State(state => state.video.videoList) videoList;
+  @State(state => state.video.selectedVideo) selectedVideo;
+
+  // helper에서 function 가져오기
+  previewTitle = previewTitle;
+
+  // 동영상 선택
+  selectVideo({ index }) {
+    this.$store.dispatch(VIDEO_SELECT, this.videoList[index]);
+  }
+}
 </script>
