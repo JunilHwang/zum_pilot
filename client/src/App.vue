@@ -30,6 +30,7 @@ const components = { SiteHeader, SiteFooter, Alert, Navigation };
 export default class App extends Vue {
   @State(state => state.modal.show === 'alert') isAlertShow;
   isSticky = false; // Header sticky 여부
+  get path() { return this.$route.path; }
 
   /**
    * Scroll Event 등록
@@ -37,14 +38,6 @@ export default class App extends Vue {
   mounted() {
     window.removeEventListener('scroll', this.scrollEvents);
     window.addEventListener('scroll', this.scrollEvents);
-  }
-
-  /**
-   * Computed : route path
-   * @returns {*}
-   */
-  get path() {
-    return this.$route.path;
   }
 
   /**

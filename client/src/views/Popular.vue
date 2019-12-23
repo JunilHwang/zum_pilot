@@ -28,27 +28,8 @@ const components = { VideoPlayer, VideoArticle };
 export default class Popular extends Vue {
   @State(state => state.video.selectedVideo) selectedVideo;
   @State(state => state.video.videoList) videoList;
-
-  /**
-   * 인기 영상을 가져옴
-   */
-  created() {
-    this.$store.dispatch(VIDEO_POPULAR_FETCH);
-  }
-
-  /**
-   * 비디오 리스트 초기화
-   */
-  destroyed() {
-    this.$store.commit(VIDEO_SELECT, null);
-  }
-
-  /**
-   * 비디오 선택
-   * @param video
-   */
-  selectVideo(video) {
-    this.$store.dispatch(VIDEO_SELECT, video);
-  }
+  created() { this.$store.dispatch(VIDEO_POPULAR_FETCH); }
+  destroyed() { this.$store.commit(VIDEO_SELECT, null); }
+  selectVideo(video) { this.$store.dispatch(VIDEO_SELECT, video); }
 }
 </script>

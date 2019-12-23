@@ -57,18 +57,14 @@ export default class News extends Vue {
    * Mounted 시점에 스크롤을 최상단으로 보낸다.
    * Vue Route를 통해서 페이지가 바뀔 때 자연스럽게 보이기 위함
    */
-  mounted = () => {
-    window.scrollTo(0, 0);
-  }
+  mounted = () => window.scrollTo(0, 0);
 
   /**
    * Popular News를 select 할 때 발생
    * @param index => panel index number
    * @param currentTarget => 선택한 panel
    */
-  viewDetail = ({ index, currentTarget }) => {
-    currentTarget.$children[index].viewDetail();
-  }
+  viewDetail = ({ index, currentTarget }) => { currentTarget.$children[index].viewDetail(); }
 
   /**
    * infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.

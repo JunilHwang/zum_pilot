@@ -52,17 +52,14 @@ export default class Login extends Vue {
    * user.permission이 변경되면(=로그인 됨) main 페이지로 이동
    */
   @Watch('user.permission')
-  onUserPermission() {
-    this.$router.push('/');
-  }
+  onUserPermission() { this.$router.push('/'); }
 
   /**
    * 사용자 입력 정보(id, pw)에 대한 login validation
-   * @returns {Promise<void>}
    */
-  async loginValid() {
+  loginValid() {
     const { id, pw } = this;
-    await this.$store.dispatch(USER_SIGN_IN, { id, pw });
+    this.$store.dispatch(USER_SIGN_IN, { id, pw });
   }
 
   /**

@@ -45,33 +45,24 @@
   </main>
 </template>
 <script>
-import { USER_SIGN_UP, MODAL_ALERT } from '@/middleware/store/mutations-type';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { USER_SIGN_UP } from '@/middleware/store/mutations-type';
 
-export default {
-  data() {
-    return {
-      id: '',
-      pw: '',
-      name: '',
-    };
-  },
-  mounted() {
-    this.idFocus();
-  },
-  methods: {
-    idFocus() {
-      this.$refs.id.focus();
-    },
-    async signUp() {
-      const { id, pw, name } = this;
-      const { data } = await this.$store.dispatch(USER_SIGN_UP, { id, pw, name });
-      if (data.success) {
-        this.$store.commit(MODAL_ALERT, '회원가입이 완료되었습니다.');
-        await this.$router.push('/sign-in');
-      } else {
-        this.$store.commit(MODAL_ALERT, '이미 중복된 아이디가 있습니다.');
-      }
-    },
-  },
-};
+@Component
+export default class Join extends Vue {
+  id = '';
+  pw = '';
+  name = '';
+  mounted() { this.idFocus(); }
+  idFocus() { this.$refs.id.focus(); }
+
+  /**
+   * 사용자 입력에 대한 sign up validation
+   */
+  signUp() {
+    const { id, pw, name } = this;
+    this.$store.dispatch(USER_SIGN_UP, { id, pw, name });
+  }
+}
 </script>
