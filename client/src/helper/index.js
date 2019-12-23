@@ -22,5 +22,6 @@ export const windowBottomSensor = (callback) => {
   }
 };
 
-export const eventBus = new Vue(); // 이벤트 버스 생성
+// 이벤트 버스 생성
+export const eventBus = new Vue();
 export default { };
