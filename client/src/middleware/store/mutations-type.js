@@ -1,4 +1,4 @@
-// mutations 혹은 actions 에 사용될 상수를 정의합니다.
+/* mutations 혹은 actions 에 사용될 상수를 정의합니다. */
 
 export const VIDEO_FETCH = 'video/fetch'; // 비디오 가져오기
 export const VIDEO_SELECT = 'video/select'; // 비디오 선택

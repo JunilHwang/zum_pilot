@@ -8,22 +8,10 @@ import {
 } from '../mutations-type';
 
 export default {
-  [NEWS_HEADLINE_FETCH]: (state, { result }) => {
-    state.headline = result;
-  },
-  [NEWS_POPULAR_FETCH]: (state, { result }) => {
-    state.populars = result;
-  },
-  [NEWS_ARTICLES_FETCH]: (state, { result }) => {
-    state.articles = result;
-  },
-  [NEWS_ARTICLES_APPEND]: (state, { result }) => {
-    state.articles.push(...result);
-  },
-  [NEWS_CONTENT_FETCH]: (state, { result }) => {
-    state.article = { ...result };
-  },
-  [NEWS_CONTENT_VIEW]: (state, payload) => {
-    state.viewState = payload;
-  },
+  [NEWS_HEADLINE_FETCH]: (state, payload) => { state.headline = payload; },
+  [NEWS_POPULAR_FETCH]: (state, payload) => { state.populars = payload; },
+  [NEWS_ARTICLES_FETCH]: (state, payload) => { state.articles = payload; },
+  [NEWS_ARTICLES_APPEND]: (state, payload) => { state.articles.push(...payload); },
+  [NEWS_CONTENT_FETCH]: (state, payload) => { state.article = { ...payload }; },
+  [NEWS_CONTENT_VIEW]: (state, payload) => { state.viewState = payload; },
 };

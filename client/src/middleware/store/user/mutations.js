@@ -12,7 +12,5 @@ export default {
     sessionStorage.removeItem('user');
     Object.assign(state, { ...initState });
   },
-  [USER_VIDEO_BOOKMARK]: (state, payload) => {
-    state.bookmark = payload;
-  },
+  [USER_VIDEO_BOOKMARK]: (state, payload) => { state.bookmark = payload; },
 };

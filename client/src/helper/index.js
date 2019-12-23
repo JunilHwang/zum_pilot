@@ -15,5 +15,6 @@ export const windowBottomSensor = (callback) => {
 export const eventBus = new Vue();
 
 export { default as responseValid } from './responseValid';
+export { default as $http } from './http-wrapper';
 
 export default { };

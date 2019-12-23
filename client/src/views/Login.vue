@@ -60,7 +60,6 @@ export default class Login extends Vue {
 
   // login 상태에서는 접근할 수 없음
   mounted() {
-    console.log('test');
     if (this.user.permission !== NO_MEMBER) {
       this.$store.commit(MODAL_ALERT, '비회원만 접근 가능합니다.');
       this.$router.go(-1);

@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { News, Chart, Login, Join, Popular, Bookmark } from '@/views';
+import {
+  News, Chart, Login,
+  Join, Popular, Bookmark,
+} from '@/views';
 
 Vue.use(VueRouter);
 

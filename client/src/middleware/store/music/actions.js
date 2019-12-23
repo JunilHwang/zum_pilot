@@ -1,17 +1,10 @@
-import $http from 'axios';
+import { $get } from '@/helper/http-wrapper';
 import { MUSIC_FETCH } from '../mutations-type';
-import { API_URL } from '../const';
-import { responseValid } from '@/helper';
 
 export default {
-  [MUSIC_FETCH]: ({ commit }, category = '실시간') => {
-    $http
-      .get(`${API_URL}/music?category=${encodeURIComponent(category)}`)
-      .then(({ data }) => {
-        responseValid(data, (result) => {
-          result.forEach(v => Object.assign(v, { category }));
-          commit(MUSIC_FETCH, result);
-        });
-      });
+  [MUSIC_FETCH]: async ({ commit }, category = '실시간') => {
+    const result = await $get(`/music?category=${encodeURIComponent(category)}`);
+    result.forEach(v => Object.assign(v, { category }));
+    commit(MUSIC_FETCH, result);
   },
 };

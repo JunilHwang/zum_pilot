@@ -38,7 +38,6 @@ export default class Bookmark extends Vue {
   // token 변경 감지. 즉, login/logout 상태를 감지함
   @Watch('token')
   onTokenChange() {
-    console.log(this.token);
     if (this.token === null) {
       this.$store.commit(MODAL_ALERT, errorMessage);
       this.$router.push('/sign-in');
