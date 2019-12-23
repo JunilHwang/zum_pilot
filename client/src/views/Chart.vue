@@ -41,9 +41,7 @@ export default class Chart extends Vue {
   categories = ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'];
   selectedCategory = 0;
 
-  /**
-   * 음원 정보 가져오기
-   */
+  // 음원 정보 가져오기
   created() {
     // 0: 실시간 카테고리
     this.fetchMusic(0);
@@ -60,10 +58,7 @@ export default class Chart extends Vue {
     this.$store.dispatch(MUSIC_FETCH, this.categories[k]);
   }
 
-  /**
-   * infinity loading
-   * maximum 100개의 음원을 가져옴
-   */
+  // infinity loading. maximum 100개의 음원을 가져옴
   listLoading() {
     if (this.limit >= 100) return;
     this.limit += 10;
@@ -81,9 +76,7 @@ export default class Chart extends Vue {
     return selectedMusic === `${title}/${artist}`;
   }
 
-  /**
-   * 페이지 이동시 음원/비디오 활성 상태 해제
-   */
+  // 페이지 이동시 음원/비디오 활성 상태 해제
   destroyed() {
     this.$store.commit(MUSIC_SELECT, null);
     this.$store.commit(VIDEO_SELECT, null);

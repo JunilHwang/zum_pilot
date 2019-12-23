@@ -44,8 +44,13 @@ export default class Bookmark extends Vue {
     }
   }
 
-  created() { this.$store.dispatch(USER_AUTH); } // 사용자 인증을 통과해야 됨.
-  destroyed() { this.$store.commit(VIDEO_SELECT, null); } // 페이지를 벗어나면 비디오 선택 해제
-  selectVideo(video) { this.$store.dispatch(VIDEO_SELECT, video); } // 비디오 선택
+  // 사용자 인증을 통과해야 됨.
+  created() { this.$store.dispatch(USER_AUTH); }
+
+  // 페이지를 벗어나면 비디오 선택 해제
+  destroyed() { this.$store.commit(VIDEO_SELECT, null); }
+
+  // 비디오 선택
+  selectVideo(video) { this.$store.dispatch(VIDEO_SELECT, video); }
 }
 </script>

@@ -60,8 +60,6 @@ export default class Join extends Vue {
   idFocus() { this.$refs.id.focus(); }
 
   // 사용자 입력에 대한 sign up validation
-  signUp() {
-    this.$store.dispatch(USER_SIGN_UP, this.$data);
-  }
+  signUp() { this.$store.dispatch(USER_SIGN_UP, this.$data); }
 }
 </script>

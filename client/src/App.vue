@@ -32,18 +32,13 @@ export default class App extends Vue {
   isSticky = false; // Header sticky 여부
   get path() { return this.$route.path; }
 
-  /**
-   * Scroll Event 등록
-   */
+  // Scroll Event 등록
   mounted() {
     window.removeEventListener('scroll', this.scrollEvents);
     window.addEventListener('scroll', this.scrollEvents);
   }
 
-  /**
-   * Scroll Event들을 등록한다.
-   * Sticky, Infinity loading 등
-   */
+  // Scroll Event들을 등록한다. Sticky, Infinity loading 등
   scrollEvents() {
     const sy = window.scrollY; // scroll y축 위치
     const ot = this.$refs.wrap.offsetTop - 37; // Content의 offset

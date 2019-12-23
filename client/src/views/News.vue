@@ -41,9 +41,7 @@ export default class News extends Vue {
   @State news;
   page = 1; // infinity load 횟수
 
-  /**
-   * Server에서 Crawling한 News 가져오기
-   */
+  // Server에서 Crawling한 News 가져오기
   created() {
     this.$store.dispatch(NEWS_POPULAR_FETCH);
     this.$store.dispatch(NEWS_ARTICLES_FETCH);
@@ -53,10 +51,7 @@ export default class News extends Vue {
     eventBus.$on('newsLoad', this.listLoading);
   }
 
-  /**
-   * Mounted 시점에 스크롤을 최상단으로 보낸다.
-   * Vue Route를 통해서 페이지가 바뀔 때 자연스럽게 보이기 위함
-   */
+  // Mounted 시점에 스크롤을 최상단으로 보낸다. Vue Route로 페이지 변경시 자연스럽게 보이기 위함
   mounted = () => window.scrollTo(0, 0);
 
   /**
@@ -66,9 +61,7 @@ export default class News extends Vue {
    */
   viewDetail = ({ index, currentTarget }) => { currentTarget.$children[index].viewDetail(); }
 
-  /**
-   * infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
-   */
+  //infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
   listLoading() {
     if (this.page >= 5) return;
     this.page += 1;
