@@ -26,35 +26,57 @@
   </main>
 </template>
 <script>
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import { mapState } from 'vuex';
 import { Flicking } from '@egjs/vue-flicking';
 import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
 import { eventBus } from '@/helper';
 
-export default {
-  components: { NewsWrapper, NewsDetail, Flicking },
-  computed: mapState(['news']),
-  data() {
-    return { page: 1 };
-  },
+const components = { NewsWrapper, NewsDetail, Flicking };
+const computed = mapState({ news: state => state.news });
+
+@Component({ components, computed })
+export default class News extends Vue {
+  page = 1; // infinity load 횟수
+
+  /**
+   * Server에서 Crawling한 News 가져오기
+   */
   created() {
     this.$store.dispatch(NEWS_POPULAR_FETCH);
     this.$store.dispatch(NEWS_ARTICLES_FETCH);
+
+    // App.vue에서 보내는 newsLoad emit을 감지하여 loading
+    // 즉, infinite load를 감지하여 이벤트를 실행한다.
     eventBus.$on('newsLoad', this.listLoading);
-  },
-  methods: {
-    viewDetail({ index, currentTarget }) {
-      currentTarget.$children[index].viewDetail();
-    },
-    listLoading() {
-      if (this.page >= 5) return;
-      this.page += 1;
-      this.$store.dispatch(NEWS_ARTICLES_FETCH, this.page);
-    },
-  },
-  mounted() {
+  }
+
+  /**
+   * Mounted 시점에 스크롤을 최상단으로 보낸다.
+   * Vue Route를 통해서 페이지가 바뀔 때 자연스럽게 보이기 위함
+   */
+  mounted = () => {
     window.scrollTo(0, 0);
-  },
-};
+  }
+
+  /**
+   * Popular News를 select 할 때 발생
+   * @param index => panel index number
+   * @param currentTarget => 선택한 panel
+   */
+  viewDetail = ({ index, currentTarget }) => {
+    currentTarget.$children[index].viewDetail();
+  }
+
+  /**
+   * infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
+   */
+  listLoading() {
+    if (this.page >= 5) return;
+    this.page += 1;
+    this.$store.dispatch(NEWS_ARTICLES_FETCH, this.page);
+  }
+}
 </script>
