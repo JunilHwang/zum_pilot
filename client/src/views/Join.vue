@@ -37,7 +37,7 @@
           </li>
           <li class="fields__buttons">
             <button type="submit" class="btn main full">회원가입</button>
-            <router-link to="/sign-up" class="btn default full">로그인</router-link>
+            <router-link to="/sign-in" class="btn default full">로그인</router-link>
           </li>
         </ul>
       </fieldset>
@@ -54,15 +54,14 @@ export default class Join extends Vue {
   id = '';
   pw = '';
   name = '';
+
+  // 포커싱 처리
   mounted() { this.idFocus(); }
   idFocus() { this.$refs.id.focus(); }
 
-  /**
-   * 사용자 입력에 대한 sign up validation
-   */
+  // 사용자 입력에 대한 sign up validation
   signUp() {
-    const { id, pw, name } = this;
-    this.$store.dispatch(USER_SIGN_UP, { id, pw, name });
+    this.$store.dispatch(USER_SIGN_UP, this.$data);
   }
 }
 </script>
