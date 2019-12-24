@@ -1,12 +1,12 @@
 <template functional>
-  <article class="news-article">
+  <article class="newsArticle">
     <a href="#" @click.prevent="parent.viewDetail">
-      <figure class="news-article__img">
+      <figure class="newsArticleImg">
           <img :src="props.img" :alt="props.title">
       </figure>
-      <div class="news-article__content">
-        <h3 class="news-article__title" v-html="props.title" />
-        <p class="news-article__regdate">
+      <div class="newsArticleContent">
+        <h3 class="newsArticleTitle" v-html="props.title" />
+        <p class="newsArticleRegdate">
           <FAI :icon="['far', 'clock']" />
           {{ props.regDate }}
         </p>

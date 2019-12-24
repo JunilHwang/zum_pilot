@@ -1,12 +1,12 @@
 <template>
   <main>
-    <section class="main-content__section news">
+    <section class="mainContentSection news">
       <Flicking
-        class="news__panels"
+        class="newsPanels"
         :options="{ gap: 5, hanger: 0, anchor: 0, zIndex: 10 }"
         @select="viewDetail"
       >
-        <div class="news__panel" v-for="(props, k) in news.populars" :key="k">
+        <div class="newsPanel" v-for="(props, k) in news.populars" :key="k">
           <NewsWrapper
             type="NewsHeadline"
             :properties="{ ...props }"

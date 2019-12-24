@@ -1,17 +1,17 @@
 <template>
-  <div class="video__wrap">
-    <Flicking class="video__panels"
+  <div class="videoWrap">
+    <Flicking class="videoPanels"
               @select="selectVideo"
               :options="{ gap: 2, circular: true, hanger: 0, anchor: 0, zIndex: 10 }">
       <div v-for="(v, k) in videoList"
-           class="video__panel"
+           class="videoPanel"
            :class="{ active: v.idx === selectedVideo.idx }"
            :key="k">
-        <figure class="video__thumbnail">
+        <figure class="videoThumbnail">
           <img :src="v.thumbnail" :alt="v.title"  />
         </figure>
         <VideoMeta
-          classPrefix="list-meta"
+          classPrefix="listMeta"
           :idx="v.idx"
           :title="previewTitle(v.title, 50)"
         />

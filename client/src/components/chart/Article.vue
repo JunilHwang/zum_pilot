@@ -1,12 +1,12 @@
 <template>
-  <article class="chart__article">
-    <div class="chart__article-wrap" @click="searchVideo">
-      <strong class="chart__rank" v-html="k + 1"/>
-      <dl class="chart__info">
+  <article class="chartArticle">
+    <div class="chartArticle-wrap" @click="searchVideo">
+      <strong class="chartRank" v-html="k + 1"/>
+      <dl class="chartInfo">
         <dt v-html="title"/>
         <dd v-html="artist"/>
       </dl>
-      <figure class="chart__thumbnail">
+      <figure class="chartThumbnail">
         <img :src="img" :alt="title">
       </figure>
     </div>

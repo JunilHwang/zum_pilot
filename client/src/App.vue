@@ -3,10 +3,10 @@
     <SiteHeader>
       <Navigation />
     </SiteHeader>
-    <div class="content-wrap" ref="wrap">
-      <router-view class="main-content" />
+    <div class="contentWrap" ref="wrap">
+      <router-view class="mainContent" />
     </div>
-    <a href="#" class="go-top" v-show="isSticky">
+    <a href="#" class="goTop" v-show="isSticky">
       <FAI icon="chevron-up" />
     </a>
     <SiteFooter />

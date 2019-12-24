@@ -1,6 +1,6 @@
 <template>
   <div class="controls" :class="{ active: controlsActive }" v-if="showControls">
-    <div class="controls__progress">
+    <div class="controlsProgress">
       <div class="bg" />
       <div class="fill"
            :style="{width: `${(current / duration) * 100}%`}" />
@@ -10,18 +10,18 @@
              :max="duration"
              @input="timeUpdate" />
     </div>
-    <div class="controls__left">
-      <span class="controls__play-toggle">
+    <div class="controlsLeft">
+      <span class="controlsPlayToggle">
         <FAI icon="pause" v-if="isPlay" @click="player.pauseVideo" />
         <FAI icon="play" v-else @click=" player.playVideo" />
       </span>
-      <span class="controls__mute-toggle">
+      <span class="controlsMuteToggle">
         <FAI icon="volume-down" size="lg" v-if="isMuted === false" @click="toggleMute" />
         <FAI icon="volume-mute" size="lg" v-else @click="toggleMute" />
       </span>
     </div>
-    <div class="controls__right">
-      <span class="controls__expand-toggle">
+    <div class="controlsRight">
+      <span class="controlsExpandToggle">
         <FAI icon="compress" @click="exitFullScreen" v-if="isFullScreen" />
         <FAI icon="expand" @click="inFullScreen" v-else />
       </span>

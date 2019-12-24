@@ -13,7 +13,7 @@
       :class="{ active: selectedVideo && selectedVideo.idx === video.idx }"
       @select="selectVideo(video)"
     />
-    <div v-if="videoList.length === 0" class="video-article__none">
+    <div v-if="videoList.length === 0" class="videoArticleNone">
       즐겨찾기한 영상이 없습니다.
     </div>
   </main>

@@ -1,8 +1,8 @@
 <template>
-  <article v-if="loaded" class="news-detail">
-    <h1 class="news-detail__title" v-html="news.article.title" />
-    <div ref="content" class="news-detail__content" v-html="removeEnter(news.article.content)" />
-    <div class="btn-group center">
+  <article v-if="loaded" class="newsDetail">
+    <h1 class="newsDetailTitle" v-html="news.article.title" />
+    <div ref="content" class="newsDetailContent" v-html="removeEnter(news.article.content)" />
+    <div class="btnGroup center">
       <a href="#" class="btn main" @click.prevent="close">메인으로</a>
     </div>
   </article>

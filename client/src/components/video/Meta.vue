@@ -24,7 +24,7 @@
       </span>
       <span
         v-if="popularPoint !== undefined && popularPointHide"
-        class="popular-meta__point"
+        class="popularMetaPoint"
         v-html="`인기도 ${popularPoint}`"
       />
     </li>
@@ -55,22 +55,22 @@ export default class Meta extends Vue {
   @Prop() popularPoint;
 
   // class name 을 위한 computed 변수 지정
-  get metaTitle() { return `${this.classPrefix}__title`; }
-  get metaBottom() { return `${this.classPrefix}__bottom`; }
-  get metaViewCount() { return `${this.classPrefix}__view-count`; }
+  get metaTitle() { return `${this.classPrefix}Title`; }
+  get metaBottom() { return `${this.classPrefix}Bottom`; }
+  get metaViewCount() { return `${this.classPrefix}View-count`; }
 
   // bookmark list 기반으로 active class toggle
   get metaBookmark() {
     const { classPrefix, bookmark: list, idx } = this;
     const active = list.find(v => v.idx === idx) ? 'active' : '';
-    return `${classPrefix}__bookmark ${active}`;
+    return `${classPrefix}Bookmark ${active}`;
   }
 
   // userLiked 기반으로 active class toggle
   get metaLike() {
     const { classPrefix, userLiked, token } = this;
     const active = token && userLiked ? 'active' : '';
-    return `${classPrefix}__like ${active}`;
+    return `${classPrefix}Like ${active}`;
   }
 
   // hide property 기반으로 hiding

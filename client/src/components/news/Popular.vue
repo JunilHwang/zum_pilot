@@ -2,7 +2,7 @@
   <li>
     <a @click.prevent="viewDetail">
       <img :src="img" :alt="title">
-      <h3 class="news-thumbs__title" v-html="previewTitle(title, 30)" />
+      <h3 class="newsThumbsTitle" v-html="previewTitle(title, 30)" />
     </a>
   </li>
 </template>

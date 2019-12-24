@@ -1,5 +1,5 @@
 <template>
-  <nav class="site-header__nav">
+  <nav class="siteHeaderNav">
     <ul>
       <template v-for="(v, k) in menu">
         <li :key="k" v-if="permCheck(v.permission)">

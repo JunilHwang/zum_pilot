@@ -1,6 +1,6 @@
 <template>
   <section v-if="video !== null">
-    <div class="video-player" ref="container">
+    <div class="videoPlayer" ref="container">
       <Youtube
         :video-id="video.videoId"
         :player-vars="options"
@@ -9,7 +9,7 @@
         ref="playerWrap" />
       <VideoControls />
     </div>
-    <VideoMeta classPrefix="video-meta" v-bind="video" :hide="['popular']" />
+    <VideoMeta classPrefix="videoMeta" v-bind="video" :hide="['popular']" />
     <slot />
   </section>
 </template>

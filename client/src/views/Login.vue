@@ -6,9 +6,9 @@
         <ul>
           <li>
             <label>
-              <span class="fields__list">아이디</span>
+              <span class="fieldsList">아이디</span>
               <input type="text"
-                     class="fields__input full"
+                     class="fieldsInput full"
                      placeholder="아이디를 입력해주세요"
                      v-model="id"
                      ref="id"
@@ -17,15 +17,15 @@
           </li>
           <li>
             <label>
-              <span class="fields__list">비밀번호</span>
+              <span class="fieldsList">비밀번호</span>
               <input type="password"
-                     class="fields__input full"
+                     class="fieldsInput full"
                      placeholder="비밀번호를 입력해주세요"
                      v-model="pw"
                      required />
             </label>
           </li>
-          <li class="fields__buttons">
+          <li class="fieldsButtons">
             <button type="submit" class="btn main full">로그인</button>
             <router-link to="/sign-up" class="btn default full">회원가입</router-link>
           </li>

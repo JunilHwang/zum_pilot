@@ -1,14 +1,14 @@
 @import 'lib';
 /* 사이트 상단 */
-.site-header {
+.siteHeader {
   border-bottom: 1px solid #bbb;
   margin-top: 10px;
-  &__logo {
+  &Logo {
     text-align: center;
     line-height: 1;
     margin-bottom: 5px;
   }
-  &__nav {
+  &Nav {
     transition-property: background;
     transition-duration: 0.3s;
     text-align: center;
@@ -81,7 +81,7 @@
   }
 }
 
-.go-top {
+.goTop {
   position: fixed;
   right: 10px;
   bottom: 20px;
@@ -90,7 +90,7 @@
   animation: fade 0.3s;
 }
 
-.site-footer {
+.siteFooter {
   background: #212141;
   color: #fff;
   padding: 20px 0;
@@ -99,30 +99,30 @@
 }
 
 /* 사이트 컨텐츠 */
-.content-wrap {
+.contentWrap {
   padding: 10px;
   background: #ecf5f5;
 }
 
-.main-content {
-  &__panel {
+.mainContent {
+  &Panel {
     width: 100%;
     border-radius: 10px;
   }
 }
 
 .news {
-  &__panels {
+  &Panels {
     width: 100%;
     height: 60vw;
   }
-  &__panel {
+  &Panel {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 10px;
   }
-  &-main {
+  &Main {
     position: relative;
     border-radius: 3px;
     overflow: hidden;
@@ -140,11 +140,11 @@
       background-image: linear-gradient(to bottom, transparent, fade-out(#000, 0.5));
       z-index: 10;
     }
-    &__img {
+    &Img {
       @include img-wrap($abs: true);
       height: 60vw;
     }
-    &__title {
+    &Title {
       position: absolute;
       left: 0;
       right: 0;
@@ -155,7 +155,7 @@
       z-index: 20;
     }
   }
-  &-thumbs {
+  &Thumbs {
     margin-top: 10px;
     @include clear-fix();
     li {
@@ -174,7 +174,7 @@
     img {
       border-radius: 3px;
     }
-    &__title {
+    &Title {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -186,13 +186,13 @@
       border-radius: 3px
     }
   }
-  &-article {
+  &Article {
     border-radius: 3px;
     background: #fff;
     margin-top: 5px;
     padding: 10px;
     @include clear-fix();
-    &__img {
+    &Img {
       @include img-wrap($abs: true);
       width: 30%;
       padding-top: 20%;
@@ -201,7 +201,7 @@
         border-radius: 3px;
       }
     }
-    &__content {
+    &Content {
       float: left;
       width: calc(70% - 10px);
       margin-left: 10px;
@@ -209,13 +209,13 @@
       line-height: 1;
       padding: 5px 0;
     }
-    &__title {
+    &Title {
       font-size: 15px;
       font-weight: normal;
       letter-spacing: -0.5px;
       line-height: 1.2;
     }
-    &__regdate {
+    &Regdate {
       font-size: 13px;
       color: #aaa;
       margin-top: 5px;
@@ -224,7 +224,7 @@
       }
     }
   }
-  &-detail {
+  &Detail {
     position: fixed;
     left: 0;
     right: 0;
@@ -236,24 +236,24 @@
     border-radius: 3px;
     padding: 20px;
     letter-spacing: -0.5px;
-    &__title {
+    &Title {
       font-size: 19px;
       font-weight: normal;
       padding-bottom: 10px;
       border-bottom: 1px solid #bebebe;
       margin-bottom: 20px;
     }
-    &__info {
+    &Info {
       line-height: 1;
       color: #666;
       font-size: 13px;
       margin-bottom: 20px;
       @include clear-fix();
     }
-    &__publisher, &__regdate {
+    &Publisher, &Regdate {
       float: left;
     }
-    &__publisher::after {
+    &Publisher::after {
       content: "";
       display: inline-block;
       vertical-align: middle;
@@ -262,14 +262,14 @@
       margin: -3px 5px 0;
       background: #bebebe;
     }
-    &__thumbnail {
+    &Thumbnail {
       margin-bottom: 20px;
     }
-    &__content {
+    &Content {
       font-size: 15px;
       line-height: 160%;
     }
-    &__content p {
+    &Content p {
       padding: 10px 0;
     }
   }
@@ -277,7 +277,7 @@
 
 /* 실시간 음원차트 */
 .chart {
-  &__category {
+  &Category {
     font-size: 13px;
     ul {
       @include clear-fix();
@@ -331,12 +331,12 @@
       }
     }
   }
-  &__video {
+  &Video {
     border-radius: 3px;
     transition-property: margin-left, margin-right;
     transition-duration: 0.3s;
   }
-  &__article {
+  &Article {
     background: #fff;
     border-radius: 3px;
     margin-top: 5px;
@@ -348,17 +348,17 @@
       position: relative;
       line-height: 1;
     }
-    &:nth-child(1) .chart__rank {
+    &:nth-child(1) .chartRank {
       color: $color-main;
     }
-    &:nth-child(2) .chart__rank {
+    &:nth-child(2) .chartRank {
       color: $color-blue1;
     }
-    &:nth-child(3) .chart__rank {
+    &:nth-child(3) .chartRank {
       color: $color-blue2;
     }
     @for $i from 1 through 3 {
-      &:nth-child(#{$i}) .chart__rank {
+      &:nth-child(#{$i}) .chartRank {
         font-weight: bold;
       }
     }
@@ -382,7 +382,7 @@
       }
     }
   }
-  &__rank {
+  &Rank {
     width: 100px;
     font-family: Poppins, Verdana, sans-serif;
     font-size: 27px;
@@ -394,7 +394,7 @@
       color: #fff !important;
     }
   }
-  &__info {
+  &Info {
     padding-top: 25px;
     width: calc(100% - 220px);
     line-height: 1.2;
@@ -413,7 +413,7 @@
       }
     }
   }
-  &__thumbnail {
+  &Thumbnail {
     @include img-wrap($abs: true);
     position: absolute;
     right: 0;
@@ -428,20 +428,20 @@
 
 /* 음원에 대한 비디오 목록 */
 .video {
-  &__wrap {
+  &Wrap {
     height: vw(9, 32)
   }
-  &__panels {
+  &Panels {
     height: 100%;
     margin-top: 2px;
   }
-  &__panel {
+  &Panel {
     position: relative;
     width: 50%;
     height: 100%;
     border-radius: 10px;
   }
-  &__thumbnail {
+  &Thumbnail {
     @include img-wrap(true);
     width: 100%;
     height: 100%;
@@ -472,19 +472,19 @@
   }
 }
 
-.list-meta {
+.listMeta {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 10px;
   color: #fff;
-  &__title {
+  &Title {
     letter-spacing: -0.5px;
     font-size: vw(11px, 375px);
     font-weight: normal;
   }
-  &__bookmark {
+  &Bookmark {
     @extend %bookmark;
     position: absolute;
     right: 5px;
@@ -500,7 +500,7 @@
   }
 }
 
-.video-meta {
+.videoMeta {
   margin-bottom: 5px;
   background: #fff;
   padding: 10px;
@@ -512,16 +512,16 @@
     display: inline-block;
     vertical-align: bottom;
   }
-  &__bottom {
+  &Bottom {
     text-align: right;
     margin-top: 5px;
     color: #aaa;
   }
-  &__bookmark {
+  &Bookmark {
     @extend %bookmark;
     transition: color 0.3s;
   }
-  &__like {
+  &Like {
     transition: color 0.3s;
     svg {
       position: relative;
@@ -534,7 +534,7 @@
 }
 
 /* 비디오 컨트롤러 */
-.video-player {
+.videoPlayer {
   position: relative;
   height: vw(9, 16);
   iframe {
@@ -567,17 +567,17 @@
   &.active {
     opacity: 1;
   }
-  &__play-toggle {
+  &PlayToggle {
     cursor: pointer;
   }
-  &__expand-toggle {
+  &ExpandToggle {
     cursor: pointer;
   }
-  &__mute-toggle {
+  &MuteToggle {
     cursor: pointer;
     margin-left: 20px;
   }
-  &__progress {
+  &Progress {
     position: absolute;
     top: -4px;
     height: 4px;
@@ -621,7 +621,7 @@
 }
 
 /* 인기영상 */
-.video-article {
+.videoArticle {
   background: #fff;
   border-radius: 3px;
   display: flex;
@@ -629,10 +629,10 @@
   position: relative;
   transition: background 0.3s;
   $size: 180px;
-  +.video-article {
+  +.videoArticle {
     margin-top: 10px;
   }
-  &__thumbnail {
+  &Thumbnail {
     @include img-wrap();
     width: $size;
     height:calc((10 / 16) * #{$size});
@@ -640,10 +640,10 @@
       border-radius: 3px;
     }
   }
-  &__meta {
+  &Meta {
     width:calc(100% - #{$size});
   }
-  &__none {
+  &None {
     background: #fff;
     border-radius: 3px;
     padding: 30px 10px;
@@ -655,17 +655,17 @@
   }
 }
 
-.popular-meta {
+.popularMeta {
   padding: 10px;
   font-size: vw(13px, 480px);
   transition: color 0.3s;
   .active & {
     color: #fff;
   }
-  &__title {
+  &Title {
     margin-bottom: 10px;
   }
-  &__bottom {
+  &Bottom {
     color: #aaa;
     display: flex;
     align-items: center;
@@ -688,14 +688,14 @@
       }
     }
   }
-  &__like {
+  &Like {
     transition: color 0.3s;
     svg {
       position: relative;
       top: -2px;
     }
   }
-  &__point {
+  &Point {
     font-size: 11px;
     border-color: $color-blue1 !important;
     color: $color-blue1;
@@ -706,7 +706,7 @@
       color: #fff;
     }
   }
-  &__bookmark {
+  &Bookmark {
     @extend %bookmark;
   }
 }
@@ -721,7 +721,7 @@
   background: fade-out(#000, 0.5);
   text-align: center;
   z-index: 110;
-  &__container {
+  &Container {
     background: #fff;
     padding: 20px;
     position: relative;
@@ -729,7 +729,7 @@
     cursor: default;
     border-radius: 3px;
   }
-  &__title {
+  &Title {
     background: $color-main;
     margin: -20px -20px 20px;
     padding: 0 10px;
@@ -738,7 +738,7 @@
     font-size: 15px;
     border-radius: 3px;
   }
-  &__close {
+  &Close {
     position: absolute;
     right: 0;
     top: 0;

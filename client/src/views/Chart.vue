@@ -1,6 +1,6 @@
 <template>
   <main>
-    <header class="chart__category">
+    <header class="chartCategory">
       <ul>
         <li v-for="(v, k) in categories" :key="k">
           <a href="#"
@@ -11,9 +11,9 @@
       </ul>
     </header>
     <transition name="slide-down">
-      <VideoPlayer class="chart__video" />
+      <VideoPlayer class="chartVideo" />
     </transition>
-    <section class="chart__wrap">
+    <section class="chartWrap">
       <ChartArticle
         v-for="(v, k) in limit"
         :key="v"

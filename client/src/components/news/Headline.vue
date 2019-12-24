@@ -1,10 +1,10 @@
 <template functional>
-  <article class="news-main">
+  <article class="newsMain">
     <a href="#" @click.prevent>
-      <figure class="news-main__img">
+      <figure class="newsMainImg">
         <img :src="props.img" :alt="props.title">
       </figure>
-      <h3 class="news-main__title" v-html="props.title" />
+      <h3 class="newsMainTitle" v-html="props.title" />
     </a>
   </article>
 </template>

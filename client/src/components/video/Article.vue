@@ -1,11 +1,11 @@
 <template>
-  <article class="video-article" @click="selectVideo">
-    <figure class="video-article__thumbnail">
+  <article class="videoArticle" @click="selectVideo">
+    <figure class="videoArticleThumbnail">
       <img :src="thumbnail" :alt="title" />
     </figure>
-    <div class="video-article__meta">
+    <div class="videoArticleMeta">
       <VideoMeta
-        classPrefix="popular-meta"
+        classPrefix="popularMeta"
         v-bind="this.$props"
         :hide="['bookmark']" />
     </div>

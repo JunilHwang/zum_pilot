@@ -61,7 +61,7 @@ span.middle {
   + .btn:not(.full) {
     margin-left: 3px;
   }
-  &-group {
+  &Group {
     margin-top: 20px;
     &.center {
       text-align: center;
@@ -100,19 +100,19 @@ span.middle {
     border-top: 1px dotted #ddd;
     margin-top: 15px;
   }
-  &__list {
+  &List {
     display: block;
     cursor: pointer;
     padding: 10px 0;
-    +.fields__list {
+    +.fieldsList {
       border-top: 1px solid #ddd;
     }
   }
-  &__label {
+  &Label {
     display: block;
     margin-bottom: 5px;
   }
-  &__input {
+  &Input {
     padding: 10px 5px;
     border: 1px solid #ddd;
     color: #666;
@@ -131,10 +131,10 @@ span.middle {
       width: 100%;
     }
   }
-  &__buttons {
+  &Buttons {
     padding-top: 15px;
   }
-  &__custom-radio {
+  &CustomRadio {
     display: inline-block;
 
     input {

@@ -1,9 +1,9 @@
 <template>
   <Wrapper>
     <section class="alert" @keydown.enter="close">
-      <h3 class="modal__title">경고</h3>
+      <h3 class="modalTitle">경고</h3>
       <p v-html="props.message || '경고 메세지'" />
-      <div class="btn-group right">
+      <div class="btnGroup right">
         <a href="#"
            class="btn main"
            @click="close"
