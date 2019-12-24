@@ -11,7 +11,7 @@
       </ul>
     </header>
     <transition name="slide-down">
-      <VideoPlayer class="chartVideo" />
+      <VideoPlayer class="chartVideo" ref="player" />
     </transition>
     <section class="chartWrap">
       <ChartArticle
@@ -45,6 +45,7 @@ export default class Chart extends Vue {
   created() {
     // 0: 실시간 카테고리
     this.fetchMusic(0);
+
     // App.vue에서 등록한 chartLoad의 emit을 감지. 즉 infinity load를 감지하여 실행함
     eventBus.$on('chartLoad', this.listLoading);
   }

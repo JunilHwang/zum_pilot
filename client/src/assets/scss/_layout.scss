@@ -574,8 +574,10 @@
     cursor: pointer;
   }
   &MuteToggle {
+    display: inline-block;
     cursor: pointer;
     margin-left: 20px;
+    width:20px;
   }
   &CurrentTime {
     font-size: 13px;
