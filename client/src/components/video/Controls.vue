@@ -19,6 +19,9 @@
         <FAI icon="volume-down" size="lg" v-if="isMuted === false" @click="toggleMute" />
         <FAI icon="volume-mute" size="lg" v-else @click="toggleMute" />
       </span>
+      <span class="controlsCurrentTime">
+        {{ toTime(current) }} / {{ toTime(duration) }}
+      </span>
     </div>
     <div class="controlsRight">
       <span class="controlsExpandToggle">
@@ -33,6 +36,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { VIDEO_VIEW } from '@/middleware/store/mutations-type';
+import { convertToTimeFormat } from '@/helper';
 
 @Component
 export default class Controls extends Vue {
@@ -45,6 +49,9 @@ export default class Controls extends Vue {
   timer = null;
   controlsActive = true;
   showControls = false;
+
+  // duration converter
+  toTime = convertToTimeFormat;
 
   // computed 변수. play 상태에 대해 나타냄
   get isPlay() { return [1, 3].indexOf(this.state) !== -1; }
@@ -68,7 +75,7 @@ export default class Controls extends Vue {
   videoInit() {
     this.isMuted = false;
     this.current = 0;
-    this.duration = 100;
+    this.duration = 0;
     this.timer = null;
     this.player.unMute();
   }

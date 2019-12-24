@@ -1,4 +1,4 @@
-@import 'lib';
+  @import 'lib';
 /* 사이트 상단 */
 .siteHeader {
   border-bottom: 1px solid #bbb;
@@ -576,6 +576,10 @@
   &MuteToggle {
     cursor: pointer;
     margin-left: 20px;
+  }
+  &CurrentTime {
+    font-size: 13px;
+    margin-left: 15px;
   }
   &Progress {
     position: absolute;
