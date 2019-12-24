@@ -61,7 +61,7 @@ export default class News extends Vue {
    */
   viewDetail = ({ index, currentTarget }) => { currentTarget.$children[index].viewDetail(); }
 
-  //infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
+  // infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
   listLoading() {
     if (this.page >= 5) return;
     this.page += 1;

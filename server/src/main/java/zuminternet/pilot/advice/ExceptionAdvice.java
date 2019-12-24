@@ -25,7 +25,7 @@ public class ExceptionAdvice {
    * @return FAIL
    */
   @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult defaultException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.FAIL);
   }
@@ -37,7 +37,7 @@ public class ExceptionAdvice {
    * @return SIGN_IN_FAIL
    */
   @ExceptionHandler(UserNotFoundException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult userNotFoundException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.SIGN_IN_FAIL);
   }
@@ -49,7 +49,7 @@ public class ExceptionAdvice {
    * @return SIGN_UP_FAIL
    */
   @ExceptionHandler(SignUpException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult signUpException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.SIGN_UP_FAIL);
   }
@@ -61,7 +61,7 @@ public class ExceptionAdvice {
    * @return AUTH_FAIL
    */
   @ExceptionHandler(AuthException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult authException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.AUTH_FAIL);
   }
@@ -73,7 +73,7 @@ public class ExceptionAdvice {
    * @return USER_FAIL
    */
   @ExceptionHandler(UserIdNotFoundException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult userIdNotFoundException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.USER_FAIL);
   }
@@ -85,7 +85,7 @@ public class ExceptionAdvice {
    * @return VIDEO_FAIL
    */
   @ExceptionHandler(VideoNotFoundException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   protected CommonResult videoNotFoundException(HttpServletRequest request, Exception e) {
     return responseService.failResult(CommonResponse.VIDEO_FAIL);
   }
