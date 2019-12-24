@@ -3,6 +3,8 @@ package zuminternet.pilot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import zuminternet.pilot.advice.exception.VideoNotFoundException;
@@ -67,9 +69,11 @@ public class VideoService {
     Video video = Optional.ofNullable(get(idx)).orElseThrow(VideoNotFoundException::new);
     video.setViewCount(video.getViewCount() + 1);
     videoRepository.save(video);
+
+    // cache에 있는 데이터 또한 update 한다.
     Cache cache = cacheManager.getCache("VideoCache");
-    cache.evict(video.getSearchTitle());
-    cache.evict(video.getIdx());
+    cache.put(video.getSearchTitle(), video);
+    cache.put(video.getIdx(), video);
   }
 
   /**
@@ -78,6 +82,7 @@ public class VideoService {
    * @param userIdx : user의 idx 값
    * @return
    */
+  @Cacheable(cacheNames = "VideoLikeCache", key="#videoIdx + '_' + #userIdx")
   public LikeCount getLikeCount (int videoIdx, int userIdx) {
     return LikeCount.builder()
             .likeCount(likeRepository.countAllByVideoIdx(videoIdx)) // 좋아요 갯수
@@ -90,6 +95,7 @@ public class VideoService {
    * @param videoIdx : 토글 시킬 비디오의 idx 값
    * @param userIdx : 좋아요를 누른 user의 idx값
    */
+  @CacheEvict(cacheNames = "VideoLikeCache", key="#videoIdx + '_' + #userIdx")
   public void postLike (int videoIdx, int userIdx) {
     // 좋아요 정보를 가져오기
     VideoLike videoLike = likeRepository.findByVideoIdxAndAndUserIdx(videoIdx, userIdx);

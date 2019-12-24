@@ -25,4 +25,11 @@
            timeToIdleSeconds="0"
            memoryStoreEvictionPolicy="LFU">
     </cache>
+    <cache name="VideoLikeCache"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="300"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
 </ehcache>
