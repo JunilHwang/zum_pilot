@@ -1,6 +1,6 @@
 <template>
   <article class="chartArticle">
-    <div class="chartArticleWrap" @click="searchVideo">
+    <div class="chartArticleWrap" @click="$emit('select', k)">
       <strong class="chartRank" v-html="k + 1"/>
       <dl class="chartInfo">
         <dt v-html="title"/>
@@ -17,7 +17,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { VIDEO_FETCH, MUSIC_SELECT } from '@/middleware/store/mutations-type';
 
 @Component
 export default class Article extends Vue {
@@ -27,12 +26,5 @@ export default class Article extends Vue {
   @Prop() album;
   @Prop() artist;
   @Prop() img;
-
-  // 음원 선택 시 Youtube에서 동영상 검색
-  searchVideo() {
-    const { title, artist, k } = this;
-    this.$store.dispatch(VIDEO_FETCH, k);
-    this.$store.commit(MUSIC_SELECT, `${title}/${artist}`);
-  }
 }
 </script>

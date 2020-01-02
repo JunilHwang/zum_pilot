@@ -13,17 +13,13 @@
     <transition name="slide-down">
       <Flicking
         v-if="selectedVideo !== null"
+        ref="flicking"
         class="videoPanels"
-        :options="{ gap: 10, hanger: 0, anchor: 0, zIndex: 10, defaultIndex: 1 }"
+        :options="flickingOptions"
+        @move-end="videoMoveChanged"
       >
         <div class="videoPanel">
-          <VideoPlayer class="chartVideo" :propVideo="prevVideo" />
-        </div>
-        <div class="videoPanel">
-          <VideoPlayer class="chartVideo" autoplay="1" />
-        </div>
-        <div class="videoPanel">
-          <VideoPlayer class="chartVideo" :propVideo="nextVideo" />
+          <VideoPlayer class="chartVideo" />
         </div>
       </Flicking>
     </transition>
@@ -32,7 +28,8 @@
         v-for="(v, k) in limit"
         :key="v"
         :class="{ active: isActive(k) }"
-        v-bind="{ k, ...music.articles[k] }"
+        v-bind="{ k, ...articles[k] }"
+        @select="searchVideo"
       />
     </section>
   </main>
@@ -42,7 +39,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
-import { MUSIC_FETCH, MUSIC_SELECT, VIDEO_SELECT } from '@/middleware/store/mutations-type';
+import { MUSIC_FETCH, MUSIC_SELECT, VIDEO_SELECT, VIDEO_FETCH } from '@/middleware/store/mutations-type';
 import { ChartArticle } from '@/components/chart';
 import { VideoPlayer } from '@/components/video';
 import { eventBus } from '@/helper';
@@ -51,13 +48,25 @@ const components = { ChartArticle, VideoPlayer, Flicking };
 
 @Component({ components })
 export default class Chart extends Vue {
-  @State music;
+  @State(state => state.music.articles) articles;
+  @State(state => state.music.selectedMusic) selectedMusic;
   @State(state => state.video.selectedVideo) selectedVideo;
   @State(state => state.video.prevVideo) prevVideo;
   @State(state => state.video.nextVideo) nextVideo;
   limit = 10;
   categories = ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'];
   selectedCategory = 0;
+  selectedIndex = -1;
+  moving = false;
+
+  // flicking 옵션
+  flickingOptions = {
+    gap: 10,
+    hanger: 0,
+    anchor: 0,
+    zIndex: 10,
+    defaultIndex: 1,
+  };
 
   // 음원 정보 가져오기
   created() {
@@ -77,10 +86,19 @@ export default class Chart extends Vue {
     this.$store.dispatch(MUSIC_FETCH, this.categories[k]);
   }
 
-  // infinity loading. maximum 100개의 음원을 가져옴
+  // infinity loading. maximum 100개의  음원을 가져옴
   listLoading() {
     if (this.limit >= 100) return;
     this.limit += 10;
+  }
+
+  // 음원 선택 시 Youtube에서 동영상 검색
+  searchVideo(k) {
+    const { title, artist } = this.articles[k];
+    const { dispatch, commit } = this.$store;
+    dispatch(VIDEO_FETCH, title);
+    commit(MUSIC_SELECT, `${title}/${artist}`);
+    this.selectedIndex = k;
   }
 
   /**
@@ -89,7 +107,7 @@ export default class Chart extends Vue {
    * @returns {boolean}
    */
   isActive(k) {
-    const { articles, selectedMusic } = this.music;
+    const { articles, selectedMusic } = this;
     if (selectedMusic === null) return false;
     const { title, artist } = articles[k];
     return selectedMusic === `${title}/${artist}`;
@@ -99,6 +117,17 @@ export default class Chart extends Vue {
   destroyed() {
     this.$store.commit(MUSIC_SELECT, null);
     this.$store.commit(VIDEO_SELECT, null);
+  }
+
+  // 동영상 전환
+  videoMoveChanged({ direction }) {
+    let { selectedIndex: k } = this;
+    if (direction === 'NEXT') {
+      k = k === 0 ? 99 : k - 1;
+    } else {
+      k = (k + 1) % 100;
+    }
+    this.searchVideo(k);
   }
 }
 </script>

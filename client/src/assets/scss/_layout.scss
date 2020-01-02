@@ -471,6 +471,20 @@
   &Panel {
     width: calc(100% / 3);
     height: 100%;
+    &Thumbnail{
+      @include img-wrap();
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: fade-out(#000, 0.5);
+        z-index: 10;
+      }
+    }
   }
   &Player {
     position: relative;

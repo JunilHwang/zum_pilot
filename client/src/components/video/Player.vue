@@ -28,17 +28,11 @@ const components = { Youtube, VideoControls, VideoMeta };
 export default class Player extends Vue {
   @State(state => state.video.selectedVideo) selectedVideo;
   @Prop() propVideo;
-  @Prop() autoplay;
-  options = { controls: 0 }
+  options = { controls: 0, autoplay: 1 }
 
   // property로 넘긴 video 정보가 있다면 해당 정보를 사용하고, 없다면 selectedVideo를 사용
   get video() {
     return this.propVideo || this.selectedVideo;
-  }
-
-  // property에 autoplay가 있다면 해당 정보를 사용하고, 없다면 0으로 초기화
-  created() {
-    this.options.autoplay = this.$props.autoplay || 0;
   }
 }
 </script>

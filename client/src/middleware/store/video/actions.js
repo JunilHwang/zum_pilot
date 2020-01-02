@@ -1,8 +1,6 @@
 import { $get, $post, $patch } from '@/helper/http-wrapper';
 import {
   VIDEO_FETCH,
-  VIDEO_PREV_FETCH,
-  VIDEO_NEXT_FETCH,
   VIDEO_VIEW,
   VIDEO_SELECT,
   VIDEO_LIKE,
@@ -13,19 +11,8 @@ import {
 
 export default {
   // 음원 목록 선택으로 비디오를 가져올 때
-  [VIDEO_FETCH]: async ({ dispatch, rootState, commit }, k) => {
-    const { music } = rootState;
-    const { articles } = music;
-    const prevK = k === 0 ? 99 : k - 1; // 이전 음원의 Index
-    const nextK = (k + 1) % 100; // 다음 음원의 Index
-    const [nowVideo, prevVideo, nextVideo] = await Promise.all([
-      $get(`/video?q=${articles[k].title}`),
-      $get(`/video?q=${articles[prevK].title}`),
-      $get(`/video?q=${articles[nextK].title}`),
-    ]);
-    dispatch(VIDEO_SELECT, nowVideo); // 선택한 영상 바로 재생
-    commit(VIDEO_PREV_FETCH, prevVideo); // 이전 영상 로딩
-    commit(VIDEO_NEXT_FETCH, nextVideo); // 다음 영상 로딩
+  [VIDEO_FETCH]: async ({ dispatch }, q) => {
+    dispatch(VIDEO_SELECT, await $get(`/video?q=${q}`));
   },
 
   // 비디오를 끝까지 재생했을 때 조회수를 증가시킨다.
