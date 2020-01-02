@@ -3,8 +3,8 @@ export default {
   populars: [],
   articles: [],
   article: {
-    title: '',
-    content: '',
+    title: null,
+    content: null,
   },
   viewState: false,
 };

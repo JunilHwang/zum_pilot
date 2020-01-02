@@ -13,13 +13,14 @@
           />
         </div>
       </Flicking>
-      <ClipLoader v-else color="#09F" />
+      <ClipLoader v-else color="#09F" class="spinner" />
       <NewsWrapper
         v-for="(props, k) in news.articles"
         type="NewsArticle"
         :properties="{ ...props }"
         :key="k"
       />
+      <ClipLoader v-if="news.articles.length === 0" color="#09F" class="spinner" />
     </section>
     <transition name="page-up">
       <NewsDetail v-if="news.viewState !== false" />
