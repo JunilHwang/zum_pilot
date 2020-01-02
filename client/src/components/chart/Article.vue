@@ -1,30 +1,14 @@
-<template>
-  <article class="chartArticle">
-    <div class="chartArticleWrap" @click="$emit('select', k)">
-      <strong class="chartRank" v-html="k + 1"/>
+<template functional>
+  <article :class="`chartArticle ${props.active}`">
+    <div class="chartArticleWrap" @click="listeners.select">
+      <strong class="chartRank" v-html="props.k + 1"/>
       <dl class="chartInfo">
-        <dt v-html="title"/>
-        <dd v-html="artist"/>
+        <dt v-html="props.title"/>
+        <dd v-html="props.artist"/>
       </dl>
       <figure class="chartThumbnail">
-        <img :src="img" :alt="title">
+        <img :src="props.img" :alt="props.title">
       </figure>
     </div>
   </article>
 </template>
-
-<script>
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
-
-@Component
-export default class Article extends Vue {
-  // props 지정
-  @Prop() k;
-  @Prop() title;
-  @Prop() album;
-  @Prop() artist;
-  @Prop() img;
-}
-</script>

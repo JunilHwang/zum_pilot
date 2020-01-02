@@ -27,9 +27,9 @@
       <ChartArticle
         v-for="(v, k) in limit"
         :key="v"
-        :class="{ active: isActive(k) }"
+        :active="isActive(k) ? 'active' : ''"
         v-bind="{ k, ...articles[k] }"
-        @select="searchVideo"
+        @select="searchVideo(k)"
       />
     </section>
   </main>
@@ -51,13 +51,10 @@ export default class Chart extends Vue {
   @State(state => state.music.articles) articles;
   @State(state => state.music.selectedMusic) selectedMusic;
   @State(state => state.video.selectedVideo) selectedVideo;
-  @State(state => state.video.prevVideo) prevVideo;
-  @State(state => state.video.nextVideo) nextVideo;
   limit = 10;
   categories = ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'];
   selectedCategory = 0;
   selectedIndex = -1;
-  moving = false;
 
   // flicking 옵션
   flickingOptions = {
