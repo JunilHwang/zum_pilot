@@ -1,8 +1,6 @@
 /* mutations 혹은 actions 에 사용될 상수를 정의합니다. */
 
 export const VIDEO_FETCH = 'video/fetch'; // 비디오 가져오기
-export const VIDEO_PREV_FETCH = 'video/prevFetch'; // 이전 비디오 가져오기
-export const VIDEO_NEXT_FETCH = 'video/nextFetch'; // 다음 비디오 가져오기
 export const VIDEO_SELECT = 'video/select'; // 비디오 선택
 export const VIDEO_VIEW = 'video/view'; // 비디오 조회수 증가
 export const VIDEO_LIKE = 'video/like'; // 비디오 좋아요 토글

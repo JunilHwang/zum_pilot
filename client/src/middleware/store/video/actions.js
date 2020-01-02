@@ -11,8 +11,8 @@ import {
 
 export default {
   // 음원 목록 선택으로 비디오를 가져올 때
-  [VIDEO_FETCH]: async ({ dispatch }, q) => {
-    dispatch(VIDEO_SELECT, await $get(`/video?q=${q}`));
+  [VIDEO_FETCH]: async ({ dispatch }, query) => {
+    dispatch(VIDEO_SELECT, await $get(`/video?q=${encodeURIComponent(query)}`));
   },
 
   // 비디오를 끝까지 재생했을 때 조회수를 증가시킨다.
