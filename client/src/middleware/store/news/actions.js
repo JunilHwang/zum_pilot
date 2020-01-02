@@ -1,5 +1,12 @@
 import { $get } from '@/helper/http-wrapper';
-import { NEWS_HEADLINE_FETCH, NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH, NEWS_ARTICLES_APPEND, NEWS_CONTENT_FETCH } from '../mutations-type';
+import {
+  NEWS_HEADLINE_FETCH,
+  NEWS_POPULAR_FETCH,
+  NEWS_ARTICLES_FETCH,
+  NEWS_ARTICLES_APPEND,
+  NEWS_CONTENT_FETCH,
+  NEWS_LOADING,
+} from '../mutations-type';
 
 export default {
   [NEWS_HEADLINE_FETCH]: async ({ commit }) => {
@@ -11,9 +18,11 @@ export default {
     commit(NEWS_POPULAR_FETCH, result);
   },
   [NEWS_ARTICLES_FETCH]: async ({ commit }, page = 1) => {
+    commit(NEWS_LOADING, false);
     const result = await $get(`/news?page=${page}`);
     const method = page === 1 ? NEWS_ARTICLES_FETCH : NEWS_ARTICLES_APPEND;
     commit(method, result);
+    commit(NEWS_LOADING, true);
   },
   [NEWS_CONTENT_FETCH]: async ({ commit }, url) => {
     const result = await $get(`/news_content?url=${encodeURIComponent(url)}`);

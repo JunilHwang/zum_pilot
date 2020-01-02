@@ -6,5 +6,6 @@ export default {
     title: null,
     content: null,
   },
+  articlesLoaded: false,
   viewState: false,
 };

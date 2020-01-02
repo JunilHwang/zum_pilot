@@ -19,6 +19,7 @@ export const NEWS_ARTICLES_FETCH = 'news/fetchArticles'; // 일반 뉴스 가져
 export const NEWS_ARTICLES_APPEND = 'news/appendArticles'; // 일반 뉴스 가져온 후 붙이기
 export const NEWS_CONTENT_FETCH = 'news/fetchContent'; // 상세보기 내용 가져오기
 export const NEWS_CONTENT_VIEW = 'news/viewContent'; // 상세보기 열기
+export const NEWS_LOADING = 'news/loading'; // 로딩 완료 여부
 
 export const MUSIC_FETCH = 'music/fetch'; // 음원 가져오기
 export const MUSIC_SELECT = 'music/select'; // 음원 선택

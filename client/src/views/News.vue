@@ -20,7 +20,7 @@
         :properties="{ ...props }"
         :key="k"
       />
-      <ClipLoader v-if="news.articles.length === 0" color="#09F" class="spinner" />
+      <ClipLoader v-if="loaded === false" color="#09F" class="spinner" />
     </section>
     <transition name="page-up">
       <NewsDetail v-if="news.viewState !== false" />
@@ -30,7 +30,7 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { State } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
@@ -42,19 +42,26 @@ const components = { NewsWrapper, NewsDetail, Flicking, ClipLoader };
 @Component({ components })
 export default class News extends Vue {
   @State news;
+  @State(state => state.news.articlesLoaded) loaded;
+  @Action(NEWS_POPULAR_FETCH) popularFetch;
+  @Action(NEWS_ARTICLES_FETCH) articlesFetch;
   page = 1; // infinity load 횟수
 
-  // Server에서 Crawling한 News 가져오기
+  /**
+   * Server에서 Crawling한 News 가져오기
+   */
   created() {
-    this.$store.dispatch(NEWS_POPULAR_FETCH);
-    this.$store.dispatch(NEWS_ARTICLES_FETCH);
+    this.popularFetch(); // 인기 기사
+    this.articlesFetch(); // 일반 기사
 
     // App.vue에서 보내는 newsLoad emit을 감지하여 loading
     // 즉, infinite load를 감지하여 이벤트를 실행한다.
     eventBus.$on('newsLoad', this.listLoading);
   }
 
-  // Mounted 시점에 스크롤을 최상단으로 보낸다. Vue Route로 페이지 변경시 자연스럽게 보이기 위함
+  /**
+   * Mounted 시점에 스크롤을 최상단으로 보낸다. Vue Route로 페이지 변경시 자연스럽게 보이기 위함
+   */
   mounted = () => window.scrollTo(0, 0);
 
   /**
@@ -64,11 +71,13 @@ export default class News extends Vue {
    */
   viewDetail = ({ index, currentTarget }) => { currentTarget.$children[index].viewDetail(); }
 
-  // infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
+  /**
+   * infinity load를 통해 최신 뉴스 5 페이지 까지 불러온다.
+   */
   listLoading() {
-    if (this.page >= 5) return;
+    if (this.loaded === false || this.page >= 5) return;
     this.page += 1;
-    this.$store.dispatch(NEWS_ARTICLES_FETCH, this.page);
+    this.articlesFetch(this.page);
   }
 }
 </script>
