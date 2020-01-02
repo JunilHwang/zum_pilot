@@ -5,7 +5,7 @@
         class="newsPanels"
         :options="{ gap: 5, hanger: 0, anchor: 0, zIndex: 10 }"
         @select="viewDetail"
-      >
+        v-if="news.populars.length">
         <div class="newsPanel" v-for="(props, k) in news.populars" :key="k">
           <NewsWrapper
             type="NewsHeadline"
@@ -13,6 +13,7 @@
           />
         </div>
       </Flicking>
+      <ClipLoader v-else color="#09F" />
       <NewsWrapper
         v-for="(props, k) in news.articles"
         type="NewsArticle"
@@ -30,11 +31,12 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
 import { eventBus } from '@/helper';
 
-const components = { NewsWrapper, NewsDetail, Flicking };
+const components = { NewsWrapper, NewsDetail, Flicking, ClipLoader };
 
 @Component({ components })
 export default class News extends Vue {

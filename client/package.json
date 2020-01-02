@@ -21,6 +21,7 @@
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.3",
+    "vue-spinner": "^1.0.3",
     "vue-youtube": "^1.4.0",
     "vue-youtube-embed": "^2.2.2",
     "vuex": "^3.0.1",
@@ -63,7 +64,13 @@
           "minProperties": 6
         }
       ],
-      "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }]
+      "lines-between-class-members": [
+        "error",
+        "always",
+        {
+          "exceptAfterSingleLine": true
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint",
