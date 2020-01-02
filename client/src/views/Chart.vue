@@ -11,7 +11,21 @@
       </ul>
     </header>
     <transition name="slide-down">
-      <VideoPlayer class="chartVideo" ref="player" />
+      <Flicking
+        v-if="selectedVideo !== null"
+        class="videoPanels"
+        :options="{ gap: 10, hanger: 0, anchor: 0, zIndex: 10, defaultIndex: 1 }"
+      >
+        <div class="videoPanel">
+          <VideoPlayer class="chartVideo" :propVideo="prevVideo" />
+        </div>
+        <div class="videoPanel">
+          <VideoPlayer class="chartVideo" autoplay="1" />
+        </div>
+        <div class="videoPanel">
+          <VideoPlayer class="chartVideo" :propVideo="nextVideo" />
+        </div>
+      </Flicking>
     </transition>
     <section class="chartWrap">
       <ChartArticle
@@ -27,16 +41,20 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State } from 'vuex-class';
+import { Flicking } from '@egjs/vue-flicking';
 import { MUSIC_FETCH, MUSIC_SELECT, VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { ChartArticle } from '@/components/chart';
 import { VideoPlayer } from '@/components/video';
 import { eventBus } from '@/helper';
 
-const components = { ChartArticle, VideoPlayer };
+const components = { ChartArticle, VideoPlayer, Flicking };
 
 @Component({ components })
 export default class Chart extends Vue {
   @State music;
+  @State(state => state.video.selectedVideo) selectedVideo;
+  @State(state => state.video.prevVideo) prevVideo;
+  @State(state => state.video.nextVideo) nextVideo;
   limit = 10;
   categories = ['실시간', '일간', '발라드', '댄스', '힙합', 'R&B/Soul'];
   selectedCategory = 0;

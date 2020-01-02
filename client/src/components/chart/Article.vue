@@ -1,6 +1,6 @@
 <template>
   <article class="chartArticle">
-    <div class="chartArticle-wrap" @click="searchVideo">
+    <div class="chartArticleWrap" @click="searchVideo">
       <strong class="chartRank" v-html="k + 1"/>
       <dl class="chartInfo">
         <dt v-html="title"/>
@@ -30,8 +30,8 @@ export default class Article extends Vue {
 
   // 음원 선택 시 Youtube에서 동영상 검색
   searchVideo() {
-    const { title, artist } = this;
-    this.$store.dispatch(VIDEO_FETCH, title);
+    const { title, artist, k } = this;
+    this.$store.dispatch(VIDEO_FETCH, k);
     this.$store.commit(MUSIC_SELECT, `${title}/${artist}`);
   }
 }

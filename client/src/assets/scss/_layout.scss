@@ -342,7 +342,7 @@
     margin-top: 5px;
     position: relative;
     transition: background-color 0.3s;
-    &-wrap {
+    &Wrap {
       display: flex;
       height: 100px;
       position: relative;
@@ -426,20 +426,22 @@
   }
 }
 
-/* 음원에 대한 비디오 목록 */
+/* 즐겨찾기 묶기 */
+%bookmark {
+  transition: color 0.3s;
+  svg {
+    position: relative;
+    top: -1px;
+  }
+  &.active {
+    color: $color-yellow
+  }
+}
+
+/* 동영상 관련 */
 .video {
   &Wrap {
     height: vw(9, 32)
-  }
-  &Panels {
-    height: 100%;
-    margin-top: 2px;
-  }
-  &Panel {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    border-radius: 10px;
   }
   &Thumbnail {
     @include img-wrap(true);
@@ -459,16 +461,102 @@
       }
     }
   }
-}
 
-%bookmark {
-  transition: color 0.3s;
-  svg {
-    position: relative;
-    top: -1px;
+  /* 비디오 컨트롤러 */
+  $h: vw(9, 16);
+  &Panels {
+    height: calc(#{$h} + 65px);
+    width: calc(100% * 3);
   }
-  &.active {
-    color: $color-yellow
+  &Panel {
+    width: calc(100% / 3);
+    height: 100%;
+  }
+  &Player {
+    position: relative;
+    height: $h;
+    iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+    &:hover .controls {
+      opacity: 1;
+    }
+  }
+
+  /* 동영상에 대한 정보 컨테이너 */
+  &Meta {
+    margin-bottom: 5px;
+    background: #fff;
+    height: 45px;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    letter-spacing: -0.5px;
+    position: relative;
+    span {
+      margin-left: 15px;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+    &Bottom {
+      position: absolute;
+      $size: 10px;
+      right: $size;
+      bottom: $size;
+      color: #aaa;
+    }
+    &Bookmark {
+      @extend %bookmark;
+      transition: color 0.3s;
+    }
+    &Like {
+      transition: color 0.3s;
+      svg {
+        position: relative;
+        top: -2px;
+      }
+      &.active {
+        color: $color-main;
+      }
+    }
+  }
+
+  /* 인기영상 */
+  &Article {
+    background: #fff;
+    border-radius: 3px;
+    display: flex;
+    border-radius: 3px;
+    position: relative;
+    transition: background 0.3s;
+    $size: 180px;
+    +.videoArticle {
+      margin-top: 10px;
+    }
+    &Thumbnail {
+      @include img-wrap();
+      width: $size;
+      height:calc((10 / 16) * #{$size});
+      img {
+        border-radius: 3px;
+      }
+    }
+    &Meta {
+      width:calc(100% - #{$size});
+    }
+    &None {
+      background: #fff;
+      border-radius: 3px;
+      padding: 30px 10px;
+      text-align: center;
+      font-size: 21px;
+    }
+    &.active {
+      background: $color-main;
+    }
   }
 }
 
@@ -497,55 +585,6 @@
     &.active {
       color: $color-yellow
     }
-  }
-}
-
-.videoMeta {
-  margin-bottom: 5px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 0 0 3px 3px;
-  letter-spacing: -0.5px;
-  position: relative;
-  span {
-    margin-left: 15px;
-    display: inline-block;
-    vertical-align: bottom;
-  }
-  &Bottom {
-    text-align: right;
-    margin-top: 5px;
-    color: #aaa;
-  }
-  &Bookmark {
-    @extend %bookmark;
-    transition: color 0.3s;
-  }
-  &Like {
-    transition: color 0.3s;
-    svg {
-      position: relative;
-      top: -2px;
-    }
-    &.active {
-      color: $color-main;
-    }
-  }
-}
-
-/* 비디오 컨트롤러 */
-.videoPlayer {
-  position: relative;
-  height: vw(9, 16);
-  iframe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  &:hover .controls {
-    opacity: 1;
   }
 }
 
@@ -623,41 +662,6 @@
       left: 0;
       top: 0;
     }
-  }
-}
-
-/* 인기영상 */
-.videoArticle {
-  background: #fff;
-  border-radius: 3px;
-  display: flex;
-  border-radius: 3px;
-  position: relative;
-  transition: background 0.3s;
-  $size: 180px;
-  +.videoArticle {
-    margin-top: 10px;
-  }
-  &Thumbnail {
-    @include img-wrap();
-    width: $size;
-    height:calc((10 / 16) * #{$size});
-    img {
-      border-radius: 3px;
-    }
-  }
-  &Meta {
-    width:calc(100% - #{$size});
-  }
-  &None {
-    background: #fff;
-    border-radius: 3px;
-    padding: 30px 10px;
-    text-align: center;
-    font-size: 21px;
-  }
-  &.active {
-    background: $color-main;
   }
 }
 

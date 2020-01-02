@@ -1,6 +1,8 @@
 import { $get, $post, $patch } from '@/helper/http-wrapper';
 import {
   VIDEO_FETCH,
+  VIDEO_PREV_FETCH,
+  VIDEO_NEXT_FETCH,
   VIDEO_VIEW,
   VIDEO_SELECT,
   VIDEO_LIKE,
@@ -10,15 +12,30 @@ import {
 } from '../mutations-type';
 
 export default {
-  [VIDEO_FETCH]: async ({ dispatch }, q) => {
-    const result = await $get(`/video?q=${q}`);
-    dispatch(VIDEO_SELECT, result);
+  // 음원 목록 선택으로 비디오를 가져올 때
+  [VIDEO_FETCH]: async ({ dispatch, rootState, commit }, k) => {
+    const { music } = rootState;
+    const { articles } = music;
+    const prevK = k === 0 ? 99 : k - 1; // 이전 음원의 Index
+    const nextK = (k + 1) % 100; // 다음 음원의 Index
+    const [nowVideo, prevVideo, nextVideo] = await Promise.all([
+      $get(`/video?q=${articles[k].title}`),
+      $get(`/video?q=${articles[prevK].title}`),
+      $get(`/video?q=${articles[nextK].title}`),
+    ]);
+    dispatch(VIDEO_SELECT, nowVideo); // 선택한 영상 바로 재생
+    commit(VIDEO_PREV_FETCH, prevVideo); // 이전 영상 로딩
+    commit(VIDEO_NEXT_FETCH, nextVideo); // 다음 영상 로딩
   },
+
+  // 비디오를 끝까지 재생했을 때 조회수를 증가시킨다.
   [VIDEO_VIEW]: async ({ commit, state }) => {
     const { viewCount, idx } = state.selectedVideo;
     await $patch(`/video-view/${idx}`);
     commit(VIDEO_VIEW, viewCount + 1);
   },
+
+  // 선택한 Video를 Player에서 재생시킴
   [VIDEO_SELECT]: async ({ commit, rootState }, video) => {
     const { idx } = video;
     const userIdx = rootState.user.idx || 0;
@@ -26,16 +43,22 @@ export default {
     Object.assign(video, { ...result });
     commit(VIDEO_SELECT, video);
   },
+
+  // 좋아요 토글
   [VIDEO_LIKE]: async ({ commit, rootState }, idx) => {
     const { token } = rootState.user;
     const headers = { 'X-AUTH-TOKEN': token };
     await $post('/video-like', { idx }, { headers });
     commit(VIDEO_LIKE);
   },
+
+  // 인기 영상 가져오기
   [VIDEO_POPULAR_FETCH]: async ({ commit }) => {
     const result = await $get('/video-popular');
     commit(VIDEO_FETCH, result);
   },
+
+  // 즐겨찾기 가져오기
   [VIDEO_BOOKMARK]: async ({ commit, rootState }, idx) => {
     const { token } = rootState.user;
     const headers = { 'X-AUTH-TOKEN': token };
