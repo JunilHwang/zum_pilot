@@ -1,14 +1,12 @@
 {
-  "name": "zuminternet-pilot",
+  "name": "docs",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/junilHwang/zum_pilot",
-  "author": "junilhwang <tjsdlf4261@naver.com>",
-  "scripts": {
-    "docs:dev": "vuepress dev",
-    "docs:build": "vuepress build"
-  },
   "license": "MIT",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  },
   "devDependencies": {
     "vuepress": "^1.2.0"
   }
