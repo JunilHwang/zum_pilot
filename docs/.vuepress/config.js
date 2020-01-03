@@ -7,7 +7,8 @@ module.exports = {
     nav: [
       { text: 'Home', link: '/' }
     ],
-    sidebar: 'auto'
+    sidebar: 'auto',
+    smoothScroll: true
   },
   base: '/zum_pilot/'
 }
