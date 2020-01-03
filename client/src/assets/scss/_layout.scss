@@ -348,15 +348,6 @@
       position: relative;
       line-height: 1;
     }
-    &:nth-child(1) .chartRank {
-      color: $color-main;
-    }
-    &:nth-child(2) .chartRank {
-      color: $color-blue1;
-    }
-    &:nth-child(3) .chartRank {
-      color: $color-blue2;
-    }
     @for $i from 1 through 3 {
       &:nth-child(#{$i}) .chartRank {
         font-weight: bold;
@@ -383,28 +374,44 @@
     }
   }
   &Rank {
-    width: 100px;
+    width: 80px;
     font-family: Poppins, Verdana, sans-serif;
     font-size: 27px;
     text-align: center;
     padding-top: 25px;
     font-weight: 100;
+    letter-spacing: -2px;
     .active & {
       transition: color 0.3s;
       color: #fff !important;
     }
+    .chartArticle:nth-child(1) &,
+    .chartArticle:nth-child(2) &,
+    .chartArticle:nth-child(3) & {
+      font-size: 35px;
+    }
+    .chartArticle:nth-child(1) & {
+      color: $color-main;
+    }
+    .chartArticle:nth-child(2) & {
+      color: $color-blue1;
+    }
+    .chartArticle:nth-child(3) & {
+      color: $color-blue2;
+    }
   }
   &Info {
     padding-top: 25px;
-    width: calc(100% - 220px);
+    width: calc(100% - 200px);
     line-height: 1.2;
+    letter-spacing: -0.5px;
     dt {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: normal;
       letter-spacing: -0.5px;
     }
     dd {
-      font-size: 13px;
+      font-size: 11px;
       margin-top: 5px;
       color: #888;
       .active & {
@@ -464,9 +471,21 @@
 
   /* 비디오 컨트롤러 */
   $h: vw(9, 16);
+  $metaHeight: 65px;
   &Panels {
-    height: calc(#{$h} + 65px);
+    height: calc(#{$h} + #{$metaHeight + 20px});
     width: calc(100% * 3);
+    .sticky .chartCategory + & {
+      position: fixed;
+      top: 43px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: 0 0 10px fade-out(#aaa, 0.5);
+      + * {
+        margin-top: calc(#{113px + $metaHeight} + #{$h});
+      }
+    }
   }
   &Panel {
     width: calc(100% / 3);
@@ -505,7 +524,7 @@
   &Meta {
     margin-bottom: 5px;
     background: #fff;
-    height: 45px;
+    height: $metaHeight;
     padding: 10px;
     border-radius: 0 0 3px 3px;
     letter-spacing: -0.5px;

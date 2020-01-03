@@ -40,6 +40,7 @@ export default class App extends Vue {
 
   // Scroll Event들을 등록한다. Sticky, Infinity loading 등
   scrollEvents() {
+    console.log('scrollEvents');
     const sy = window.scrollY; // scroll y축 위치
     const ot = this.$refs.wrap.offsetTop - 37; // Content의 offset
     this.sticky(sy, ot); // sticky 여부 결정
@@ -59,6 +60,7 @@ export default class App extends Vue {
    * @param ot -> contnet의 offset top 값
    */
   sticky(sy, ot) {
+    console.log(sy, ot);
     if (sy > ot && !this.isSticky) {
       this.isSticky = true;
     } else if (sy <= ot && this.isSticky) {
