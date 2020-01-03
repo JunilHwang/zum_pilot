@@ -8,5 +8,6 @@ module.exports = {
       { text: 'Home', link: '/' }
     ],
     sidebar: 'auto'
-  }
+  },
+  base: '/zum_pilot/'
 }
