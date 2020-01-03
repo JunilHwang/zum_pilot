@@ -3,34 +3,40 @@
     <transition name="slide-down">
       <VideoPlayer />
     </transition>
-    <VideoArticle
-      v-for="(video, k) in videoList"
-      :key="k"
-      v-bind="video"
-      :class="{ active: selectedVideo && selectedVideo.idx === video.idx }"
-      @select="selectVideo(video)"
-    />
-    <div v-if="videoList.length === 0" class="videoArticleNone">
-      인기 영상이 존재하지 않습니다.
-    </div>
+    <template v-if="loaded">
+      <VideoArticle
+        v-for="(video, k) in videoList"
+        :key="k"
+        v-bind="video"
+        :class="{ active: selectedVideo && selectedVideo.idx === video.idx }"
+        @select="select(video)"
+      />
+      <div v-if="videoList.length === 0" class="videoArticleNone">
+        인기 영상이 존재하지 않습니다.
+      </div>
+    </template>
+    <Spinner v-else />
   </main>
 </template>
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { State } from 'vuex-class';
+import { State, Action, Mutation } from 'vuex-class';
 import { VIDEO_POPULAR_FETCH, VIDEO_SELECT } from '@/middleware/store/mutations-type';
 import { VideoPlayer, VideoArticle } from '@/components/video';
+import { Spinner } from '@/components/common';
 
-const components = { VideoPlayer, VideoArticle };
+const components = { VideoPlayer, VideoArticle, Spinner };
 
 @Component({ components })
 export default class Popular extends Vue {
-  // state에서 변수 할당
   @State(state => state.video.selectedVideo) selectedVideo;
   @State(state => state.video.videoList) videoList;
-  created() { this.$store.dispatch(VIDEO_POPULAR_FETCH); }
-  destroyed() { this.$store.commit(VIDEO_SELECT, null); }
-  selectVideo(video) { this.$store.dispatch(VIDEO_SELECT, video); }
+  @State(state => state.video.loaded) loaded;
+  @Action(VIDEO_SELECT) select;
+  @Action(VIDEO_POPULAR_FETCH) fetch;
+  @Mutation(VIDEO_SELECT) mSelect;
+  created() { this.fetch(); }
+  destroyed() { this.mSelect(null); }
 }
 </script>

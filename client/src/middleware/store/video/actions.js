@@ -7,6 +7,7 @@ import {
   VIDEO_POPULAR_FETCH,
   VIDEO_BOOKMARK,
   USER_VIDEO_BOOKMARK,
+  VIDEO_LOADING,
 } from '../mutations-type';
 
 export default {
@@ -41,8 +42,10 @@ export default {
 
   // 인기 영상 가져오기
   [VIDEO_POPULAR_FETCH]: async ({ commit }) => {
+    commit(VIDEO_LOADING, false);
     const result = await $get('/video-popular');
     commit(VIDEO_FETCH, result);
+    commit(VIDEO_LOADING, true);
   },
 
   // 즐겨찾기 가져오기
