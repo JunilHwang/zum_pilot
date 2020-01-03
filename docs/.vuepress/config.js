@@ -5,10 +5,21 @@ module.exports = {
     search: false,
     logo: '/img/logo.gif',
     nav: [
-      { text: 'Home', link: '/' }
+      { text: '개요', link: '/' },
+      { text: '시나리오', link: '/posts/Scenario' },
+      { text: '아키텍쳐', link: '/posts/Architecture' },
+      { text: '설계', link: '/posts/Design' },
+      { text: 'Server', link: '/posts/Server-side' },
+      { text: 'Client', link: '/posts/Client-side' },
+      { text: 'Reference', link: '/posts/Reference' },
     ],
     sidebar: 'auto',
     smoothScroll: true
   },
-  base: '/zum_pilot/'
+  base: '/zum_pilot/',
+  markdown: {
+    extendMarkdown: md => {
+      md.use(require('markdown-it-plantuml'));
+    }
+  }
 }
