@@ -1,9 +1,4 @@
-import {
-  VIDEO_FETCH,
-  VIDEO_SELECT,
-  VIDEO_VIEW,
-  VIDEO_LIKE,
-} from '../mutations-type';
+import { VIDEO_FETCH, VIDEO_SELECT, VIDEO_VIEW, VIDEO_LIKE, VIDEO_LOADING } from '../mutations-type';
 
 export default {
   [VIDEO_FETCH]: (state, videoList) => { state.videoList = videoList; },
@@ -18,4 +13,5 @@ export default {
     const key = videoList.findIndex(v => v.idx === idx);
     videoList[key] = selectedVideo;
   },
+  [VIDEO_LOADING]: (state, payload) => { state.loaded = payload; },
 };

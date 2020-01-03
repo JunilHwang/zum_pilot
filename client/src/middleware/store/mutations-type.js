@@ -6,6 +6,7 @@ export const VIDEO_VIEW = 'video/view'; // 비디오 조회수 증가
 export const VIDEO_LIKE = 'video/like'; // 비디오 좋아요 토글
 export const VIDEO_POPULAR_FETCH = 'video/popularFetch'; // 인기영상 가져오기
 export const VIDEO_BOOKMARK = 'video/bookmark'; // 즐겨찾기 가져오기
+export const VIDEO_LOADING = 'video/loading'; // 비디오 로딩 완료 여부
 
 export const USER_SIGN_IN = 'user/signIn'; // 로그인
 export const USER_SIGN_UP = 'user/signUp'; // 회원가입
@@ -19,10 +20,11 @@ export const NEWS_ARTICLES_FETCH = 'news/fetchArticles'; // 일반 뉴스 가져
 export const NEWS_ARTICLES_APPEND = 'news/appendArticles'; // 일반 뉴스 가져온 후 붙이기
 export const NEWS_CONTENT_FETCH = 'news/fetchContent'; // 상세보기 내용 가져오기
 export const NEWS_CONTENT_VIEW = 'news/viewContent'; // 상세보기 열기
-export const NEWS_LOADING = 'news/loading'; // 로딩 완료 여부
+export const NEWS_LOADING = 'news/loading'; // 뉴스의 로딩 완료 여부
 
 export const MUSIC_FETCH = 'music/fetch'; // 음원 가져오기
 export const MUSIC_SELECT = 'music/select'; // 음원 선택
+export const MUSIC_LOADING = 'music/loading'; // 음원 로딩 완료 여부
 
 export const MODAL_OPEN = 'modal/open'; // 모달창 열기
 export const MODAL_CLOSE = 'modal/close'; // 모달창 닫기
