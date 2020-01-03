@@ -1,4 +1,5 @@
 module.exports = {
+  port: 8000,
   title: '주제별 영상제공 웹 서비스',
   description: 'Zuminternet Pilot Project',
   themeConfig: {

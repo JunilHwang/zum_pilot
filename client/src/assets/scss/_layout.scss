@@ -474,7 +474,7 @@
   $metaHeight: 65px;
   &Panels {
     height: calc(#{$h} + #{$metaHeight + 20px});
-    width: calc(100% * 3);
+    width: 100%;
     .sticky .chartCategory + & {
       position: fixed;
       top: 43px;
@@ -488,7 +488,7 @@
     }
   }
   &Panel {
-    width: calc(100% / 3);
+    width: 100%;
     height: 100%;
     &Thumbnail{
       @include img-wrap();
