@@ -4,7 +4,7 @@
       <h1 class="newsDetailTitle" v-html="article.title" />
       <div ref="content" class="newsDetailContent" v-html="removeEnter(article.content)" />
     </template>
-    <ClipLoader v-else color="#09F" class="spinner" />
+    <Spinner v-else />
     <div class="btnGroup center">
       <a href="#" class="btn main" @click.prevent="close">메인으로</a>
     </div>
@@ -15,13 +15,13 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State, Mutation, Action } from 'vuex-class';
-import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+import { Spinner } from '@/components/common';
 import { NEWS_CONTENT_FETCH, NEWS_CONTENT_VIEW } from '@/middleware/store/mutations-type';
 
 const reg1 = /\s*(<br>|&nbsp;)\s*/g;
 const reg2 = /\s*<span>\s*<\/span>\s*/g;
 const reg3 = /\s*<p>\s*<\/p>\s*/g;
-const components = { ClipLoader };
+const components = { Spinner };
 
 @Component({ components })
 export default class Detail extends Vue {

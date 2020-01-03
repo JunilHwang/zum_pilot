@@ -13,14 +13,14 @@
           />
         </div>
       </Flicking>
-      <ClipLoader v-else color="#09F" class="spinner" />
+      <Spinner v-else color="#09F" class="spinner" />
       <NewsWrapper
         v-for="(props, k) in news.articles"
         type="NewsArticle"
         :properties="{ ...props }"
         :key="k"
       />
-      <ClipLoader v-if="loaded === false" color="#09F" class="spinner" />
+      <Spinner v-if="loaded === false" />
     </section>
     <transition name="page-up">
       <NewsDetail v-if="news.viewState !== false" />
@@ -32,12 +32,12 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State, Action } from 'vuex-class';
 import { Flicking } from '@egjs/vue-flicking';
-import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import { NEWS_POPULAR_FETCH, NEWS_ARTICLES_FETCH } from '@/middleware/store/mutations-type';
 import { NewsWrapper, NewsDetail } from '@/components/news';
+import { Spinner } from '@/components/common';
 import { eventBus } from '@/helper';
 
-const components = { NewsWrapper, NewsDetail, Flicking, ClipLoader };
+const components = { NewsWrapper, NewsDetail, Flicking, Spinner };
 
 @Component({ components })
 export default class News extends Vue {
