@@ -25,13 +25,14 @@ h1
   padding-left 0
 
 .sidebar
-  left calc(50% + 440px)
-  width auto
-  border-right none
-  background none
-
-a.sidebar-link.active
-  border-left none
+  &-links > li > .sidebar-sub-headers
+    position fixed
+    left calc(50% + 440px)
+    top 80px
+  a.sidebar-link
+    color #aaa
+    .sidebar-sub-headers &.active
+      border-left none
 
 .container
   width 1200px
@@ -43,6 +44,8 @@ a.sidebar-link.active
   font-size 13px
   color #848d95
   text-align center
+  position relative
+  z-index 30
   p
     padding 0
     margin 0
