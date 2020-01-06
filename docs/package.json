@@ -11,6 +11,7 @@
     "vuepress": "^1.2.0"
   },
   "dependencies": {
-    "markdown-it-plantuml": "^1.4.1"
+    "markdown-it-plantuml": "^1.4.1",
+    "vuepress-plugin-img-lazy": "^1.0.1"
   }
 }

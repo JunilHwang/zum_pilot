@@ -4190,6 +4190,11 @@ lower-case@^1.1.1:
   resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
   integrity sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
 
+lozad@^1.9.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/lozad/-/lozad-1.14.0.tgz#91d51d57e53187e95c5b7f4029d7a28a0e940e10"
+  integrity sha512-uMGxpXBW15JDGVly3p121Y4jlb/OwmXpnMQR5vnb4GxMeK45NGcmlMrRr47fmLxtSdnGRFm0YdJaVXuudPKDaA==
+
 lru-cache@^4.1.2:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
@@ -4258,6 +4263,16 @@ markdown-it-emoji@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
   integrity sha1-m+4OmpkKljupbfaYDE/dsF37Tcw=
+
+markdown-it-img-lazy@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-it-img-lazy/-/markdown-it-img-lazy-1.0.1.tgz#b9ec7f1da6566f498eb723d5cec3f7a4514b9337"
+  integrity sha512-qxQr1LJjwTS8GGQWEKsbgjTQYulKPZtxIyoVK4fjJh6eZcLKz8vcT1hkz/f68Yr4KI5jmw7+ViGK+nLnUEqxeg==
+
+markdown-it-imsize@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-it-imsize/-/markdown-it-imsize-2.0.1.tgz#cca0427905d05338a247cb9ca9d968c5cddd5170"
+  integrity sha1-zKBCeQXQUziiR8ucqdloxc3dUXA=
 
 markdown-it-plantuml@^1.4.1:
   version "1.4.1"
@@ -6892,6 +6907,15 @@ vuepress-plugin-container@^2.0.2:
   integrity sha512-Df5KoIDMYiFg45GTfFw2hIiLGSsjhms4f3ppl2UIBf5nWMxi2lfifcoo8MooMSfxboxRZjoDccqQfu0fypaKrQ==
   dependencies:
     markdown-it-container "^2.0.0"
+
+vuepress-plugin-img-lazy@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-img-lazy/-/vuepress-plugin-img-lazy-1.0.1.tgz#a5cd1e624e49e171d39f047e56a595c42c34df7c"
+  integrity sha512-jQc7QOCBIy/GRS2PHX4NfeU2UAvbeIA1QV1TzZCd3OXOrhqadNM52ge9XUOmVb5z3bKa2dzDZTfe+iyS5f4CGQ==
+  dependencies:
+    lozad "^1.9.0"
+    markdown-it-img-lazy "^1.0.0"
+    markdown-it-imsize "^2.0.1"
 
 vuepress-plugin-smooth-scroll@^0.0.3:
   version "0.0.3"
