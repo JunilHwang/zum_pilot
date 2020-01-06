@@ -4,6 +4,9 @@ module.exports = {
   description: 'Zuminternet Pilot Project',
   themeConfig: {
     logo: '/img/logo.gif',
+    nav: [
+      { text: 'Repository', link: 'https://github.com/JunilHwang/zum_pilot/' }
+    ],
     sidebar: [
       { title: '개요', path: '/' },
       { title: '결과물 소개', path: '/Result' },

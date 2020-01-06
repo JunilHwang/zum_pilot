@@ -45,8 +45,10 @@ h1
   a.sidebar-link
     letter-spacing -0.5px
     color #aaa
-    .sidebar-sub-headers &.active
-      border-left none
+    &.active
+      color $accentColor
+      .sidebar-sub-headers &
+        border-left none
 
 .container
   width 1200px
