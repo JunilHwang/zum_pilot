@@ -59,7 +59,7 @@ sidebarDepth: 2
 
 - 외부 페이지 크롤링, 뉴스 기사 가공 처리
 - [빌보드 코리아](http://billboard.co.kr/main/news/list) 뉴스 컨텐츠
-- [SBS](http://sbsfune.sbs.co.kr/news/ssports_list.jsp?code_category=SS04) / KBS 등 언론사 연예 뉴스 컨텐츠
+- [SBS K-POP](http://sbsfune.sbs.co.kr/news/ssports_list.jsp?code_category=SS04) 뉴스 컨텐츠
 
 ### 멜론 차트 + Youtube 영상 노출
 
