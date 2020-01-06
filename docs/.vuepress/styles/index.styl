@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap');
 
+only-pc()
+  @media (min-width: 1200px) {
+    {block}
+  }
+
 body
   font-family 'Noto Serif KR', serif, Nanum Gothic, Malgun Gothic, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue';
 
@@ -11,6 +16,8 @@ h1
 
 .navbar
   .home-link
+    position absolute
+    right calc(50% + 400px)
     line-height 1
     text-align center
   img.logo
@@ -25,11 +32,18 @@ h1
   padding-left 0
 
 .sidebar
-  &-links > li > .sidebar-sub-headers
-    position fixed
-    left calc(50% + 440px)
-    top 80px
+  +only-pc()
+    min-width 150px
+    width auto
+    left inherit
+    right calc(50% + 440px)
+    .sidebar-links > li > .sidebar-sub-headers
+      position fixed
+      left calc(50% + 420px)
+      top 80px
+      font-size 13px
   a.sidebar-link
+    letter-spacing -0.5px
     color #aaa
     .sidebar-sub-headers &.active
       border-left none
@@ -54,3 +68,8 @@ h1
   text-transform uppercase
   color #bbc0c4
   margin-top 50px
+
+.theme-default-content
+  img
+    box-shadow 0 0 10px #ddd
+    vertical-align top

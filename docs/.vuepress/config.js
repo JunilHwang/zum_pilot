@@ -6,7 +6,7 @@ module.exports = {
     logo: '/img/logo.gif',
     sidebar: [
       { title: '개요', path: '/' },
-      { title: '시나리오', path: '/Scenario' },
+      { title: '결과물 소개', path: '/Result' },
       { title: '아키텍쳐', path: '/Architecture' },
       { title: '설계', path: '/Design' },
       { title: 'Server', path: '/Server-side' },
