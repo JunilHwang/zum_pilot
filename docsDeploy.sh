@@ -9,6 +9,6 @@ git push origin master
 
 cd docs
 
-sh deploy.sh
+sh deploy.sh "$1"
 
 cd -
