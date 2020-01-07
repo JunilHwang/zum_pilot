@@ -3,23 +3,16 @@
 # abort on errors
 set -e
 
-# build
 yarn build
 
-# navigate into the build output directory
 cd .vuepress/dist
+git clone -b gh-pages https://github.com/JunilHwang/zum_pilot/
 
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+cp -rf zum_pilot/.git ./.git
+rm -rf zum_pilot
 
-git init
-git add -A
-git commit -m 'deploy'
-
-# if you are deploying to https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/JunilHwang/zum_pilot.git master:gh-pages
+git add .
+git commit -m "$1"
+git push origin gh-pages
 
 cd -
