@@ -6,9 +6,7 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 해당 프로젝트는 `Single Page Appliction` + `REST API` 형태로 서비스됩니다.
 
-
-
-## 2. Client
+## 2. Client Structure
 
 Front-end는 `Vue.js`를 이용하여 `Single Page Application`으로 만들었습니다. 
 
@@ -44,7 +42,7 @@ RestController o---o Actions
 Controller o--o Browser 
 @enduml
 
-## 3. Server
+## 3. Server Structure
 
 Back-end는 `SpringBoot`로 `웹 서버를 구축`하고 `REST API`를 만들었습니다.
 
@@ -78,23 +76,23 @@ rectangle "\t\t\t\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/m
 }
 
 rectangle Client {
-  rectangle ClientAPI
+  rectangle "Http API" as ClientApi
   rectangle "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
 }
 
-rectangle Network {
-  card Youtube
-  gcard "<img:https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png>" as Melon #fff
+cloud Network {
+  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/youtube-logo.png?token=AEPBNAJOKSYDRHHDL56DAGS6DVGKW{scale=0.4}>" as Youtube #fff
+  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/melon-logo.png?token=AEPBNALKPDB74C5PXGLPLAS6DVGHW{scale=0.5}>" as Melon #fff
   card "<img:http://billboard.co.kr/images/main2/logo.png{scale=0.5}>" as Billboard #000
-  card "SBS K-POP" as SBS
+  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
 }
 
 :User:
 
 User o-o Browser
 Browser o--o Controller
-ClientAPI o--o RestController
-Browser <- ClientAPI 
+ClientApi o--o RestController
+Browser <- ClientApi 
 
 RestController <<-- Service
 RestController <-- VO
@@ -107,10 +105,10 @@ DTO -> Repository
 Repository <- Entity
 Domain -> Helper
 
+MusicCrawler <<-- Melon
+NewsCrawler <<- SBS
+NewsCrawler <<- Billboard
 YSA <<-- Youtube
-NewsCrawler <<--- SBS
-NewsCrawler <<--- Billboard
-MusicCrawler <<--- Melon
 
 Crawler <|-- MusicCrawler
 Crawler <|-- NewsCrawler
