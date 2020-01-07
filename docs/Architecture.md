@@ -21,9 +21,9 @@ rectangle Client {
   }
 }
 
-rectangle Server {
-  agent Controller
-  collections RestController
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd  {
+  agent Controller #fff
+  collections RestController #fff
 }
 
 User o--o Browser
@@ -41,8 +41,8 @@ Controller o--o Browser
 ## 2. Server
 
 @startuml
-rectangle "SpringBoot Web Server" {
-  rectangle Helper {
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" #fffddd {
+  rectangle Helper #fff {
     rectangle YoutubeSearchAPI as YSA
     package CrawlerPackage {
       rectangle MusicCrawler
@@ -50,21 +50,21 @@ rectangle "SpringBoot Web Server" {
       rectangle Crawler
     }
   }
-  rectangle Domain {
-    collections DTO
-    collections VO
-    collections Entity
+  rectangle Domain #fff {
+    collections "<color #fff>DTO" as DTO #666
+    collections "<color #fff>VO" as VO #666
+    collections "<color #fff>Entity" as Entity #666
   }
-  collections Service
-  collections Repository
-  collections RestController
-  agent Controller
-  database H2
+  collections Service #fff
+  collections Repository #fff
+  collections RestController #fff
+  agent Controller #fff
+  database H2 #fff
 }
 
 rectangle Client {
   rectangle ClientAPI
-  rectangle Browser
+  rectangle "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
 }
 
 :User:
