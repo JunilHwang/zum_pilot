@@ -8,27 +8,34 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 @startuml
 :User:
-rectangle "Client" {
+rectangle Client {
   agent Browser
-  rectangle "VueFramework" {
-    (VueRouter)
+  rectangle VueFramework {
+    rectangle VueRouter
     collections Components
-    rectangle "VueStore" {
-      (State)
-      (Mutations)
-      (Actions)
+    rectangle VueStore {
+      rectangle State
+      rectangle Mutations
+      rectangle Actions
     }
   }
 }
 
-:User: -->> Browser : 1. Site URL
-Browser -->> VueRouter : "2. URI"
-VueRouter ->> Components : 3. Routing
-Components <<- VueStore : 4. Reactive/compute
-VueFramework -->> Browser : 5. Renderer
-Browser o--o Components : "  Event Listener"
+rectangle Server {
+  agent Controller
+  collections RestController
+}
+
+User o--o Browser
+Browser -->> VueRouter
+VueRouter ->> Components
+Components <<- VueStore
+VueFramework -->> Browser
+Browser o--o Components
 State <<- Mutations
 Mutations <<- Actions
+RestController o---o Actions 
+Controller o--o Browser 
 @enduml
 
 ## 2. Server
@@ -55,16 +62,25 @@ rectangle "SpringBoot Web Server" {
   database H2
 }
 
-rectangle Client
+rectangle Client {
+  rectangle ClientAPI
+  rectangle Browser
+}
+
+:User:
 
 Crawler <|-- MusicCrawler
 Crawler <|-- NewsCrawler
 RestController <<-- Service
 Service <<-- Repository
-Repository <<-->> H2 : CRUD
+Repository <<-->> H2
 Service <<- Helper 
 Repository <<-- Domain  
 Helper <<- Domain
+Browser o--o Controller
+ClientAPI o--o RestController
+ClientAPI -> Browser
+User o-o Browser
 
 @enduml
 
