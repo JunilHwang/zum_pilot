@@ -16,8 +16,9 @@ h1
 
 .navbar
   .home-link
-    position absolute
-    right calc(50% + 400px)
+    +only-pc()
+      position absolute
+      right calc(50% + 400px)
     line-height 1
     text-align center
   img.logo
@@ -29,7 +30,8 @@ h1
     font-weight normal
 
 .page
-  padding-left 0
+  +only-pc()
+    padding-left 0
 
 .sidebar
   +only-pc()
@@ -72,7 +74,7 @@ h1
   margin-top 50px
 
 {$contentClass}
-  img
+  img:not([alt="uml diagram"])
     box-shadow 0 0 10px #ddd
     vertical-align top
   code

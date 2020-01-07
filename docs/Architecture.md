@@ -1,6 +1,66 @@
 # 프로젝트 아키텍쳐
 
-## 서비스 구조도
+User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계를 표현합니다.
+
+## 1. Client
+
+`User` `Browser` `Vue Framework` 등을 포함하고 있습니다.
+
+@startuml
+:User:
+node "Client" {
+  agent Browser
+  node "VueFramework" {
+    (VueRouter)
+    [Components]
+    node "VueStore" {
+      [State]
+      [Mutations]
+      [Actions]
+    }
+  }
+}
+
+:User: -->> Browser : 1. Site URL
+Browser -->> VueRouter : "2. URI"
+VueRouter ->> Components : 3. Routing
+Components <<- VueStore : 4. Reactive/compute
+VueFramework -->> Browser : 5. Renderer
+Browser -->> Components : "  Event Listener"
+State <<- Mutations
+Mutations <<- Actions
+@enduml
+
+## 2. Server
+
+
+@startuml
+node "REST API(=Server)" {
+  node Helper {
+    node "Youtube Search API" as YSA
+    package CrawlerPackage {
+      node "MusicCrawler"
+      node "NewsCrawler"
+      node "Crawler" 
+    }
+  }
+  node Service
+  node Repository
+  node RestController
+  database H2
+}
+
+Crawler <|-- MusicCrawler
+Crawler <|-- NewsCrawler
+RestController <<-- Service
+Service <<-- Repository
+Repository <<->> H2
+Service <<- Helper
+@enduml
+
+## 3. Service
+
+## 4. Relationship
 
 @startuml
 
