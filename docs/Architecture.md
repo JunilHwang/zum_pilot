@@ -8,9 +8,9 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 @startuml
 :User:
-rectangle "\t\t\t\t주제별 영상 제공 웹 서비스" as Service {
+agent Browser
+rectangle "주제별 영상 제공 웹 서비스" as Service {
   rectangle "\t\t\tClient" as client {
-    agent Browser
     agent "Vue.js" as vue
     agent "Http API" as clientApi
   }
@@ -24,13 +24,13 @@ rectangle "\t\t\t\t주제별 영상 제공 웹 서비스" as Service {
 cloud Network
 
 User o--o Browser
-User --> vue 
 Browser o--o Controller
-Browser <<- vue
+Browser o--o Network
+vue -->> Browser 
 vue <<- clientApi
 clientApi o--o RestController
 RestController o--o h2
-RestController <<- Network
+RestController <<-- Network
 @enduml
 
 ## 2. Client Structure
@@ -39,34 +39,50 @@ Front-end는 `Vue.js`를 이용하여 `Single Page Application`으로 만들었�
 
 @startuml
 :User:
+agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
 rectangle Client {
-  agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
-  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> VueFramework" as Vue #e3ece0 {
-    rectangle VueRouter
+  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js\t\t\t" as Vue #e3ece0 {
+    agent VueApp
     collections Components
-    rectangle VueStore #fff {
+    rectangle "MiddleWare" as middle
+    rectangle VueRouter
+    rectangle VueStore
+    collections modules
+    rectangle ModuleContain as module #f5f5f5 {
       rectangle State
       rectangle Mutations
       rectangle Actions
     }
   }
+  collections "Util Function" as util
+  rectangle "Http Helper" as httpApi
 }
 
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd  {
+rectangle "\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}>\n\t Web Server" as Server #fffddd  {
   agent Controller #fff
   collections RestController #fff
 }
 
-User o--o Browser
-Browser -->> VueRouter
-VueRouter ->> Components
-Components <<- VueStore
-Vue -->> Browser
-Browser o--o Components
-State <<- Mutations
-Mutations <<- Actions
-RestController o---o Actions 
-Controller o--o Browser 
+User -->> Browser
+Browser -->> Controller
+RestController o-o httpApi
+Browser ->> VueApp 
+
+VueApp <<- middle
+middle <<- VueStore
+middle <<-- VueRouter
+VueStore <<- modules
+modules <<- module
+
+State <<-- Mutations
+Mutations <<-- Actions
+httpApi <<- Actions
+
+util ->> Components
+Components ->> VueRouter  
+VueApp <<-- Components
+
+
 @enduml
 
 ## 3. Server Structure
