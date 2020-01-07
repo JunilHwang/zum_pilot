@@ -2,9 +2,15 @@
 
 User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계를 표현합니다.
 
-## 1. Client
+## 1. Service Structure
 
-`User` `Browser` `Vue Framework` 등을 포함하고 있습니다.
+해당 프로젝트는 `Single Page Appliction` + `REST API` 형태로 서비스됩니다.
+
+
+
+## 2. Client
+
+Front-end는 `Vue.js`를 이용하여 `Single Page Application`으로 만들었습니다. 
 
 @startuml
 :User:
@@ -38,28 +44,37 @@ RestController o---o Actions
 Controller o--o Browser 
 @enduml
 
-## 2. Server
+## 3. Server
+
+Back-end는 `SpringBoot`로 `웹 서버를 구축`하고 `REST API`를 만들었습니다.
+
+DB 구축은 `H2`와 `JPA`를 사용하였습니다.
 
 @startuml
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" #fffddd {
+rectangle "\t\t\t\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" #fffddd {
+  card "Spring Data JPA" as JPA #fff
+  agent Controller #fff
+  collections RestController #fff
+  collections Service #fff
+  database H2 #fff
+  
   rectangle Helper #fff {
-    rectangle YoutubeSearchAPI as YSA
+    rectangle "Youtube Search API" as YSA
     package CrawlerPackage {
       rectangle MusicCrawler
       rectangle NewsCrawler
       rectangle Crawler
     }
   }
+  
   rectangle Domain #fff {
     collections "<color #fff>DTO" as DTO #666
     collections "<color #fff>VO" as VO #666
-    collections "<color #fff>Entity" as Entity #666
+    rectangle DAO {
+      collections "<color #fff>Entity" as Entity #666
+      collections Repository #fff
+    }
   }
-  collections Service #fff
-  collections Repository #fff
-  collections RestController #fff
-  agent Controller #fff
-  database H2 #fff
 }
 
 rectangle Client {
@@ -67,86 +82,38 @@ rectangle Client {
   rectangle "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
 }
 
+rectangle Network {
+  card Youtube
+  gcard "<img:https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png>" as Melon #fff
+  card "<img:http://billboard.co.kr/images/main2/logo.png{scale=0.5}>" as Billboard #000
+  card "SBS K-POP" as SBS
+}
+
 :User:
 
-Crawler <|-- MusicCrawler
-Crawler <|-- NewsCrawler
-RestController <<-- Service
-Service <<-- Repository
-Repository <<-->> H2
-Service <<- Helper 
-Repository <<-- Domain  
-Helper <<- Domain
+User o-o Browser
 Browser o--o Controller
 ClientAPI o--o RestController
-ClientAPI -> Browser
-User o-o Browser
+Browser <- ClientAPI 
 
-@enduml
+RestController <<-- Service
+RestController <-- VO
 
-## 3. Service
+Service <<- Domain
+Service <<--- Helper
 
-## 4. Relationship
+Repository o--o H2
+DTO -> Repository
+Repository <- Entity
+Domain -> Helper
 
-@startuml
-
-:User:
-
-rectangle "주제별 영상 제공 서비스" as Platform {
-  node "Client" {
-    agent Browser
-    node "VueFramework" {
-      (VueRouter)
-      [Components]
-      node "VueStore" {
-        [State]
-        [Mutations]
-        [Actions]
-      }
-    }
-  }
-  Node "Server" {
-    package "CrawlerPacakge" {
-      node "MusicCrawler"
-      node "NewsCrawler"
-      node "Crawler" 
-    }
-    node "Youtube Search API" as YSA
-    node "REST API" as REST {
-      node Service
-      node Repository
-      node RestController
-    }
-    database H2
-  }
-}
-
-Node Network {
-  node "멜론 차트" as nM
-  node "빌보드 코리아" as nB
-  node "SBS K-POP" as nS
-  node "Youtube" as nY
-}
-
-:User: --> Browser
-Browser --> VueRouter
-Browser -> Components : Event
-VueRouter --> Components
-VueStore --> Components
-State <- Mutations
-State <-- Actions
-Mutations <- Actions
-RestController <-- Service
-Service <-- Repository
-Service <-- YSA
-Service <---- CrawlerPacakge
-CrawlerPacakge <-- Network
-YSA <-- Network
-Repository <-> H2
-Actions ---> RestController : Http Request
-Actions <--- RestController : Http Response
+YSA <<-- Youtube
+NewsCrawler <<--- SBS
+NewsCrawler <<--- Billboard
+MusicCrawler <<--- Melon
 
 Crawler <|-- MusicCrawler
 Crawler <|-- NewsCrawler
+Repository --|> JPA
 
 @enduml
