@@ -9,11 +9,11 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 @startuml
 :User:
 rectangle Client {
-  agent Browser
-  rectangle VueFramework {
+  agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
+  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> VueFramework" as Vue #e3ece0 {
     rectangle VueRouter
     collections Components
-    rectangle VueStore {
+    rectangle VueStore #fff {
       rectangle State
       rectangle Mutations
       rectangle Actions
@@ -30,7 +30,7 @@ User o--o Browser
 Browser -->> VueRouter
 VueRouter ->> Components
 Components <<- VueStore
-VueFramework -->> Browser
+Vue -->> Browser
 Browser o--o Components
 State <<- Mutations
 Mutations <<- Actions
