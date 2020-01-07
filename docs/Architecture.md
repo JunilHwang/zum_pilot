@@ -165,20 +165,29 @@ Repository --|> JPA
 @startuml
 
 :User:
+agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
 
 rectangle "주제별 영상 제공 웹 서비스" {
-  agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
-  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> VueFramework" as Vue #e3ece0 {
-    rectangle VueRouter
-    collections Components
-    rectangle VueStore #fff {
-      rectangle State
-      rectangle Mutations
-      rectangle Actions
+
+  rectangle Client {
+    rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js\t\t\t" as Vue #e3ece0 {
+      agent VueApp
+      collections Components
+      rectangle "MiddleWare" as middle
+      rectangle VueRouter
+      rectangle VueStore
+      collections modules
+      rectangle ModuleContain as module #f5f5f5 {
+        rectangle State
+        rectangle Mutations
+        rectangle Actions
+      }
     }
+    collections "Util Function" as util
+    rectangle "Http Helper" as httpApi
   }
 
-  rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server\t\t\t\t\t\t\t\t\t\t" #fffddd {
+  rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" #fffddd {
     card "Spring Data JPA" as JPA #fff
     agent Controller #fff
     collections RestController #fff
@@ -210,6 +219,26 @@ cloud Network {
   card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
 }
 
+Actions ->> Mutations
+Mutations ->> State
+
+modules <<-- module   
+modules ->> VueStore  
+VueStore ->> middle  
+middle ->> VueApp
+middle <<-- VueRouter
+VueRouter <<- Components
+VueApp <<-- Components
+Components <<-- util
+Actions <<-- httpApi
+httpApi o--o RestController
+
+User o--o Browser
+VueApp o---o Browser
+Components o--o Browser
+Controller o-o Browser
+Browser o---o Network
+
 RestController <<-- Service
 RestController <-- VO
 
@@ -229,18 +258,7 @@ YSA <<-- Youtube
 Crawler <|-- MusicCrawler
 Crawler <|-- NewsCrawler
 Repository --|> JPA
-
-Browser -->> VueRouter
-Components <<- VueRouter 
-Components <<-- VueStore
-Vue -->> Browser
-Browser o--o Components
-State <<- Mutations
-Mutations <<- Actions
-
-Actions o--o RestController
-Browser o--o Controller
-User o-o Browser
+    
 
 @enduml
 
