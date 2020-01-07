@@ -8,15 +8,15 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 @startuml
 :User:
-node "Client" {
+rectangle "Client" {
   agent Browser
-  node "VueFramework" {
+  rectangle "VueFramework" {
     (VueRouter)
-    [Components]
-    node "VueStore" {
-      [State]
-      [Mutations]
-      [Actions]
+    collections Components
+    rectangle "VueStore" {
+      (State)
+      (Mutations)
+      (Actions)
     }
   }
 }
@@ -26,36 +26,46 @@ Browser -->> VueRouter : "2. URI"
 VueRouter ->> Components : 3. Routing
 Components <<- VueStore : 4. Reactive/compute
 VueFramework -->> Browser : 5. Renderer
-Browser -->> Components : "  Event Listener"
+Browser o--o Components : "  Event Listener"
 State <<- Mutations
 Mutations <<- Actions
 @enduml
 
 ## 2. Server
 
-
 @startuml
-node "REST API(=Server)" {
-  node Helper {
-    node "Youtube Search API" as YSA
+rectangle "SpringBoot Web Server" {
+  rectangle Helper {
+    rectangle YoutubeSearchAPI as YSA
     package CrawlerPackage {
-      node "MusicCrawler"
-      node "NewsCrawler"
-      node "Crawler" 
+      rectangle MusicCrawler
+      rectangle NewsCrawler
+      rectangle Crawler
     }
   }
-  node Service
-  node Repository
-  node RestController
+  rectangle Domain {
+    collections DTO
+    collections VO
+    collections Entity
+  }
+  collections Service
+  collections Repository
+  collections RestController
+  agent Controller
   database H2
 }
+
+rectangle Client
 
 Crawler <|-- MusicCrawler
 Crawler <|-- NewsCrawler
 RestController <<-- Service
 Service <<-- Repository
-Repository <<->> H2
-Service <<- Helper
+Repository <<-->> H2 : CRUD
+Service <<- Helper 
+Repository <<-- Domain  
+Helper <<- Domain
+
 @enduml
 
 ## 3. Service
