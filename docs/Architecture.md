@@ -8,7 +8,7 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 @startuml
 :User: 
-agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
+agent "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
 skinparam defaultTextAlignment left
 rectangle "주제별 영상 제공 웹 서비스" as Service {
   rectangle "\nClient" as client #eef {
@@ -39,9 +39,9 @@ Front-end는 `Vue.js`를 이용하여 `Single Page Application`으로 만들었�
 
 @startuml
 :User:
-agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
+agent "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
 rectangle Client {
-  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js\t\t\t" as Vue #e3ece0 {
+  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js" as Vue #e3ece0 {
     agent VueApp
     collections Components
     rectangle "MiddleWare" as middle
@@ -58,9 +58,9 @@ rectangle Client {
   rectangle "Http Helper" as httpApi
 }
 
-rectangle "\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}>\n\t Web Server" as Server #fffddd  {
-  agent Controller #fff
-  collections RestController #fff
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}>\n\t Web Server" as Server #fffddd  {
+  agent Controller #eef
+  collections RestController #eef
 }
 
 User o-o Browser
@@ -94,7 +94,7 @@ DB 구축은 `H2`와 `JPA`를 사용하였습니다.
 @startuml
 
 :User:
-rectangle "\t\t\t\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
   agent "Spring Data JPA" as JPA #eef
   agent "Spring Security" as Security #eef
   agent Controller #eef
@@ -111,9 +111,10 @@ rectangle "\t\t\t\t<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/m
   collections Repository #fff
 }
 
-rectangle "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
+
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
 rectangle Client {
-  rectangle "Vue.js" as vue
+  rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js" as vue #e3ece0
   rectangle "Http API" as httpApi
 }
 
@@ -124,35 +125,35 @@ cloud Network {
   card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
 }
 
-User - Browser
-Browser - Controller
-Browser -- vue
-vue - httpApi
-httpApi - RestController
+User o-o Browser
+Browser o-o Controller
+Browser <<-- vue
+vue <<- httpApi
+httpApi o-o RestController
 
 Controller --[hidden] RestController
 Controller -[hidden] Security
-Security -- RestController
-Security -- Service
-RestController - Service
-RestController -- VO
+Security -->> RestController
+Security -->> Service
+RestController <<- Service
+RestController <<-- VO
 VO --[hidden] DTO
-Service -- Repository
-Repository -- Entity
-Repository -- DTO
-Repository -- db
-Repository -- JPA
+Service <<-- Repository
+Repository <<-- Entity
+Repository <<-- DTO
+Repository <<-- db
+Repository --|> JPA
 DTO -[hidden] Entity
 db --[hidden] JPA
 
-Service - Helper
-Helper -- Entity
+Service <<- Helper
+Helper <<-- Entity
   
 Crawler --[hidden] YSA
-Crawler - Melon
-Crawler - SBS
-Crawler - Billboard
-YSA - Youtube
+Crawler <<- Melon
+Crawler <<- SBS
+Crawler <<- Billboard
+YSA <<- Youtube
 
 Melon --[hidden] SBS    
 SBS --[hidden] Billboard    
@@ -164,15 +165,15 @@ Billboard --[hidden] Youtube
 
 앞서 보여드린 Structure들을 종합하면 다음과 같습니다.
 
+
 @startuml
 
 :User:
-agent "<img:https://t1.daumcdn.net/cfile/tistory/2445564C58196C010B{scale=0.1}> Browser" as Browser
+rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
 
-rectangle "주제별 영상 제공 웹 서비스" {
-
+rectangle "주제별 영상 제공 웹 서비스" as WebService {
   rectangle Client {
-    rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js\t\t\t" as Vue #e3ece0 {
+    rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js" as Vue #e3ece0 {
       agent VueApp
       collections Components
       rectangle "MiddleWare" as middle
@@ -188,32 +189,25 @@ rectangle "주제별 영상 제공 웹 서비스" {
     collections "Util Function" as util
     rectangle "Http Helper" as httpApi
   }
-
-  rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" #fffddd {
-    card "Spring Data JPA" as JPA #fff
-    agent Controller #fff
-    collections RestController #fff
+  
+  rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
+    agent "Spring Data JPA" as JPA #eef
+    agent "Spring Security" as Security #eef
+    agent Controller #eef
+    collections RestController #eef
     collections Service #fff
     database "H2 Database" as db #fff
     rectangle Helper #fff {
-      rectangle "Youtube Search API" as YSA
-      package CrawlerPackage {
-        rectangle MusicCrawler
-        rectangle NewsCrawler
-        rectangle Crawler
-      }
+      rectangle "Youtube Search API" as YSA #fee
+      collections Crawler
     }
-    rectangle Domain #fff {
-      collections "<color #fff>DTO" as DTO #666
-      collections "<color #fff>VO" as VO #666
-      rectangle DAO {
-        collections "<color #fff>Entity" as Entity #666
-        collections Repository #fff
-      }
-    }
+    collections "<color #fff>DTO" as DTO #666
+    collections "<color #fff>VO" as VO #666
+    collections "<color #fff>Entity" as Entity #666
+    collections Repository #fff
   }
 }
- 
+
 cloud Network {
   card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/youtube-logo.png?token=AEPBNAJOKSYDRHHDL56DAGS6DVGKW{scale=0.4}>" as Youtube #fff
   card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/melon-logo.png?token=AEPBNALKPDB74C5PXGLPLAS6DVGHW{scale=0.5}>" as Melon #fff
@@ -221,46 +215,45 @@ cloud Network {
   card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
 }
 
-Actions ->> Mutations
-Mutations ->> State
+User o-o Browser
+Browser <<-- VueApp 
+Browser o-o Controller
 
-modules <<-- module   
-modules ->> VueStore  
-VueStore ->> middle  
-middle ->> VueApp
-middle <<-- VueRouter
-VueRouter <<- Components
-VueApp <<-- Components
-Components <<-- util
-Actions <<-- httpApi
-httpApi o--o RestController
+VueApp <<- Components
+Components -->> VueRouter  
+VueApp <<-- middle
+middle <<-- VueStore
+middle <<- VueRouter
+VueStore <<- modules  
+module -->> modules 
+Actions -->> Mutations
+Mutations -->> State
 
-User o--o Browser
-VueApp o---o Browser
-Components o--o Browser
-Controller o-o Browser
-Browser o---o Network
+util -->> Components
+util -[hidden] httpApi
+httpApi -->> Actions
 
+httpApi o-o RestController
+Controller --[hidden] RestController 
+RestController <<- VO 
 RestController <<-- Service
-RestController <-- VO
-
-Service <<- Domain
+RestController <<-- Security
+Security ->> Service
 Service <<--- Helper
+Service <<- Repository
+VO -[hidden] JPA
+Entity -[hidden] DTO
+JPA <|-- Repository
+Repository <<-- Entity 
+Repository <<-- DTO 
+Repository <<- db
+Entity -->> Helper
 
-Repository o--o db
-DTO -> Repository
-Repository <- Entity
-Domain ->> Helper
-
-MusicCrawler <<-- Melon
-NewsCrawler <<- SBS
-NewsCrawler <<- Billboard
-YSA <<-- Youtube
-
-Crawler <|-- MusicCrawler
-Crawler <|-- NewsCrawler
-Repository --|> JPA
-    
+Crawler -[hidden] YSA
+Crawler <<---- Melon
+Crawler <<---- Billboard
+Crawler <<---- SBS
+YSA <<---- Youtube
 
 @enduml
 

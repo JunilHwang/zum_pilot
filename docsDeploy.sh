@@ -4,11 +4,11 @@
 set -e
 
 git add .
-git commit -m "$1"
+git commit -m "$*"
 git push origin master
 
 cd docs
 
-sh deploy.sh "$1"
+sh deploy.sh "$*"
 
 cd -
