@@ -42,4 +42,29 @@ video ||---|{ user_bookmark
 video_like -[hidden] user_bookmark
 @enduml
 
+news와 관련된 데이터는 영구적으로 저장할 필요가 없기 때문에 테이블을 만들지 않았습니다.
+
+대신 캐시에 저장하여 일시적으로 데이터를 유지합니다.
+
 ## 2. REST API 설계
+
+``` html
+/api 
+  ├─ /news
+  │   ├─ / <<Get>>     
+  │   ├─ /headline <<Get>>
+  │   └─ /content <<Get>>
+  ├─ /music <<Get>>
+  ├─ /video
+  │   ├─ / <<Get>>
+  │   ├─ /popular <<Get>>
+  │   ├─ /like/{idx} <<Get>>
+  │   ├─ /like <<Post>>
+  │   ├─ /bookmark <<Post>>
+  │   └─ /{idx} <<Patch>>
+  └─ /user
+      ├─ / <<Get>>
+      ├─ /sign-in <<Post>>
+      └─ /sign-up <<Post>>
+```
+

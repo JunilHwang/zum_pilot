@@ -19,7 +19,7 @@ export default {
   // 비디오를 끝까지 재생했을 때 조회수를 증가시킨다.
   [VIDEO_VIEW]: async ({ commit, state }) => {
     const { viewCount, idx } = state.selectedVideo;
-    await $patch(`/video-view/${idx}`);
+    await $patch(`/video/${idx}`);
     commit(VIDEO_VIEW, viewCount + 1);
   },
 

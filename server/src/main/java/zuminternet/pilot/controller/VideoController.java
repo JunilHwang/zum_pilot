@@ -37,7 +37,7 @@ public class VideoController {
    * @param idx : 조회수가 증가될 비디오의 idx 번호
    * @return
    */
-  @RequestMapping(value="/api/video-view/{idx}", method = RequestMethod.PATCH)
+  @RequestMapping(value="/api/video/{idx}", method = RequestMethod.PATCH)
   public CommonResult incrementViewCount (@PathVariable long idx) {
     videoService.videoView(idx);
     return responseService.commonResult();
