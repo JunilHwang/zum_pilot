@@ -191,8 +191,9 @@ rectangle "주제별 영상 제공 웹 서비스" as WebService {
   }
   
   rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
-    agent "Spring Data JPA" as JPA #eef
-    agent "Spring Security" as Security #eef
+    agent "Spring\nData JPA" as JPA #eef
+    agent "Spring\nSecurity" as Security #eef
+    collections "<color #fff>VO" as VO #666
     agent Controller #eef
     collections RestController #eef
     collections Service #fff
@@ -202,7 +203,6 @@ rectangle "주제별 영상 제공 웹 서비스" as WebService {
       collections Crawler
     }
     collections "<color #fff>DTO" as DTO #666
-    collections "<color #fff>VO" as VO #666
     collections "<color #fff>Entity" as Entity #666
     collections Repository #fff
   }
@@ -233,20 +233,21 @@ util -->> Components
 util -[hidden] httpApi
 httpApi -->> Actions
 
-httpApi o-o RestController
-Controller --[hidden] RestController 
-RestController <<- VO 
+httpApi o--o RestController
+Controller --[hidden] VO
+VO -- RestController
 RestController <<-- Service
-RestController <<-- Security
-Security ->> Service
-Service <<--- Helper
+RestController <<- Security
+Security -->> Service
 Service <<- Repository
-VO -[hidden] JPA
+Controller -[hidden] JPA
+JPA --[hidden] db 
 Entity -[hidden] DTO
-JPA <|-- Repository
 Repository <<-- Entity 
 Repository <<-- DTO 
-Repository <<- db
+JPA <|-- Repository
+Repository <<- db  
+Service <<-- Helper
 Entity -->> Helper
 
 Crawler -[hidden] YSA
