@@ -34,6 +34,9 @@ h1
     padding-left 0
 
 .sidebar
+  color #aaa
+  .sidebar-heading
+    color inherit
   +only-pc()
     min-width 150px
     width auto
@@ -46,7 +49,7 @@ h1
       font-size 13px
   a.sidebar-link
     letter-spacing -0.5px
-    color #aaa
+    color inherit
     &.active
       color $accentColor
       .sidebar-sub-headers &

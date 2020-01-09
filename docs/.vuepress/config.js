@@ -13,7 +13,13 @@ module.exports = {
       '/Timeline/',
       '/Architecture/',
       '/Design/',
-      '/Client/',
+      {
+        title: '클라이언트 사이드',
+        children: [
+          '/Client/Components/',
+          '/Client/Stores/',
+        ]
+      },
       '/Server/',
       '/Reference/',
     ],

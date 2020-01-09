@@ -1,8 +1,8 @@
-# 클라이언트 사이드
+# Vue Components
 
 Client Side는 `Vue.js`를 이용하여 구성하였습니다.
 
-## 1. Vue Component Structure
+## Hierarchy
 
 ```{4,9,12,15,18,19}
 VueApp
@@ -29,7 +29,7 @@ VueApp
 └─ Modal.vue
 ```
 
-### App.vue
+## App.vue
 
 @startuml
 rectangle "App\n" {
@@ -55,7 +55,7 @@ SiteFooter -[hidden] Modal
   ![Modal](./modal.jpg)
 
 
-### VueRouter
+## VueRouter
 
 @startuml
 skinparam card {
@@ -80,7 +80,7 @@ path <<----- "/sign-up\n" SignUp
 path <<----- "/bookmark\n" Bookmark
 @enduml
 
-### News.vue
+## News.vue
 @startuml
 rectangle News {
   rectangle NewsHeadline
@@ -100,7 +100,7 @@ NewsArticle -[hidden] Detail
 - Detail\
   ![News Detail](./news_detail.jpg)
 
-### Chart | Popular | Bookmark.vue
+## Chart | Popular | Bookmark.vue
 @startuml
 rectangle Chart {
   rectangle ChartCategory
@@ -145,7 +145,7 @@ player3 -[hidden] article2
 - Bookmark - VideoArticle\
   ![Bookmark Article](./bookmark_article.jpg)
 
-### Login | Join.vue
+## Login | Join.vue
 
 ![join](./join.jpg)
 ![login](./login.jpg)
@@ -170,19 +170,19 @@ rectangle "App\n" {
   ]
   
   ($route.path) as path
-  component News {
+  component "/news: News" as News {
     rectangle NewsHeadline
     collections NewsArticle
     rectangle Detail
     NewsHeadline -[hidden] NewsArticle
     NewsArticle -[hidden] Detail
   }
-  component Chart {
+  component "/chart: Chart" as Chart {
     rectangle ChartCategory
     rectangle VideoPlayer as player1
     collections ChartArticle
   }
-  component Popular {
+  component "/popular: Popular" as Popular {
     rectangle VideoPlayer as player2
     collections "VideoArticle\n---\n\
     title\n\
@@ -191,17 +191,17 @@ rectangle "App\n" {
     likeCount\n\
     popularPoint" as article1
   }
-  component Bookmark {
+  component "/bookmark: Bookmark" as Bookmark {
     rectangle VideoPlayer as player3
     collections "VideoArticle\n---\n\
     title\n\
     thumbnail" as article2
   }
   component Login [
-    **Login**
+    **/sign-in: Login**
   ]
   component Join [
-    **Join**
+    **/sign-up: Join**
   ]
 }
 SiteHeader --[hidden] VueRouter
@@ -229,6 +229,3 @@ player2 -[hidden] article1
 player3 -[hidden] article2
 
 @enduml
-
-
-## 2. Vue Store
