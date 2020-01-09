@@ -33,35 +33,26 @@ VueApp
 
 @startuml
 rectangle "App\n" {
-  rectangle SiteHeader
-  rectangle VueRouter {
-    rectangle News
-    rectangle Chart
-    rectangle Popular
-    rectangle Login
-    rectangle Join
-    rectangle Bookmark
-  }
-  rectangle SiteFooter
-  rectangle Modal
+  component SiteHeader
+  component VueRouter
+  component SiteFooter
+  component Modal
 }
-SiteHeader --[hidden] VueRouter
-VueRouter --[hidden] SiteFooter
+SiteHeader -[hidden] VueRouter
+VueRouter -[hidden] SiteFooter
 SiteFooter -[hidden] Modal
-News -[hidden] Chart
-Chart -[hidden] Popular
-Popular -[hidden] Login
-Login -[hidden] Join
-Join -[hidden] Bookmark
 @enduml
 
-- SiteHeader\![SiteHeader](./header.jpg)
+- SiteHeader\
+  ![SiteHeader](./header.jpg)
 
 - [VueRouter](#vuerouter)
 
-- SiteFooter\![SiteFooter](./footer.jpg)
+- SiteFooter\
+  ![SiteFooter](./footer.jpg)
 
-- Modal\![Modal](./modal.jpg)
+- Modal\
+  ![Modal](./modal.jpg)
 
 
 ### VueRouter
@@ -72,6 +63,7 @@ skinparam card {
    BackgroundColor transparent
 }
 agent VueRouter
+($route.path) as path
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/01.jpg?token=AEPBNAKIOHEFO6CZWOWCZFC6D7PVU{scale=0.4}>" as News
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/04.jpg?token=AEPBNAMQKXRQUVDULLLLOUK6D7P3U{scale=0.4}>" as SignIn
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/02.jpg?token=AEPBNAINCPE5KMIH6I6EHWK6D7PYU{scale=0.4}>" as Music
@@ -79,12 +71,13 @@ card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Cl
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/03.jpg?token=AEPBNALOEDHSAZF6PA4Y6F26D7P2U{scale=0.4}>" as Popular
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/06.jpg?token=AEPBNAJPV5JJLCRRV2LX4G26D7P5S{scale=0.4}>" as Bookmark
 
-VueRouter --->> "/\n/news\n" News
-VueRouter --->> "/music\n" Music
-VueRouter --->> "/popular\n" Popular
-VueRouter ----->> "/sign-in\n" SignIn
-VueRouter ----->> "/sign-up\n" SignUp
-VueRouter ----->> "/bookmark\n" Bookmark
+VueRouter <<-- path
+path <<--- "/\n/news\n" News
+path <<--- "/music\n" Music
+path <<--- "/popular\n" Popular
+path <<----- "/sign-in\n" SignIn
+path <<----- "/sign-up\n" SignUp
+path <<----- "/bookmark\n" Bookmark
 @enduml
 
 ### News.vue
@@ -93,17 +86,9 @@ rectangle News {
   rectangle NewsHeadline
   collections NewsArticle
   rectangle Detail
-  component NewsWrapper [
-    <b>NewsWrapper
-    news_title <<require>>
-    news_thumbnail <<require>>
-    reg_date
-  ]
 }
 NewsHeadline -[hidden] NewsArticle
 NewsArticle -[hidden] Detail
-NewsHeadline --|> NewsWrapper
-NewsArticle --|> NewsWrapper
 @enduml
 
 - NewsHeadline\
@@ -142,7 +127,7 @@ Popular -[hidden] Bookmark
 player1 -[hidden] ChartArticle
 Popular -[hidden] Bookmark
 player2 -[hidden] article1
-player3 -[hidden] article2 
+player3 -[hidden] article2
 @enduml
 
 - ChartCategory\
@@ -167,3 +152,83 @@ player3 -[hidden] article2
 
 다른 컴포넌트를 사용하지 않았습니다.
 
+## Summary
+
+@startuml
+rectangle "App\n" {
+  component SiteHeader [
+   **SiteHeader**
+  ]
+  component VueRouter [
+   **VueRouter**
+  ]
+  component SiteFooter [
+   **SiteFooter**
+  ]
+  component Modal [
+   **Modal**
+  ]
+  
+  ($route.path) as path
+  component News {
+    rectangle NewsHeadline
+    collections NewsArticle
+    rectangle Detail
+    NewsHeadline -[hidden] NewsArticle
+    NewsArticle -[hidden] Detail
+  }
+  component Chart {
+    rectangle ChartCategory
+    rectangle VideoPlayer as player1
+    collections ChartArticle
+  }
+  component Popular {
+    rectangle VideoPlayer as player2
+    collections "VideoArticle\n---\n\
+    title\n\
+    thumbnail\n\
+    viewCount\n\
+    likeCount\n\
+    popularPoint" as article1
+  }
+  component Bookmark {
+    rectangle VideoPlayer as player3
+    collections "VideoArticle\n---\n\
+    title\n\
+    thumbnail" as article2
+  }
+  component Login [
+    **Login**
+  ]
+  component Join [
+    **Join**
+  ]
+}
+SiteHeader --[hidden] VueRouter
+VueRouter --[hidden] SiteFooter
+SiteFooter --[hidden] Modal
+VueRouter <<- path
+
+path - News
+path -- Chart
+path -- Popular
+path -- Bookmark
+path -- Login
+path -- Join
+
+News --[hidden] Chart
+Chart --[hidden] Popular
+Popular --[hidden] Bookmark
+Bookmark --[hidden] Join
+Join --[hidden] Login
+
+ChartCategory -[hidden] player1
+player1 -[hidden] ChartArticle
+Popular -[hidden] Bookmark
+player2 -[hidden] article1
+player3 -[hidden] article2
+
+@enduml
+
+
+## 2. Vue Store
