@@ -9,12 +9,13 @@ module.exports = {
     ],
     sidebar: [
       '/',
-      '/Result',
-      '/Architecture',
-      '/Design',
-      '/Server-side',
-      '/Client-side',
-      '/Reference',
+      '/Result/',
+      '/Timeline/',
+      '/Architecture/',
+      '/Design/',
+      '/Client/',
+      '/Server/',
+      '/Reference/',
     ],
     smoothScroll: true
   },
@@ -22,7 +23,7 @@ module.exports = {
   markdown: {
     extendMarkdown: md => {
       md.use(require('markdown-it-plantuml'));
+      md.use(require('markdown-it-imsize'));
     }
-  },
-  plugins: ['img-lazy']
+  }
 }
