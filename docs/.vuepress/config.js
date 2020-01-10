@@ -18,6 +18,7 @@ module.exports = {
         children: [
           '/Client/Components/',
           '/Client/Stores/',
+          '/Client/Optimization/',
         ]
       },
       '/Server/',
