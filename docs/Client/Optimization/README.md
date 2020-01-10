@@ -5,7 +5,7 @@ vue-cli에 포함된 vue-loader는 `*.vue`를 포함해 webpack을 기반으로 
 
 그러한 이슈들을 해결할 때 사용한 분석 및 최적화 도구와 방법에 대해 소개합니다.
 
-## analyzer
+## 1. analyzer
 
 analyzer는 `webpack-bundle-analyzer`를 사용했습니다.
 
@@ -87,14 +87,13 @@ box의 size가 클 수록 용량이 `상대적으로 큰 것`입니다.
 
 `860kb에서 100kb` 정도로 줄어든 것을 확인할 수 있었습니다.
 
-## Code Splitting
+## 2. Code Splitting
 
 Vue.js는 SPA(Single Page Application)을 만드는 도구이며
 Code Splitting은 SPA의 성능을 향상시키는 방법입니다.
 SPA는 초기 실행시 모든 자원(css, js, ...)을 한 번에 불러옵니다.
 
 ![build01](./build02.jpg)
-
 
 이럴 경우 **사이트 로딩이 매우 느려질 수 있습니다.**
 
@@ -196,3 +195,9 @@ const components = { ChartArticle, VideoPlayer, Flicking, Spinner };
 // 뒤 생략
 </script>
 ```
+
+이렇게 작성 후 `build` 하면 다음과 같이 분리됩니다.
+
+![build01](./build01.jpg)
+
+`app` `chart` `modal` `news` `template` `views` 등으로 쪼개진 것을 확인할 수 있습니다.
