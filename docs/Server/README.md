@@ -161,6 +161,10 @@ Service <- YoutubeSearch : 매핑된 정보 전달
 note over Service : - DB에 저장\n- Caching 
 VideoController <- Service : 동영상 정보 반환  
 VideoController -> Service : 동영상 정보 **재요청**
-note right: cache
+note right: - cache\n- DB
 VideoController <- Service : **캐시**에서 반환
 @enduml
+
+음원의 제목을 통해서 Youtube에 검색합니다. 검색 후 DB에 결과를 저장하고, 캐싱까지 합니다.
+
+그래서 동영상 정보를 재요청시 Cache나 DB에서 가져오게 됩니다. 
