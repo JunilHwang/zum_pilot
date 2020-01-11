@@ -279,3 +279,13 @@ public String AuthenticationCheck () throws AuthException {
 ```
 
 즉, Security의 Authentication 정보는 기본 값이 항상 `anoymousUser`입니다. 이런식으로 User 권한이 필요할 때 Token 정보를 통해서 검증이 가능합니다.
+
+### Flow Chart
+
+앞서 설명한 과정을 도식화 하면 다음과 같습니다.
+
+@startuml
+Browser -> SpringSecurity
+SpringSecurity -> Controller
+Controller -> Service
+@enduml
