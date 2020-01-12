@@ -169,11 +169,7 @@ VideoController <- Service : **캐시**에서 반환
 
 그래서 동영상 정보를 재요청시 Cache나 DB에서 가져오게 됩니다. 
 
-## 3. Authentication, Authorization
-
-`JWT` `Spring Security` 등을 통한 인증 절차와 권한 부여에 대해 설명합니다.
-
-### Authorization
+## 3. Authorization
 
 회원가입 후 로그인을 하면 다음과같은 과정으로 `JWT(Json Web Token)`을 발행합니다.
 
@@ -210,7 +206,7 @@ UserController <- JWTProvider : JWT 전달
 Browser <- UserController : response - 회원정보 + JWT
 @enduml
 
-### Authentication
+## 4. Authentication
 
 Authentication은 Spring Security의 Filter와 JWT를 이용합니다.
 
@@ -280,12 +276,15 @@ public String AuthenticationCheck () throws AuthException {
 
 즉, Security의 Authentication 정보는 기본 값이 항상 `anoymousUser`입니다. 이런식으로 User 권한이 필요할 때 Token 정보를 통해서 검증이 가능합니다.
 
-### Flow Chart
-
-앞서 설명한 과정을 도식화 하면 다음과 같습니다.
-
 @startuml
-Browser -> SpringSecurity
-SpringSecurity -> Controller
-Controller -> Service
+Browser -> SpringSecurity : Request
+note over SpringSecurity : Filtering
+note over SpringSecurity : JWT parsing
+SpringSecurity -> VideoController : Filtered request
+note over VideoController : SpringSecurityContext\nauthentication
+Browser <- VideoController : 인증 실패시,\n에러코드 반환
+VideoController -> VideoService : 인증 성공시,\nUser data
+note over VideoService : data process
+VideoController <- VideoService : Video data
+Browser <- VideoController : Response
 @enduml
