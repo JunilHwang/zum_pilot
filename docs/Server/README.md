@@ -288,3 +288,70 @@ note over VideoService : data process
 VideoController <- VideoService : Video data
 Browser <- VideoController : Response
 @enduml
+
+## 5. Exception
+
+예외는 `Optional`과 Spring의 `RestControllerAdvice`와 예외처리에 대한 Response를 만들었습니다.
+
+`ExceptionAdvice.java`의 일부입니다.
+
+``` java{13}
+@Slf4j
+@RequiredArgsConstructor
+@RestControllerAdvice
+public class ExceptionAdvice {
+  private final ResponseService responseService;
+
+  /**
+   * User select 에 대한 response 예외 처리
+   * @param request
+   * @param e
+   * @return USER_FAIL
+   */
+  @ExceptionHandler(UserIdNotFoundException.class)
+  @ResponseStatus(HttpStatus.OK)
+  protected CommonResult userIdNotFoundException(HttpServletRequest request, Exception e) {
+    return responseService.failResult(CommonResponse.USER_FAIL);
+  }
+  // 나머지 생략
+}
+```
+
+아래의 코드에서 예외가 발생하면 `ExceptionAdvice`에서 처리됩니다.
+
+``` java{9}
+/**
+ * 유저 정보가 Null 이면 Exception 처리, 아니면 유저 정보 반환
+ * @param userId : User의 login ID
+ * @return
+ * @throws UserIdNotFoundException : 유저 정보 탐색에 대한 실패 처리
+ */
+@Override
+public User loadUserByUsername(String userId) throws UserIdNotFoundException {
+  return Optional.ofNullable(get(userId)).orElseThrow(UserIdNotFoundException::new);
+}
+```
+
+즉, ExceptionAdvice.java에 정의된 Exception 이 발생하면 ExceptionAdvice가 바로 관련 Response 데이터를 만들고 바로 브라우저에 return 합니다.
+
+@startuml
+Browser -> RESTAPI
+note over RESTAPI : 예외 발생
+RESTAPI -> ExceptionAdvice : Exception Handler
+note over ExceptionAdvice : 예외에 대한 Response 생성
+ExceptionAdvice -> Browser : \t\t\tJSON Response
+@enduml
+
+`POST /api/video-like` 요청에 대한 예시입니다.
+
+![response01](./response01.jpg)
+
+이런 응답을 반환합니다. 여기에 `request-body`를 추가하면 다음과 같습니다.
+
+![response02](./response02.jpg)
+
+header에 JWT가 생략되었기 때문에 로그인이 필요하다는 응답을 반환합니다. 다시 header에 access token 정보를 담아서 요청하면 
+
+![response03](./response03.jpg)
+
+이렇게 정상적인 내용을 반환합니다.

@@ -1,9 +1,11 @@
+# 주석 테스트
 spring:
   profiles:
     active: local
 
 ---
 
+# 주석 테스트
 url:
   sbs: http://sbsfune.sbs.co.kr
   billboard: http://billboard.co.kr

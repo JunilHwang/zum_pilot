@@ -1,3 +1,4 @@
+# 주석 테스트
 server:
   h2:
     console:
