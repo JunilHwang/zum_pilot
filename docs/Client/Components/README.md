@@ -64,12 +64,12 @@ skinparam card {
 }
 agent VueRouter
 ($route.path) as path
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/01.jpg?token=AEPBNAKIOHEFO6CZWOWCZFC6D7PVU{scale=0.4}>" as News
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/04.jpg?token=AEPBNAMQKXRQUVDULLLLOUK6D7P3U{scale=0.4}>" as SignIn
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/02.jpg?token=AEPBNAINCPE5KMIH6I6EHWK6D7PYU{scale=0.4}>" as Music
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/05.jpg?token=AEPBNAPU5GES4WUPFTDTRMS6D7P4S{scale=0.4}>" as SignUp
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/03.jpg?token=AEPBNALOEDHSAZF6PA4Y6F26D7P2U{scale=0.4}>" as Popular
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/06.jpg?token=AEPBNAJPV5JJLCRRV2LX4G26D7P5S{scale=0.4}>" as Bookmark
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/01.jpg?token=AEPBNAO7MUBYXISYYNK4CIK6FEUNA{scale=0.4}>" as News
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/04.jpg?token=AEPBNAIEMNNHPMAG6OPXRR26FEUSC{scale=0.4}>" as SignIn
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/02.jpg?token=AEPBNAJ67UGMORUH4OODJNS6FEUP4{scale=0.4}>" as Music
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/05.jpg?token=AEPBNAKGBIJAHHNFKIIAA326FEUS4{scale=0.4}>" as SignUp
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/03.jpg?token=AEPBNAJ5JCG5LUGLKSJ7OL26FEUQY{scale=0.4}>" as Popular
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/06.jpg?token=AEPBNAIUBFXIGAQR7QVC54K6FEUTQ{scale=0.4}>" as Bookmark
 
 VueRouter <<-- path
 path <<--- "/\n/news\n" News
