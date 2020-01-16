@@ -8,7 +8,7 @@ User, Client, Server 그리고 Open API 각각의 구조와 서로간의 관계�
 
 @startuml
 :User: 
-agent "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
+agent "<img:https://junilhwang.github.io/zum_pilot/img/chrome-logo.png{scale=0.1}> Browser" as Browser
 skinparam defaultTextAlignment left
 rectangle "주제별 영상 제공 웹 서비스" as Service {
   rectangle "\nClient" as client #eef {
@@ -39,7 +39,7 @@ Front-end는 `Vue.js`를 이용하여 `Single Page Application`으로 만들었�
 
 @startuml
 :User:
-agent "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
+agent "<img:https://junilhwang.github.io/zum_pilot/img/chrome-logo.png{scale=0.1}> Browser" as Browser
 rectangle Client {
   rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js" as Vue #e3ece0 {
     agent VueApp
@@ -58,7 +58,7 @@ rectangle Client {
   rectangle "Http Helper" as httpApi
 }
 
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}>\n\t Web Server" as Server #fffddd  {
+rectangle "<img:https://junilhwang.github.io/zum_pilot/img/spring-boot-logo.png{scale=0.7}>\n\t Web Server" as Server #fffddd  {
   agent Controller #eef
   collections RestController #eef
 }
@@ -94,7 +94,7 @@ DB 구축은 `H2`와 `JPA`를 사용하였습니다.
 @startuml
 
 :User:
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
+rectangle "<img:https://junilhwang.github.io/zum_pilot/img/spring-boot-logo.png{scale=0.7}> Web Server" as Server #fffddd {
   agent "Spring Data JPA" as JPA #eef
   agent "Spring Security" as Security #eef
   agent Controller #eef
@@ -112,17 +112,17 @@ rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/do
 }
 
 
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
+rectangle "<img:https://junilhwang.github.io/zum_pilot/img/chrome-logo.png{scale=0.1}> Browser" as Browser
 rectangle Client {
   rectangle "<img:https://joshua1988.github.io/images/posts/web/vuejs/logo.png{scale=0.07}> Vue.js" as vue #e3ece0
   rectangle "Http API" as httpApi
 }
 
 cloud Network {
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/youtube-logo.png?token=AEPBNAJOKSYDRHHDL56DAGS6DVGKW{scale=0.4}>" as Youtube #fff
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/melon-logo.png?token=AEPBNALKPDB74C5PXGLPLAS6DVGHW{scale=0.5}>" as Melon #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/youtube-logo.png{scale=0.4}>" as Youtube #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/melon-logo.png{scale=0.5}>" as Melon #fff
   card "<img:http://billboard.co.kr/images/main2/logo.png{scale=0.5}>" as Billboard #000
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/sbs-logo.png{scale=0.3}>" as SBS #fff
 }
 
 User o-o Browser
@@ -169,7 +169,7 @@ Billboard --[hidden] Youtube
 @startuml
 
 :User:
-rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/chrome-logo.png?token=AEPBNAI4B4SHNDMM65KH7VC6D2G7U{scale=0.1}> Browser" as Browser
+rectangle "<img:https://junilhwang.github.io/zum_pilot/img/chrome-logo.png{scale=0.1}> Browser" as Browser
 
 rectangle "주제별 영상 제공 웹 서비스" as WebService {
   rectangle Client {
@@ -190,7 +190,7 @@ rectangle "주제별 영상 제공 웹 서비스" as WebService {
     rectangle "Http Helper" as httpApi
   }
   
-  rectangle "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/spring-boot-logo.png?token=AEPBNAMZ5S57U44JHVAOFVC6DU65K{scale=0.7}> Web Server" as Server #fffddd {
+  rectangle "<img:https://junilhwang.github.io/zum_pilot/img/spring-boot-logo.png{scale=0.7}> Web Server" as Server #fffddd {
     agent "Spring\nData JPA" as JPA #eef
     agent "Spring\nSecurity" as Security #eef
     collections "<color #fff>VO" as VO #666
@@ -209,10 +209,10 @@ rectangle "주제별 영상 제공 웹 서비스" as WebService {
 }
 
 cloud Network {
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/youtube-logo.png?token=AEPBNAJOKSYDRHHDL56DAGS6DVGKW{scale=0.4}>" as Youtube #fff
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/melon-logo.png?token=AEPBNALKPDB74C5PXGLPLAS6DVGHW{scale=0.5}>" as Melon #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/youtube-logo.png{scale=0.4}>" as Youtube #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/melon-logo.png{scale=0.5}>" as Melon #fff
   card "<img:http://billboard.co.kr/images/main2/logo.png{scale=0.5}>" as Billboard #000
-  card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/.vuepress/public/img/sbs-logo.png?token=AEPBNALHCYKNRJQKZUX4E6C6DVGJU{scale=0.3}>" as SBS #fff
+  card "<img:https://junilhwang.github.io/zum_pilot/img/sbs-logo.png{scale=0.3}>" as SBS #fff
 }
 
 User o-o Browser
