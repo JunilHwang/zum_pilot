@@ -65,19 +65,19 @@ skinparam card {
 agent VueRouter
 ($route.path) as path
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/01.jpg?token=AEPBNAO7MUBYXISYYNK4CIK6FEUNA{scale=0.4}>" as News
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/04.jpg?token=AEPBNAIEMNNHPMAG6OPXRR26FEUSC{scale=0.4}>" as SignIn
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/02.jpg?token=AEPBNAJ67UGMORUH4OODJNS6FEUP4{scale=0.4}>" as Music
-card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/05.jpg?token=AEPBNAKGBIJAHHNFKIIAA326FEUS4{scale=0.4}>" as SignUp
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/03.jpg?token=AEPBNAJ5JCG5LUGLKSJ7OL26FEUQY{scale=0.4}>" as Popular
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/04.jpg?token=AEPBNAIEMNNHPMAG6OPXRR26FEUSC{scale=0.4}>" as SignIn
+card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/05.jpg?token=AEPBNAKGBIJAHHNFKIIAA326FEUS4{scale=0.4}>" as SignUp
 card "<img:https://raw.githubusercontent.com/JunilHwang/zum_pilot/master/docs/Client/Components/06.jpg?token=AEPBNAIUBFXIGAQR7QVC54K6FEUTQ{scale=0.4}>" as Bookmark
 
 VueRouter <<-- path
-path <<--- "/\n/news\n" News
+path <<--- "/news\n" News
 path <<--- "/music\n" Music
 path <<--- "/popular\n" Popular
-path <<----- "/sign-in\n" SignIn
-path <<----- "/sign-up\n" SignUp
-path <<----- "/bookmark\n" Bookmark
+path <<--- "/sign-in\n" SignIn
+path <<--- "/sign-up\n" SignUp
+path <<--- "/bookmark\n" Bookmark
 @enduml
 
 ## News.vue
@@ -204,23 +204,17 @@ rectangle "App\n" {
     **/sign-up: Join**
   ]
 }
-SiteHeader --[hidden] VueRouter
-VueRouter --[hidden] SiteFooter
-SiteFooter --[hidden] Modal
-VueRouter <<- path
+SiteHeader -[hidden] VueRouter
+VueRouter -[hidden] SiteFooter
+SiteFooter -[hidden] Modal
+VueRouter <<-- path
 
-path - News
-path -- Chart
+path -- News
+path --- Chart
 path -- Popular
-path -- Bookmark
+path --- Bookmark
 path -- Login
-path -- Join
-
-News --[hidden] Chart
-Chart --[hidden] Popular
-Popular --[hidden] Bookmark
-Bookmark --[hidden] Join
-Join --[hidden] Login
+path --- Join
 
 ChartCategory -[hidden] player1
 player1 -[hidden] ChartArticle

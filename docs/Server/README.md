@@ -223,10 +223,14 @@ protected void configure (HttpSecurity http) throws Exception {
 http
   .httpBasic().disable() // spring-security에서 제공하는 /login 과 같은 페이지 비활성
   .csrf().disable() // Cross site request forgery 비활성
-  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // session을 stateless 형태로 관리
+  .sessionManagement()
+    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // session을 stateless 형태로 관리
   .and()
      // jwt를 이용하는 filter 추가
-    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // filter 사용
+    .addFilterBefore(
+      new JwtAuthenticationFilter(jwtTokenProvider),
+      UsernamePasswordAuthenticationFilter.class
+    );
 }
 ```
 
@@ -291,7 +295,7 @@ Browser <- VideoController : Response
 
 ## 5. Exception
 
-예외는 `Optional`과 Spring의 `RestControllerAdvice`와 예외처리에 대한 Response를 만들었습니다.
+`Optional`과 Spring의 `RestControllerAdvice`을 이용하여 예외에 대한 Response를 만들었습니다.
 
 `ExceptionAdvice.java`의 일부입니다.
 
