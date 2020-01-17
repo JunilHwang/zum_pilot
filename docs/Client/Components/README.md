@@ -4,7 +4,7 @@ Client Side는 `Vue.js`를 이용하여 구성하였습니다.
 
 ## Hierarchy
 
-```{4,9,12,15,18,19}
+```{4,9,13,16,19,20}
 VueApp
 ├─ SiteHeader.vue
 ├─ VueRouter
